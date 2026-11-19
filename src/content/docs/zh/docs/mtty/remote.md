@@ -105,4 +105,4 @@ the key-import action in *Hosts…* 读取 .ppk 的 `.ppk`（v2 与 v3，Ed25519
 
 ---
 
-*Synced from [`oxdingzg/mtty@d64b052`](https://github.com/oxdingzg/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/REMOTE.zh-CN.md).*
+*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/REMOTE.zh-CN.md).*

@@ -7,7 +7,7 @@ sidebar:
 ## Reporting a security issue
 
 Use the GitHub Security Advisory
-["Report a Vulnerability"](https://github.com/oxdingzg/mtty/security/advisories/new)
+["Report a Vulnerability"](https://github.com/mttydev/mtty/security/advisories/new)
 tab. It stays private until it is published.
 
 You will get an answer saying what happens next, and after that, how the fix is
@@ -58,4 +58,4 @@ A key file, and any passphrase you type, stay on the machine.
 
 ---
 
-*Synced from [`oxdingzg/mtty@d64b052`](https://github.com/oxdingzg/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/SECURITY.md).*
+*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/SECURITY.md).*

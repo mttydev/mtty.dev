@@ -12,7 +12,7 @@ miao 尚处于 pre-1.0、活跃开发中，CLI 与配置可能随版本变化。
 
 miao 是一个在终端中与你协作的开源 AI 智能体，也提供 HTTP 服务与浏览器界面。它帮助你编写代码、开展调研、管理文件和自动化任务。它把重点放在模型调用周围的工作上：持久化会话、上下文效率、代理协作和可观察的成本。
 
-用它理解仓库、实现改动、排查测试失败，或委派专项调研。连接你偏好的供应商，配置项目工具，并在任务变化时继续补充要求。miao 支持模型选择与 MCP；miao 的运行时建设与可用范围见 [产品概览](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/README.zh.md) 和 [工作流对比](/zh/docs/miao/comparison/)。
+用它理解仓库、实现改动、排查测试失败，或委派专项调研。连接你偏好的供应商，配置项目工具，并在任务变化时继续补充要求。miao 支持模型选择与 MCP；miao 的运行时建设与可用范围见 [产品概览](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/README.zh.md) 和 [工作流对比](/zh/docs/miao/comparison/)。
 
 第一次可以这样提需求：「找到这个错误的原因，做出适当的最小修复，运行相关检查，再解释代码差异。」执行过程中继续补充约束，无需另开对话。
 
@@ -24,10 +24,10 @@ miao 采用 MIT 许可证。本指南描述当前源码，已安装的发行版�
 
 ```bash
 # 安装稳定版
-curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash
+curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash
 
 # 指定版本
-curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash -s -- --version 0.0.1
+curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash -s -- --version 0.0.1
 
 # 从本地二进制安装
 ./install --binary /path/to/miao
@@ -36,15 +36,15 @@ curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash -
 Windows 用 PowerShell 安装脚本（Windows PowerShell 5.1 或 PowerShell 7），装到 `~\.miao\bin` 并加入用户 PATH：
 
 ```powershell
-irm https://raw.githubusercontent.com/oxdingzg/miao/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/mttydev/miao/main/install.ps1 | iex
 
 # 指定版本
-$env:MIAO_VERSION = "0.0.33"; irm https://raw.githubusercontent.com/oxdingzg/miao/main/install.ps1 | iex
+$env:MIAO_VERSION = "0.0.33"; irm https://raw.githubusercontent.com/mttydev/miao/main/install.ps1 | iex
 ```
 
 安装脚本默认会把二进制放到 `~/.miao/bin/miao` 并写入 PATH；用 `--no-modify-path` 可跳过。
 
-当前 Windows 版本没有 Authenticode 签名。发布包是 `miao-windows-x64.zip`（较旧的 CPU 可用 `miao-windows-x64-baseline.zip`），内含 `miao.exe`；也可以从 [miao GitHub Releases](https://github.com/oxdingzg/miao/releases) 手动下载解压。安装脚本本身通常不会触发提示，但直接启动下载得到的 `miao.exe` 可能出现 SmartScreen 的“Windows 已保护你的电脑”对话框。出现时按[共用的 Windows 安全提示说明](https://mtty.dev/zh/docs/about/windows-downloads/)处理；杀毒软件报出威胁时不要放行。
+当前 Windows 版本没有 Authenticode 签名。发布包是 `miao-windows-x64.zip`（较旧的 CPU 可用 `miao-windows-x64-baseline.zip`），内含 `miao.exe`；也可以从 [miao GitHub Releases](https://github.com/mttydev/miao/releases) 手动下载解压。安装脚本本身通常不会触发提示，但直接启动下载得到的 `miao.exe` 可能出现 SmartScreen 的“Windows 已保护你的电脑”对话框。出现时按[共用的 Windows 安全提示说明](https://mtty.dev/zh/docs/about/windows-downloads/)处理；杀毒软件报出威胁时不要放行。
 
 **三个入口（并存，互不干扰）**
 
@@ -111,7 +111,7 @@ miao
 | `skills` / `commands` / `instructions` / `references` / `plugins` | 技能、命令、指令、引用、插件                                                                                            |
 | `watcher` / `attachments` / `tool_output` / `snapshots`           | 文件监听、附件、工具输出阈值、快照                                                                                      |
 | `providers`                                                       | 自定义 provider / 模型（含本币单价 `cost`）                                                                             |
-| `engine`                                                          | 原生引擎设置（仅全局配置）：`storage` 让新会话落在 Rust 引擎；详见[启用原生引擎](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-engine-enablement.zh.md)        |
+| `engine`                                                          | 原生引擎设置（仅全局配置）：`storage` 让新会话落在 Rust 引擎；详见[启用原生引擎](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-engine-enablement.zh.md)        |
 | `experimental`                                                    | 实验开关（如 Code Mode）                                                                                                |
 
 **本币计价**：`providers.<id>.models.<m>.cost` 用 provider 官方本币单价（如 DeepSeek 的 CNY），成本按配置费率估算；TUI 内 `/currency` 可切换显示货币（默认 USD，未声明本币的 provider 按静态汇率换算）。
@@ -233,9 +233,9 @@ V2 `list_sessions` 可发现同项目会话，`send_message` 接受会话 ID 或
 
 所有已发布客户端都使用单一 V2 会话运行时；V1 会话运行时及其 `/session/*` 路由已删除。
 
-- [V1 退役计划](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/v1-retirement.md) 记录了删除过程和剩余兼容面（数据库迁移与非会话旧路由）。
-- [会话存储设计](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/storage/session-storage-hardening.md) 记录存储方案。可用 `miao db stats`、`miao db vacuum` 和 JSONL 导出检查、维护本地记录。
-- [代理并发](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/agent-concurrency.md) 设计非阻塞子代理与完成即唤醒，避免长任务卡住会话。
+- [V1 退役计划](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/v1-retirement.md) 记录了删除过程和剩余兼容面（数据库迁移与非会话旧路由）。
+- [会话存储设计](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/storage/session-storage-hardening.md) 记录存储方案。可用 `miao db stats`、`miao db vacuum` 和 JSONL 导出检查、维护本地记录。
+- [代理并发](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/agent-concurrency.md) 设计非阻塞子代理与完成即唤醒，避免长任务卡住会话。
 - 崩溃后自动执行恢复与集群所有权尚未实现。OS 沙箱已内置于 V2 `bash` 工具但仍需开启，见 [原生组件与沙箱范围](/zh/docs/miao/native-benchmarks/)。
 
 ## 7. 常见问题（FAQ）
@@ -293,8 +293,8 @@ bun --cwd packages/miao test
 
 ## 许可证
 
-MIT，详见 [LICENSE](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/LICENSE) 与[项目来源与许可](/zh/docs/miao/attribution/)。
+MIT，详见 [LICENSE](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/LICENSE) 与[项目来源与许可](/zh/docs/miao/attribution/)。
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/guide.zh.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/guide.zh.md).*

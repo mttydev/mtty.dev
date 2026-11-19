@@ -130,7 +130,7 @@ Sessions placed on the native engine reach these same providers through a
 trusted host route manifest. The mapping from a catalog provider to a native
 transport, the manifest fields, credential references, and the providers that
 deliberately stay on TypeScript are documented in
-[Native engine provider routes](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.en.md). You still
+[Native engine provider routes](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.en.md). You still
 configure and authenticate providers here; the manifest is generated, not
 edited.
 
@@ -176,4 +176,4 @@ evolved.
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.en.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.en.md).*

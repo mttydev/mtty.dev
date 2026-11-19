@@ -91,7 +91,7 @@ preview pane; it closes with its editor and is kept in a saved session.
 
 This is block-level live editing. Inline token-level source reveal, advanced
 table controls, and the remaining writing features are tracked in the
-[Markdown roadmap](https://github.com/oxdingzg/mtty/issues/94).
+[Markdown roadmap](https://github.com/mttydev/mtty/issues/94).
 
 ## Language servers
 
@@ -138,4 +138,4 @@ files over 2 MiB are rejected rather than opening a truncated editable buffer.
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/EDITOR.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/EDITOR.md).*

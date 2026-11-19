@@ -96,7 +96,7 @@ miao auth login mtty
 
 放到原生引擎上的会话通过可信宿主路由清单访问同样的供应商。目录供应商到原生
 transport 的映射、清单字段、凭证引用，以及明确留在 TypeScript 侧的供应商，见
-[原生引擎的供应商路由](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.zh.md)。供应商仍在这里配置和登录；
+[原生引擎的供应商路由](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.zh.md)。供应商仍在这里配置和登录；
 清单由产品生成，不需要手工编辑。
 
 ## 成本与货币
@@ -130,4 +130,4 @@ transport 的映射、清单字段、凭证引用，以及明确留在 TypeScrip
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.zh.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.zh.md).*

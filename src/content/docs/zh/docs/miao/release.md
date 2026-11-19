@@ -15,12 +15,12 @@ sidebar:
 ## 发布流程
 
 1. **通过 PR 准备版本**：创建短期发布分支，运行 `bun script/set-version.ts X.Y.Z`，准备 changelog 和简体中文 release notes 镜像。只提交发布相关路径，推送并创建 PR。包检查与原生 CI 通过后，squash 合入 `main`。正式发布前，在配置好的构建机上构建并冒烟测试 preview。
-2. **从已合并的 main 触发**：获得明确发布确认后，运行 `gh workflow run release.yml --ref main --repo oxdingzg/miao`。工作流**没有输入参数**，版本完全取自根 `package.json`；在 Actions 页面手动 dispatch 也一样。不要直接向 `main` 提交或推送版本准备改动。
+2. **从已合并的 main 触发**：获得明确发布确认后，运行 `gh workflow run release.yml --ref main --repo mttydev/miao`。工作流**没有输入参数**，版本完全取自根 `package.json`；在 Actions 页面手动 dispatch 也一样。不要直接向 `main` 提交或推送版本准备改动。
 3. **工作流 `.github/workflows/release.yml`**：
    - `version`：运行 `script/version.ts`，以根 `package.json` 的版本创建**草稿** release `vX.Y.Z`，并生成 release notes，输出 `version/release/tag/repo`。
    - `cli`：矩阵 `macos-26`(darwin-arm64) / `macos-26-intel`(darwin-x64) / `ubuntu-latest`(linux-x64) / `ubuntu-24.04-arm`(linux-arm64) / `windows-2025`(windows-x64)。每个平台先 `bun install` + 安装 Rust，然后 `packages/miao/script/build.ts --single` 构建本平台二进制（会先构建本机原生 addon 并内嵌），最后把 `miao-<target>.zip|tar.gz` 上传到该草稿 release。
    - `publish`：所有平台成功后，先把 Windows 签名状态追加到 release 说明，再执行 `gh release edit --draft=false` 正式发布。
-4. **产物**：`miao-darwin-{arm64,x64}.zip`、`miao-linux-{x64,arm64}.tar.gz`、`miao-windows-x64.zip`（较旧的 CPU 另有 `miao-windows-x64-baseline.zip`），命名与 `install` 脚本、自更新（`Installation.latest` → `oxdingzg/miao/releases/latest`）一致。
+4. **产物**：`miao-darwin-{arm64,x64}.zip`、`miao-linux-{x64,arm64}.tar.gz`、`miao-windows-x64.zip`（较旧的 CPU 另有 `miao-windows-x64-baseline.zip`），命名与 `install` 脚本、自更新（`Installation.latest` → `mttydev/miao/releases/latest`）一致。
 
 上述工作流是当前维护的发布入口。每次构建通过 `packages/miao/script/generate.ts` 从 miao 自有目录 `https://mtty.dev/models/api.json` 读取模型目录；没有回退源，目录不可达时构建直接失败。`MIAO_MODELS_JSON` 可指定本地文件，`MIAO_MODELS_URL` 可固定其他单一源。仓库没有单独提交模型快照的工作流；运行时会独立刷新缓存中的模型目录，并用源站的 ETag 做条件请求，内容未变则不重新下载。
 
@@ -35,15 +35,15 @@ sidebar:
   - 写入 `CHANGELOG.md`：追加 `--write`
   - 发布时 `script/version.ts` 以 `--to <sha>` 调用它生成 `UPCOMING_CHANGELOG.md`，即 release notes。
 - Release notes **统一用英文，并且始终链接到简体中文镜像**：`docs/releases/<tag>.zh.md`，
-  在第一个标题下以 `[简体中文](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/…)` 链接。发布前先写好镜像——缺少镜像时
+  在第一个标题下以 `[简体中文](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/…)` 链接。发布前先写好镜像——缺少镜像时
   `script/release-notes.ts` 会让发布作业失败。所有 miao 项目（包括 `mtty`）都遵循同一规则。
 
 ## 发布前检查清单
 
 - [ ] `docs/releases/<x.y.z>.zh.md` 已存在：release 正文链接指向的简体中文镜像。
 - [ ] Windows 真机验证 VT：PowerShell 5.1 老控制台 / Windows Terminal / pwsh 7 各跑一次（目前只在 macOS 上验证了逻辑，未上真机）。
-- [ ] `curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash` 能装到该 release。
-- [ ] `miao upgrade` 与启动自更新检查指向 `oxdingzg/miao` 且能识别新版本。
+- [ ] `curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash` 能装到该 release。
+- [ ] `miao upgrade` 与启动自更新检查指向 `mttydev/miao` 且能识别新版本。
 - [ ] native addon：确认各平台构建的 addon 能加载、且 `MIAO_NATIVE=0` 可回退，OS 沙箱 runner 与其他原生辅助不受 native PoC 的未决风险影响。
 - [ ] 无凭证/密钥入库；产物里不含 `auth.json`、`.env`。
 - [ ] LICENSE 与归属（基于 opencode，MIT）。
@@ -62,4 +62,4 @@ sidebar:
 
 ---
 
-*Synced from [`oxdingzg/miao@284be7f`](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/release.zh.md).*
+*Synced from [`mttydev/miao@284be7f`](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/release.zh.md).*

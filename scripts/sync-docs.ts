@@ -37,7 +37,7 @@ for (const product of ["miao", "mtty"]) {
   if (index !== -1) {
     const path = process.argv[index + 1]
     if (!path || path.startsWith("--")) throw new Error(`--${product} requires a checkout path`)
-    sources.set(`oxdingzg/${product}`, resolve(path))
+    sources.set(`mttydev/${product}`, resolve(path))
   }
 }
 
@@ -198,7 +198,7 @@ function convertAlerts(body: string) {
 export function sameContent(existing: string, output: string) {
   const normalize = (text: string) => {
     const provenance = text.match(
-      /^\*Synced from \[`(oxdingzg\/(?:miao|mtty))@([a-f0-9]{7})`\]\(https:\/\/github\.com\/\1\/blob\/([a-f0-9]{40})\//m,
+      /^\*Synced from \[`((?:oxdingzg|mttydev)\/(?:miao|mtty))@([a-f0-9]{7})`\]\(https:\/\/github\.com\/\1\/blob\/([a-f0-9]{40})\//m,
     )
     if (!provenance) return text
     const [, repo, short, sha] = provenance

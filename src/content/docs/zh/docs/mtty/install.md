@@ -5,11 +5,11 @@ sidebar:
 ---
 
 mtty(原名 miaotty)是原生 winit/wgpu 应用，只提供一个 GUI 主程序和一个 CLI。
-命名与迁移见 [APP-IDENTITY.zh-CN.md](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/APP-IDENTITY.zh-CN.md)。
+命名与迁移见 [APP-IDENTITY.zh-CN.md](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/APP-IDENTITY.zh-CN.md)。
 
 ## 安装发布版
 
-从 [GitHub Releases](https://github.com/oxdingzg/mtty/releases/latest) 选择最新安装包。
+从 [GitHub Releases](https://github.com/mttydev/mtty/releases/latest) 选择最新安装包。
 
 | 平台 | 安装与首次启动 |
 |---|---|
@@ -55,7 +55,7 @@ bash scripts/install-macos.sh
 
 ## 发布包
 
-[release.yml](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/.github/workflows/release.yml) 要求 Apple Silicon macOS、Intel macOS、
+[release.yml](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/.github/workflows/release.yml) 要求 Apple Silicon macOS、Intel macOS、
 Linux、Windows 四个 runner 成功。`v*` 标签触发发布，手动 dispatch 演练打包而不发布。
 
 - macOS：zip 只包含 `mtty.app`。
@@ -63,7 +63,7 @@ Linux、Windows 四个 runner 成功。`v*` 标签触发发布，手动 dispatch
 - Windows：zip、MSI，包含 `mtty.exe` 和 `mtty-cli.exe`。
 
 Apple Developer ID 签名/公证、Windows MSI 签名和 minisign 产物签名使用
-[RELEASE.zh-CN.md](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/RELEASE.zh-CN.md) 说明的可选 secrets。
+[RELEASE.zh-CN.md](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/RELEASE.zh-CN.md) 说明的可选 secrets。
 `dist-workspace.toml` 仍为 cargo-dist 脚手架，不是当前发布流水线。
 
 
@@ -78,4 +78,4 @@ macOS/Linux 注册 `mtty://`、`ssh://`、`x-man-page://`；Windows MSI 只注�
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/INSTALL.zh-CN.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/INSTALL.zh-CN.md).*

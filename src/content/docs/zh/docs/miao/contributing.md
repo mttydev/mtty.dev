@@ -5,9 +5,9 @@ sidebar:
   order: 8
 ---
 
-miao 以 MIT 协议授权，在 [oxdingzg/miao](https://github.com/oxdingzg/miao) 公开开发。完整
+miao 以 MIT 协议授权，在 [mttydev/miao](https://github.com/mttydev/miao) 公开开发。完整
 指南是仓库中的
-[`CONTRIBUTING.md`](https://github.com/oxdingzg/miao/blob/main/CONTRIBUTING.md);本页是简要版。
+[`CONTRIBUTING.md`](https://github.com/mttydev/miao/blob/main/CONTRIBUTING.md);本页是简要版。
 
 ## 动手写代码之前:先开 issue
 
@@ -17,7 +17,7 @@ miao 以 MIT 协议授权，在 [oxdingzg/miao](https://github.com/oxdingzg/miao
 在 PR 描述里用 `Fixes #123` 或 `Closes #123` 关联 issue。小改动写个简短的 issue 就够了:只要
 能让维护者理解问题。
 
-任何人都可以在 [github.com/oxdingzg/miao/issues](https://github.com/oxdingzg/miao/issues) 开
+任何人都可以在 [github.com/mttydev/miao/issues](https://github.com/mttydev/miao/issues) 开
 issue。
 
 ## Pull request
@@ -49,7 +49,7 @@ fix(desktop): resolve crash on startup
 ## 参与开发
 
 开发环境准备、从源码运行的命令、API 服务、Web 应用与桌面应用的跑法，以及调试器配置，都在
-[`CONTRIBUTING.md`](https://github.com/oxdingzg/miao/blob/main/CONTRIBUTING.md) 里。
+[`CONTRIBUTING.md`](https://github.com/mttydev/miao/blob/main/CONTRIBUTING.md) 里。
 [使用指南](/zh/docs/miao/guide/) 讲的是安装与使用发布版代理，通常是从这里上手更快。
 
 ## 安全

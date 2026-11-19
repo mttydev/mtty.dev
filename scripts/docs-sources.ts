@@ -20,31 +20,31 @@ export type DocPage = {
 
 export const pages: DocPage[] = [
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/attribution",
     order: 10,
     sources: { en: "docs/attribution.en.md", zh: "docs/attribution.zh.md" },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/why-miao",
     order: 1,
     sources: { en: "docs/why-miao.en.md", zh: "docs/why-miao.zh.md" },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/guide",
     order: 2,
     sources: { en: "docs/guide.en.md", zh: "docs/guide.zh.md" },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/providers",
     order: 3,
     sources: { en: "docs/providers.en.md", zh: "docs/providers.zh.md" },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/remote",
     order: 4,
     sources: {
@@ -53,13 +53,13 @@ export const pages: DocPage[] = [
     },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/release",
     order: 7,
     sources: { en: "docs/release.en.md", zh: "docs/release.zh.md" },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/comparison",
     order: 5,
     sources: {
@@ -68,7 +68,7 @@ export const pages: DocPage[] = [
     },
   },
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/native-benchmarks",
     order: 6,
     sources: { en: "docs/native-benchmarks.en.md", zh: "docs/native-benchmarks.zh.md" },
@@ -79,7 +79,7 @@ export const pages: DocPage[] = [
   // claimed miao had no sandbox after crates/miao-sandbox landed — and a
   // security document is the worst place for that to go unnoticed.
   {
-    repo: "oxdingzg/miao",
+    repo: "mttydev/miao",
     to: "miao/security",
     order: 9,
     sources: { en: "SECURITY.md", zh: "SECURITY.zh.md" },
@@ -88,43 +88,43 @@ export const pages: DocPage[] = [
   // mtty names its bilingual pairs `X.md` / `X.zh-CN.md`, so each page
   // states both paths rather than the sync assuming one convention.
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/install",
     order: 1,
     sources: { en: "docs/INSTALL.md", zh: "docs/INSTALL.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/config",
     order: 2,
     sources: { en: "docs/CONFIG.md", zh: "docs/CONFIG.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/remote",
     order: 3,
     sources: { en: "docs/REMOTE.md", zh: "docs/REMOTE.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/editor",
     order: 4,
     sources: { en: "docs/EDITOR.md", zh: "docs/EDITOR.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/cli",
     order: 6,
     sources: { en: "docs/CLI.md", zh: "docs/CLI.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/shortcuts",
     order: 5,
     sources: { en: "docs/SHORTCUTS.md", zh: "docs/SHORTCUTS.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/troubleshooting",
     order: 8,
     sources: {
@@ -133,13 +133,13 @@ export const pages: DocPage[] = [
     },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/view-rules",
     order: 7,
     sources: { en: "docs/VIEW-RULES.md", zh: "docs/VIEW-RULES.zh-CN.md" },
   },
   {
-    repo: "oxdingzg/mtty",
+    repo: "mttydev/mtty",
     to: "mtty/security",
     order: 9,
     sources: { en: "SECURITY.md", zh: "SECURITY.zh-CN.md" },
