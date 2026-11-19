@@ -96,8 +96,8 @@ pre {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.022em;
+  line-height: 1;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 
@@ -107,7 +107,7 @@ pre {
 
 :lang(zh-CN) .display {
   letter-spacing: 0.01em;
-  line-height: 1.12;
+  line-height: 1.14;
 }
 
 /* Chinese serif faces have no true italic; a synthesised slant looks broken,

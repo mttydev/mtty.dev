@@ -20,12 +20,12 @@ const copy = {
   en: {
     title: "miao — an open-source AI agent for the terminal",
     description:
-      "miao is an open-source AI agent: use the models you choose, steer long tasks while they run, delegate to subagents, and see the tokens and cost of every turn.",
+      "miao is an open-source AI agent for the terminal: choose your models, steer long tasks while they run, delegate scoped work to subagents, and keep every turn's tokens and cost accounted for.",
     kind: "AI agent",
-    h1a: "Less context.",
-    h1b: "Lower bills.",
-    lede: "miao does the same work with fewer wasted tokens. A stable system-context baseline keeps provider cache prefixes reusable; compaction starts before the window fills and reuses the current request prefix for its summary.",
-    sub: "Per-turn tokens, cache hits, time to first token and estimated cost stay visible, and a session budget can cap money, tokens, turns and time. Install is one curl line; what lands is a single binary.",
+    h1a: "Context, distilled.",
+    h1b: "Cost, transparent.",
+    lede: "miao delivers the same work with a leaner context. A stable system-context baseline keeps provider cache prefixes reusable; compaction begins before the window fills, and its summary reuses the current request prefix.",
+    sub: "Per-turn tokens, cache hits, time to first token and estimated cost are recorded. A session budget can cap cost, tokens, turns and time. Installation is one command, and the installer writes a single binary.",
     copyLabel: "Copy command",
     platforms: "Single binary · macOS, Linux and Windows · MIT",
     guide: "Read the guide",
@@ -35,9 +35,9 @@ const copy = {
     shot: "Current miao terminal UI showing an example code review, an inline edit diff, the response and context telemetry.",
     cap: "Build agent · inline code changes and context telemetry · illustrative session",
     steerLabel: "steer, don't restart",
-    steerH: "Add a requirement while it works.",
+    steerH: "Add a requirement while the task runs.",
     steerBody: [
-      "A new input is saved before execution is scheduled, then brought into the conversation at the next safe turn boundary. The current tool call is not interrupted, and nothing is lost if you type faster than it thinks.",
+      "A new input is saved before execution is scheduled, then admitted at the next safe turn boundary. The current tool call is not interrupted, and input is not lost while the model is still working.",
       "Explicitly queued inputs wait until the work would otherwise go idle — and promoting any new input resets the agent's turn allowance.",
     ],
     t1: "Find the cause of this failing test, fix it, run the relevant checks, and explain the diff.",
@@ -45,18 +45,18 @@ const copy = {
     t2: "Preserve the public API and avoid new runtime dependencies.",
     tSteer: "steer · saved, folds in at the next turn boundary",
     tQueue: "queue · waits until the session would go idle",
-    t3: "Then open a draft PR description.",
+    t3: "Then prepare a draft pull request description.",
     whyLabel: "why miao",
-    whyH: "Less context, lower bills, one binary.",
+    whyH: "Context, distilled. Cost, transparent. Install, one line.",
     why: [
       ["Stable prefixes, reusable cache", "The system-context baseline stays fixed and changes enter chronologically, so a provider can keep hitting its prompt cache across turns. Provider cache policy and cache TTL are configurable."],
-      ["Compact before the window fills", "Automatic compaction triggers near the threshold and reuses the current request prefix for its summary, so the provider cache still hits. Old tool output is pruned by default; oversized results keep their full text on disk, and the recall tool can find what a summary dropped."],
-      ["Every turn's bill, in view", "Per-turn tokens, cache-hit rate, time to first token and estimated cost. A session budget can cap cost, tokens, provider turns and wall-clock time — warn at four fifths, stop at the next safe provider boundary, never switch the model."],
+      ["Compaction before the window fills", "Automatic compaction triggers near the threshold and reuses the current request prefix for its summary, so the provider cache still hits. Old tool output is pruned by default; oversized results keep their full text on disk, and the recall tool can find what a summary dropped."],
+      ["Every turn's cost, accounted for", "Per-turn tokens, cache-hit rate, time to first token and estimated cost. A session budget can cap cost, tokens, provider turns and wall-clock time — warn at four fifths, stop at the next safe provider boundary, never switch the model."],
       ["One binary, one command", "The installer writes only miao; no separate engine or TUI files sit beside it. The same one-line install covers macOS, Linux and Windows, and the binary carries its own accelerators."],
     ],
     costNote: "Cost estimates use configured model rates; your provider's bill remains authoritative. Durable history does not mean automatic recovery after a crash — unfinished provider work needs an explicit resume.",
     dailyLabel: "everyday engineering",
-    dailyH: "What it does on a normal day.",
+    dailyH: "Capabilities in everyday engineering.",
     dailyHead: ["What you need", "What miao provides"],
     daily: [
       ["Understand an unfamiliar repository", "File reading, search, project instructions, skills and specialist subagents"],
@@ -78,7 +78,7 @@ const copy = {
       ["/shots/miao-home.webp", "Start with a prompt", "The current terminal start screen, with the selected agent, model and reasoning variant beside the input."],
     ],
     loopLabel: "longer tasks, with limits",
-    loopH: "Let it keep going, inside a budget.",
+    loopH: "Continue within a defined budget.",
     loopBody: "The autonomous loop is opt-in. It continues while todos remain open, guarded by an iteration cap and stall detection. A cost budget stops scheduling further provider turns once the estimated session cost reaches the threshold.",
     loopFine: "The budget is not a hard cap on a provider bill or on a turn already in flight. Put this in .miao/miao.jsonc for one project, or ~/.config/miao/miao.jsonc for all of them.",
     sandboxLabel: "isolation",
@@ -100,7 +100,7 @@ const copy = {
     ],
     sandboxFine: "The sandbox is opt-in and off by default, and Windows has no backend yet. It fails open: a requested sandbox whose backend is unavailable warns and runs the command unsandboxed unless on_unavailable is set to \"fail\".",
     statusLabel: "status",
-    statusH: "Pre-1.0, and specific about it.",
+    statusH: "Pre-1.0, with limits stated plainly.",
     statusHead: ["Capability", "Availability"],
     status: [
       ["Saved sessions, mid-task input and project-local session messaging", "Implemented", "ok"],
@@ -118,51 +118,51 @@ const copy = {
     c3: "one-shot, without the TUI",
     c4: "the browser interface",
     c5: "update the release binary",
-    endH: "Bring your own model. Keep your terminal.",
+    endH: "Your models. Your terminal.",
     docs: "Documentation",
     releases: "Releases",
   },
   zh: {
-    title: "miao — 在终端里运行的开源 AI 智能体",
+    title: "miao — 终端中的开源 AI 智能体",
     description:
-      "miao 是开源 AI 智能体：模型由你选，长任务运行中也能补充要求，可委派子代理，每一轮的 token 与费用都看得见。",
+      "miao 是终端中的开源 AI 智能体：模型自主选择，长任务执行期间可以补充要求，也可将范围明确的工作委派给子代理；每一轮的 token 与费用均有记录。",
     kind: "AI 智能体",
-    h1a: "更省上下文，",
-    h1b: "也更省钱。",
-    lede: "同样的任务，miao 少烧 token。稳定的系统上下文基线让供应商缓存前缀持续可用；窗口填满前主动压缩，摘要复用当前请求前缀，旧工具输出默认裁剪。",
-    sub: "逐轮 token、缓存命中、首 token 延迟与估算费用都在界面上；预算可限定金额、token、轮次和时长。安装只需一行 curl，落地的是单个二进制。",
+    h1a: "上下文精简，",
+    h1b: "成本透明。",
+    lede: "以更精简的上下文完成同样的工作。稳定的系统上下文基线使供应商缓存前缀持续可用；压缩在窗口填满之前开始，摘要复用当前请求前缀，旧工具输出默认裁剪。",
+    sub: "逐轮 token、缓存命中、首 token 延迟与估算费用均有记录；预算可限定金额、token、轮次与实际耗时。安装仅需一行命令，安装器只写入单个二进制。",
     copyLabel: "复制命令",
-    platforms: "单二进制 · macOS、Linux、Windows · MIT",
+    platforms: "单个二进制 · macOS、Linux 与 Windows · MIT",
     guide: "阅读使用指南",
     whyPage: "为什么选择 miao",
     comparisonPage: "八个开源代理对比",
     source: "源码",
     shot: "当前 miao 终端界面：示例代码审阅、行内编辑 diff、回复和上下文遥测。",
     cap: "Build 代理 · 行内代码改动与上下文遥测 · 示例会话",
-    steerLabel: "中途调整，不必重来",
-    steerH: "它在干活时，你仍然可以补充要求。",
+    steerLabel: "执行期间补充要求",
+    steerH: "任务执行期间，仍可补充要求。",
     steerBody: [
-      "新输入会先持久化保存，再调度执行，在下一个安全的模型轮次边界带入会话。当前的工具调用不会被打断，你打字比它思考还快也不会丢。",
+      "新输入先持久化保存，再调度执行，并在下一个安全的模型轮次边界并入会话。当前工具调用不会中断，模型处理期间提交的内容不会丢失。",
       "显式排队的输入会等到当前工作即将空闲时再处理；任何新输入被采纳后，代理的轮次额度都会重置。",
     ],
-    t1: "找到这个测试失败的原因，修复它，运行相关检查，并解释代码差异。",
+    t1: "定位此测试失败的原因，完成修复，运行相关检查，并解释代码差异。",
     tWork: "进行中",
     t2: "保持公共 API 不变，不引入新的运行时依赖。",
     tSteer: "steer · 已保存，在下一个轮次边界并入",
     tQueue: "queue · 等会话即将空闲时再处理",
-    t3: "然后写一份草稿 PR 描述。",
+    t3: "随后准备一份草稿 PR 描述。",
     whyLabel: "为什么选择 miao",
-    whyH: "更省上下文，更省钱，一个二进制。",
+    whyH: "上下文精简，成本透明，安装从简。",
     why: [
       ["稳定前缀，缓存持续命中", "系统上下文基线保持不变，变化按时间顺序引入，供应商可以在多轮之间持续命中提示缓存；缓存策略与 TTL 可按供应商配置。"],
       ["在窗口填满前压缩", "接近阈值时自动压缩，摘要复用当前请求前缀，供应商缓存仍然命中。旧工具输出默认裁剪；超大结果全文留在磁盘，recall 工具可以找回摘要丢掉的细节。"],
-      ["每一轮的账都看得见", "逐轮 token、缓存命中率、首 token 延迟与估算费用。会话预算可限定费用、token、模型轮次和实际耗时——花到五分之四提醒，到上限在下一个安全轮次边界停下，不会切换模型。"],
-      ["一个二进制，一行命令", "安装器只写入 miao，不需要额外的引擎或 TUI 文件。同一条命令覆盖 macOS、Linux 与 Windows，加速能力就在这个二进制里。"],
+      ["每一轮成本均可核对", "逐轮 token、缓存命中率、首 token 延迟与估算费用。会话预算可限定费用、token、模型轮次与实际耗时：使用至五分之四时提醒，达到上限时在安全轮次边界停止，不会切换模型。"],
+      ["单个二进制，一行命令", "安装器仅写入 miao，无需额外的引擎或 TUI 文件。同一条命令覆盖 macOS、Linux 与 Windows，加速能力已包含在该二进制中。"],
     ],
     costNote: "费用按配置的模型费率估算，实际扣费以供应商账单为准。保存历史不代表崩溃后自动续跑：未完成的模型执行需要显式恢复。",
     dailyLabel: "日常工程",
-    dailyH: "平常的一天，它能做什么。",
-    dailyHead: ["你要完成的事", "miao 提供的能力"],
+    dailyH: "日常工程中的能力。",
+    dailyHead: ["工程需求", "miao 的能力"],
     daily: [
       ["理解陌生仓库", "文件读取、搜索、项目指令、技能、专项子代理"],
       ["实现功能并验证", "文件编辑与补丁、Shell 命令、可选 LSP 诊断和格式化"],
@@ -173,7 +173,7 @@ const copy = {
       ["接入其他应用", "HTTP 服务、浏览器界面、CLI 自动化、工作区内生成的客户端"],
     ],
     screensLabel: "界面",
-    screensH: "代理，跑在你已经用的终端里。",
+    screensH: "代理运行于既有的终端之中。",
     screens: [
       ["/shots/miao-session.mp4", "审阅改动，选择模型", "示例代码审阅会话中直接查看 diff 和上下文遥测；打开模型选择，无需离开当前会话。"],
       ["/shots/miao-providers.mp4", "自带模型服务商", "打开供应商选择器，浏览可用服务；连接 OpenAI、Anthropic、GitHub Copilot、Google 或自己的端点。"],
@@ -183,7 +183,7 @@ const copy = {
       ["/shots/miao-home.webp", "从一个提示开始", "当前终端启动界面，输入框旁直接显示所选代理、模型和推理档位。"],
     ],
     loopLabel: "长任务，有边界",
-    loopH: "让它继续推进 —— 在预算之内。",
+    loopH: "在既定预算内持续执行。",
     loopBody: "自治续跑需要手动开启。只要还有未完成的待办，它就继续，并受迭代上限和停滞检测保护。会话估算费用达到阈值后，费用预算会停止调度新的模型轮次。",
     loopFine: "预算不是供应商账单的硬上限，也不会中止已经发出的那一轮。项目级配置放在 .miao/miao.jsonc，全局配置放在 ~/.config/miao/miao.jsonc。",
     sandboxLabel: "隔离",
@@ -192,7 +192,7 @@ const copy = {
     sandboxRows: [
       [
         "内核级隔离",
-        "macOS seatbelt 与 Linux Landlock 拒绝写入当前 Location、命令自身目录以及你批准的路径之外的位置。",
+        "macOS seatbelt 与 Linux Landlock 拒绝写入当前 Location、命令自身目录以及已批准路径之外的位置。",
       ],
       [
         "以批准代替失败",
@@ -205,7 +205,7 @@ const copy = {
     ],
     sandboxFine: "沙箱需手动开启，默认关闭，且 Windows 尚无后端。它默认 fail-open：请求了沙箱却没有后端时会告警并裸跑命令，除非把 on_unavailable 设为 \"fail\"。",
     statusLabel: "现状",
-    statusH: "1.0 之前，哪些能用说清楚。",
+    statusH: "1.0 之前，能力边界如实说明。",
     statusHead: ["能力", "可用性"],
     status: [
       ["会话保存、中途输入与项目内会话消息", "已实现", "ok"],
@@ -216,14 +216,14 @@ const copy = {
       ["生成的客户端与嵌入式宿主", "API 仍在演进", ""],
     ],
     startLabel: "快速开始",
-    startH: "三条命令，开始第一个会话。",
+    startH: "三条命令，建立首个会话。",
     startFine: "在 TUI 内用 <kbd>ctrl+p</kbd> 打开命令面板，用 <kbd>ctrl+x m</kbd> 选择模型。<code>miao models</code> 可以列出可用模型。",
     c1: "选择供应商，连接账户或 API Key",
     c2: "启动终端界面",
     c3: "一次性执行，不进 TUI",
     c4: "打开浏览器界面",
     c5: "更新正式版",
-    endH: "模型自己选，终端照旧用。",
+    endH: "模型自主选择，终端一如既往。",
     docs: "文档",
     releases: "版本发布",
   },
@@ -884,14 +884,14 @@ const copy = {
   }
 
   .h1 {
-    font-size: clamp(2.9rem, 5.4vw, 5.2rem);
-    line-height: 0.94;
-    letter-spacing: -0.034em;
+    font-size: clamp(2.35rem, 5.4vw, 5.2rem);
+    line-height: 0.99;
+    letter-spacing: -0.018em;
   }
 
   :lang(zh-CN) .h1 {
-    font-size: clamp(2.4rem, 4.4vw, 4.2rem);
-    line-height: 1.06;
+    font-size: clamp(2.2rem, 4.4vw, 4.2rem);
+    line-height: 1.1;
   }
 
   .hero-copy .lede {

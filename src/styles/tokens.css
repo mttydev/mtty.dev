@@ -6,7 +6,7 @@
  *   miao — burnt vermilion, the warm signal in the cat mark
  *   mtty — oxidised steel, the cool accent from the app icon
  *
- * Type: Instrument Serif for display, Instrument Sans for running text and
+ * Type: Bodoni Moda for display, Instrument Sans for running text and
  * spaced-out micro labels, and JetBrains Mono for commands and identifiers.
  * Chinese falls back to Songti for display and the system sans for body text,
  * so the two scripts keep the same contrast between display and body.
@@ -27,8 +27,8 @@
   --mtty-accent: #3f6d7a;
   --mtty-warm: #b08d57;
 
-  --font-display: "Instrument Serif", "Songti SC", "Noto Serif SC", "Source Han Serif SC",
-    Georgia, serif;
+  --font-display: "Bodoni Moda Variable", "Bodoni Moda", "Songti SC", "STSong",
+    "STZhongsong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", Georgia, serif;
   --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, -apple-system,
     "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,
