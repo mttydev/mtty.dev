@@ -1,29 +1,31 @@
 /* Brand tokens for mtty.dev.
  *
- * Two products share this site, so the chrome stays a neutral warm ink and each
- * product brings its own accent. Both accents are sampled from committed source
- * rather than invented:
+ * Two products share this site, so the chrome is a neutral monochrome and each
+ * product carries one restrained accent:
  *
- *   miao — miao/install, the banner gradient (ANSI 210/209/215/221/226)
- *   mtty — mtty/scripts/make-icon.py, the app icon (Nord0/Nord8/Nord13)
+ *   miao — burnt vermilion, the warm signal in the cat mark
+ *   mtty — oxidised steel, the cool accent from the app icon
  *
- * Type: Instrument Serif for display, Instrument Sans for running text, and
- * JetBrains Mono — the terminal's own default face (mtty
- * docs/config.example.toml) — for everything that is a command or a name.
- * Chinese falls back to a serif for headings and the system sans for text, so
- * the two scripts keep the same contrast between display and body.
+ * Type: Instrument Serif for display, Instrument Sans for running text and
+ * spaced-out micro labels, and JetBrains Mono for commands and identifiers.
+ * Chinese falls back to Songti for display and the system sans for body text,
+ * so the two scripts keep the same contrast between display and body.
+ *
+ * The defaults are light, high-contrast and almost colourless, in the manner of
+ * a couture lookbook: white space, hairlines, black type, one accent. The dark
+ * theme is the same composition after dark, not a different style.
  */
 
 :root {
-  --miao-cat: #ff87af;
-  --miao-1: #ff875f;
-  --miao-2: #ffaf5f;
-  --miao-3: #ffd75f;
-  --miao-4: #ffff5f;
+  --miao-cat: #b4471f;
+  --miao-1: #b4471f;
+  --miao-2: #c85a2a;
+  --miao-3: #d98a63;
+  --miao-4: #e7b795;
 
-  --mtty-tile: #2e3440;
-  --mtty-accent: #88c0d0;
-  --mtty-warm: #ebcb8b;
+  --mtty-tile: #16171a;
+  --mtty-accent: #3f6d7a;
+  --mtty-warm: #b08d57;
 
   --font-display: "Instrument Serif", "Songti SC", "Noto Serif SC", "Source Han Serif SC",
     Georgia, serif;
@@ -32,66 +34,66 @@
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,
     "PingFang SC", monospace;
 
-  --radius: 6px;
-  --radius-lg: 12px;
-  --maxw: 1200px;
-  --gutter: 24px;
+  --radius: 2px;
+  --radius-lg: 3px;
+  --maxw: 1280px;
+  --gutter: 28px;
 
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Wide screens get a wider column rather than a narrow strip of content in a
    sea of background. */
 @media (min-width: 1680px) {
   :root {
-    --maxw: 1320px;
+    --maxw: 1400px;
   }
 }
 
-/* Dark is the default: both products are terminal software. The marketing
-   layout mirrors Starlight's stored preference onto data-theme so a reader who
-   picks a theme in the docs keeps it on the marketing pages. */
+/* Light is the default: this is a lookbook, not a terminal session. The layout
+   mirrors Starlight's stored preference onto data-theme so a reader who picks a
+   theme in the docs keeps it on the marketing pages. */
 :root,
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0d0d0c;
-  --bg-tint: #11110f;
-  --surface: #151513;
-  --surface-raised: #1c1c19;
-  --border: #252420;
-  --border-strong: #3a3832;
-  --fg: #eeede7;
-  --fg-muted: #a6a49b;
-  --fg-faint: #75736b;
-  --accent: var(--miao-2);
-  --accent-contrast: #1a1207;
-  --miao-ink: var(--miao-2);
-  --mtty-ink: var(--mtty-accent);
-  --miao-soft: color-mix(in srgb, var(--miao-2) 82%, var(--fg));
-  --mtty-soft: color-mix(in srgb, var(--mtty-accent) 85%, var(--fg));
-  --dot: rgb(255 255 255 / 0.07);
-  --shadow: 0 50px 100px -40px rgb(0 0 0 / 0.9), 0 0 0 1px rgb(255 255 255 / 0.06);
-}
-
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f5f4ef;
-  --bg-tint: #efede6;
-  --surface: #fbfaf7;
-  --surface-raised: #ffffff;
-  --border: #e1ded5;
-  --border-strong: #c9c5b9;
-  --fg: #161512;
-  --fg-muted: #57544c;
-  --fg-faint: #8a867b;
-  --accent: #c85a1c;
+  --bg: #f7f7f5;
+  --bg-tint: #efefec;
+  --surface: #ffffff;
+  --surface-raised: #fbfbf9;
+  --border: #e3e3de;
+  --border-strong: #c6c6bf;
+  --fg: #0b0b0c;
+  --fg-muted: #575752;
+  --fg-faint: #8b8b84;
+  --accent: #b4471f;
   --accent-contrast: #ffffff;
-  /* The banner colours are tuned for a dark terminal and wash out on paper, so
-     light mode inks them darker rather than switching hue. */
-  --miao-ink: #c2581c;
-  --mtty-ink: #3f7f92;
-  --miao-soft: #b4561f;
-  --mtty-soft: #3a7488;
-  --dot: rgb(0 0 0 / 0.07);
-  --shadow: 0 40px 80px -40px rgb(40 30 10 / 0.35), 0 0 0 1px rgb(0 0 0 / 0.08);
+  --miao-ink: #b4471f;
+  --miao-soft: #963a18;
+  --mtty-ink: #3f6d7a;
+  --mtty-soft: #335a64;
+  --dot: rgb(0 0 0 / 0.05);
+  --gold: #9c7c45;
+  --shadow: 0 50px 100px -55px rgb(10 10 12 / 0.5), 0 0 0 1px rgb(0 0 0 / 0.05);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #08080a;
+  --bg-tint: #0d0d10;
+  --surface: #101013;
+  --surface-raised: #17171b;
+  --border: #232328;
+  --border-strong: #3b3b42;
+  --fg: #f4f4f0;
+  --fg-muted: #a2a29c;
+  --fg-faint: #6e6e68;
+  --accent: #e0763f;
+  --accent-contrast: #0a0a0b;
+  --miao-ink: #e0763f;
+  --miao-soft: #ef9a72;
+  --mtty-ink: #79aab8;
+  --mtty-soft: #9cc7d2;
+  --dot: rgb(255 255 255 / 0.06);
+  --gold: #c3a36b;
+  --shadow: 0 60px 120px -50px rgb(0 0 0 / 0.95), 0 0 0 1px rgb(255 255 255 / 0.06);
 }

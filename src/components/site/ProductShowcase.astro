@@ -40,20 +40,21 @@ const products = [
 </div>
 
 <style>
-  .product-showcase { min-width: 0; padding: 0 5px 5px; border: 1px solid var(--border-strong); border-radius: 14px; background: var(--surface); box-shadow: 0 24px 44px -22px rgb(0 0 0 / .35), 0 3px 10px -4px rgb(0 0 0 / .12); }
-  .product-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 6px 0; }
-  .product-tab { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 10px 12px; border: 1px solid transparent; border-radius: 8px; background: transparent; color: var(--fg-muted); text-align: left; cursor: pointer; }
+  .product-showcase { min-width: 0; padding: 0; border: 1px solid var(--border-strong); border-radius: 0; background: var(--surface); box-shadow: var(--shadow); }
+  .product-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; border-bottom: 1px solid var(--border); }
+  .product-tab { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 16px 22px; border: 0; border-radius: 0; background: transparent; color: var(--fg-faint); text-align: left; cursor: pointer; transition: background 160ms ease, color 160ms ease; }
+  .product-tab + .product-tab { border-left: 1px solid var(--border); }
   .product-tab:hover { background: var(--surface-raised); color: var(--fg); }
-  .product-tab[aria-selected="true"] { border-color: var(--border); background: var(--surface-raised); color: var(--fg); }
+  .product-tab[aria-selected="true"] { background: var(--surface-raised); color: var(--fg); }
   .product-tab[aria-selected="true"] b { color: var(--miao-ink); }
   .product-tab[aria-selected="true"]#showcase-tab-mtty b { color: var(--mtty-ink); }
-  .product-tab:focus-visible { outline: 2px solid var(--mtty-accent); outline-offset: -2px; }
-  .tab-copy { display: grid; gap: 2px; min-width: 0; }
-  .tab-copy b { font-family: var(--font-mono); font-size: .85rem; }
-  .tab-copy > span { color: var(--fg-muted); font-family: var(--font-sans); font-size: .7rem; line-height: 1.4; }
+  .product-tab:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
+  .tab-copy { display: grid; gap: 3px; min-width: 0; }
+  .tab-copy b { font-family: var(--font-sans); font-size: .82rem; font-weight: 600; letter-spacing: .01em; }
+  .tab-copy > span { color: var(--fg-faint); font-family: var(--font-sans); font-size: .58rem; font-weight: 500; letter-spacing: .14em; line-height: 1.4; text-transform: uppercase; }
   .product-panel { --showcase-aspect-ratio: 1100 / 720; }
   [hidden] { display: none !important; }
-  @media (max-width: 420px) { .product-tab { gap: 7px; padding: 8px; } .tab-copy > span { font-size: .65rem; } }
+  @media (max-width: 520px) { .product-tab { gap: 8px; padding: 12px; } .tab-copy > span { display: none; } }
 </style>
 
 <script>

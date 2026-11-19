@@ -51,7 +51,10 @@ const columns = [
 <footer class="site-footer">
   <div class="inner">
     <div class="sign">
-      <p class="mark"><span class="chev">&gt;</span> mtty.dev</p>
+      <p class="mark">
+        <img src="/miao/mark.png" width="42" height="42" alt="" />
+        <span>mtty<span class="tld">.dev</span></span>
+      </p>
       <p class="motto">
         {en ? "An agent and a terminal, both open source." : "一个代理，一个终端，都是开源的。"}
       </p>
@@ -100,11 +103,12 @@ const columns = [
 
 <style>
   .site-footer {
-    margin-top: 140px;
-    border-top: 1px solid var(--border);
-    background: var(--bg-tint);
-    padding: 56px 0 28px;
-    font-size: 0.9rem;
+    margin-top: 0;
+    padding: 72px 0 30px;
+    border-top: 1px solid #1d1d22;
+    background: #08080a;
+    color: #f4f4f0;
+    font-size: 0.86rem;
   }
 
   .inner {
@@ -112,57 +116,74 @@ const columns = [
     margin-inline: auto;
     padding: 0 var(--gutter);
     display: grid;
-    grid-template-columns: 1.2fr 0.85fr 0.85fr 0.75fr 1.3fr;
+    grid-template-columns: 1.45fr 0.8fr 0.8fr 0.7fr 1.35fr;
     gap: 40px;
   }
 
   .mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     margin: 0;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1;
   }
 
-  .chev {
-    color: var(--mtty-ink);
+  .mark img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    filter: invert(1);
+  }
+
+  .tld {
+    color: #6e6e68;
   }
 
   .motto {
-    margin: 10px 0 0;
-    color: var(--fg-faint);
-    max-width: 24ch;
+    margin: 14px 0 0;
+    max-width: 26ch;
+    color: #8b8b84;
+    line-height: 1.6;
   }
 
   .col {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 9px;
   }
 
   .head {
-    margin: 0 0 4px;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--fg-faint);
+    margin: 0 0 5px;
+    color: #6e6e68;
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
 
   a {
-    color: var(--fg-muted);
+    color: #a2a29c;
     text-decoration: none;
+    transition: color 140ms ease;
   }
 
   a:hover {
-    color: var(--fg);
+    color: #f4f4f0;
   }
 
-  /* miao's attribution notice, shown on miao's own page only: fine print under the
-     contact line, divided like the baseline row. */
+  /* miao's attribution notice, shown on miao's own page only: fine print under
+     the contact line, divided like the baseline row. */
   .fork {
     margin: 20px 0 0;
     padding-top: 16px;
-    border-top: 1px solid var(--border);
-    color: var(--fg-faint);
-    line-height: 1.6;
+    border-top: 1px solid #232328;
+    color: #6e6e68;
+    line-height: 1.65;
   }
 
   .fork a {
@@ -172,16 +193,19 @@ const columns = [
 
   .baseline {
     grid-column: 1 / -1;
-    margin-top: 48px;
+    margin-top: 52px;
     padding-top: 20px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid #232328;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 8px;
-    color: var(--fg-faint);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
+    color: #6e6e68;
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   /* Five columns need room; below that, the link columns pair up and the brand
@@ -198,6 +222,10 @@ const columns = [
   }
 
   @media (max-width: 720px) {
+    .site-footer {
+      padding-top: 56px;
+    }
+
     .inner {
       grid-template-columns: 1fr 1fr;
     }

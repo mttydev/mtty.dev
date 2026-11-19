@@ -38,8 +38,10 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
     <link rel="alternate" hreflang={htmlLang} href={canonical} />
     <link rel="alternate" hreflang={lang === "en" ? "zh-CN" : "en"} href={alternate} />
     <link rel="alternate" hreflang="x-default" href={lang === "en" ? canonical : alternate} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#0d0d0c" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#08080a" media="(prefers-color-scheme: dark)" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -54,16 +56,15 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
     <meta name="twitter:image" content={ogImage} />
     <script is:inline>
       // Mirror Starlight's stored preference so a reader who picks a theme in
-      // the docs keeps it on the marketing pages. Runs before paint.
+      // the docs keeps it on the marketing pages. Runs before paint. With no
+      // stored choice the marketing pages open light: the lookbook is the
+      // brand's first impression, and the sun/moon control is one click away.
       try {
         const stored = localStorage.getItem("starlight-theme")
-        const preferred = window.matchMedia("(prefers-color-scheme: light)").matches
-          ? "light"
-          : "dark"
         document.documentElement.dataset.theme =
-          stored === "light" || stored === "dark" ? stored : preferred
+          stored === "light" || stored === "dark" ? stored : "light"
       } catch {
-        document.documentElement.dataset.theme = "dark"
+        document.documentElement.dataset.theme = "light"
       }
     </script>
   </head>

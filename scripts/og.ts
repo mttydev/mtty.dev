@@ -25,8 +25,6 @@ const MARK = 56
 interface Card {
   file: string
   lang: "en" | "zh"
-  /** Paints the corner bloom. One screen of the product's own colour. */
-  glow: string
   mark: string
   /** Empty on the home cards, which carry the site cat instead. */
   name: string
@@ -45,6 +43,14 @@ async function markFrom(path: string, size: number) {
   const svg = source.match(/<svg[\s\S]*?<\/svg>/)?.[0]
   if (!svg) throw new Error(`${path}: expected an inline <svg>`)
   return svg.replaceAll("{size}", String(size))
+}
+
+// miao's mark is a committed bitmap. Inline it so a card rendered from a
+// string does not depend on a served URL.
+async function pngMark(path: string, size: number) {
+  const bytes = await Bun.file(join(ROOT, path)).arrayBuffer()
+  const url = `data:image/png;base64,${Buffer.from(bytes).toString("base64")}`
+  return `<img src="${url}" width="${size}" height="${size}" alt="" style="display:block" />`
 }
 
 const tokens = await Bun.file(join(ROOT, "src/styles/tokens.css")).text()
@@ -75,62 +81,54 @@ const faces = (
     ),
   ])
 ).join("\n")
-const miaoMark = await markFrom("src/components/site/MiaoMark.astro", MARK)
+const miaoMark = await pngMark("public/favicon.png", MARK)
 const mttyMark = await markFrom("src/components/site/MttyMark.astro", MARK)
-const siteMark = (await Bun.file(join(ROOT, "public/favicon.svg")).text()).replace(
-  "<svg ",
-  `<svg width="${MARK}" height="${MARK}" `,
-)
+const siteMark = await pngMark("public/favicon.png", MARK)
 
 const cards: Card[] = [
   {
     file: "home-en.png",
     lang: "en",
-    glow: "var(--miao-1)",
     mark: siteMark,
     name: "",
-    headline: "An agent that does the work.",
-    accent: "A terminal that keeps watch.",
+    headline: "Less context. Lower bills.",
+    accent: "One command.",
     ink: "var(--miao-2)",
-    sub: "miao, an open-source AI coding agent. mtty, a terminal written in Rust.",
+    sub: "miao does the same task with fewer wasted tokens; mtty is a terminal written in Rust.",
   },
   {
     file: "home-zh.png",
     lang: "zh",
-    glow: "var(--miao-1)",
     mark: siteMark,
     name: "",
-    headline: "一个替你干活的代理，",
-    accent: "一个替你盯着的终端。",
+    headline: "更省上下文。更省钱。",
+    accent: "一条命令。",
     ink: "var(--miao-2)",
-    sub: "miao，开源 AI 编程代理。mtty，用 Rust 编写、GPU 渲染的终端。",
+    sub: "同样的任务，miao 少烧 token；mtty 是用 Rust 编写的终端。",
   },
   {
     file: "miao-en.png",
     lang: "en",
-    glow: "var(--miao-1)",
     mark: miaoMark,
     name: "miao",
-    headline: "Your models. Your workflow.",
-    accent: "Less wasted context.",
+    headline: "Less context.",
+    accent: "Lower bills.",
     ink: "var(--miao-2)",
-    sub: "An open-source AI coding agent that runs in your terminal.",
+    sub: "Stable context prefixes, cache reuse and a visible bill — one binary, one command.",
   },
   {
     file: "miao-zh.png",
     lang: "zh",
-    glow: "var(--miao-1)",
     mark: miaoMark,
     name: "miao",
-    headline: "模型由你选，工作持续推进，",
-    accent: "少浪费上下文。",
+    headline: "更省上下文，",
+    accent: "也更省钱。",
     ink: "var(--miao-2)",
-    sub: "在终端里运行的开源 AI 编程代理。",
+    sub: "稳定上下文前缀、缓存复用、可见账单——一个二进制，一条命令。",
   },
   {
     file: "mtty-en.png",
     lang: "en",
-    glow: "var(--mtty-accent)",
     mark: mttyMark,
     name: "mtty",
     headline: "A fast, embeddable terminal,",
@@ -141,7 +139,6 @@ const cards: Card[] = [
   {
     file: "mtty-zh.png",
     lang: "zh",
-    glow: "var(--mtty-accent)",
     mark: mttyMark,
     name: "mtty",
     headline: "快速、可嵌入的终端，",
@@ -170,18 +167,6 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
-}
-
-.glow {
-  position: absolute;
-  left: -240px;
-  top: -440px;
-  width: 900px;
-  height: 900px;
-  border-radius: 50%;
-  background: ${card.glow};
-  filter: blur(150px);
-  opacity: 0.2;
 }
 
 .card {
@@ -247,7 +232,6 @@ body {
 }
 </style></head>
 <body>
-  <div class="glow"></div>
   <div class="card">
     <div class="top">${card.mark}${card.name ? `<span class="name">${card.name}</span>` : ""}</div>
     <div class="spacer"></div>
@@ -264,7 +248,9 @@ await mkdir(OUT, { recursive: true })
 // once and committed, so there is no reason to pull a second browser down for
 // it. Drop the channel and run `bunx playwright install chromium-headless-shell`
 // if this ever has to run somewhere Chrome is absent.
-const browser = await chromium.launch({ channel: "chrome" })
+const browser = await chromium.launch(
+  process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : { channel: "chrome" },
+)
 const tab = await browser.newPage({ viewport: { width: WIDTH, height: HEIGHT } })
 
 for (const card of cards) {
