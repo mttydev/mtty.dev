@@ -56,7 +56,7 @@ const columns = [
         <span>mtty<span class="tld">.dev</span></span>
       </p>
       <p class="motto">
-        {en ? "An agent and a terminal, both open source." : "一个代理，一个终端，都是开源的。"}
+        {en ? "An agent and a terminal, each built in the open." : "代理与终端，皆以开源为本。"}
       </p>
     </div>
     {
@@ -108,7 +108,7 @@ const columns = [
     border-top: 1px solid #1d1d22;
     background: #08080a;
     color: #f4f4f0;
-    font-size: 0.86rem;
+    font-size: 0.92rem;
   }
 
   .inner {
@@ -144,10 +144,14 @@ const columns = [
   }
 
   .motto {
-    margin: 14px 0 0;
-    max-width: 26ch;
-    color: #8b8b84;
-    line-height: 1.6;
+    margin: 18px 0 0;
+    max-width: 24ch;
+    color: #e6e6df;
+    font-family: var(--font-display);
+    font-size: clamp(1.55rem, 2.2vw, 2.05rem);
+    font-weight: 500;
+    line-height: 1.36;
+    letter-spacing: 0.01em;
   }
 
   .col {
@@ -158,16 +162,17 @@ const columns = [
 
   .head {
     margin: 0 0 5px;
-    color: #6e6e68;
+    color: #8a8a83;
     font-family: var(--font-sans);
-    font-size: 0.58rem;
-    font-weight: 500;
+    font-size: 0.64rem;
+    font-weight: 550;
     letter-spacing: 0.18em;
     text-transform: uppercase;
   }
 
   a {
-    color: #a2a29c;
+    color: #b4b4ad;
+    font-size: 0.92rem;
     text-decoration: none;
     transition: color 140ms ease;
   }
@@ -202,8 +207,8 @@ const columns = [
     gap: 8px;
     color: #6e6e68;
     font-family: var(--font-sans);
-    font-size: 0.58rem;
-    font-weight: 500;
+    font-size: 0.64rem;
+    font-weight: 550;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
