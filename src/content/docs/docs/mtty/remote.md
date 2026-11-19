@@ -145,4 +145,4 @@ own boundary, see [`mtty-cli`](/docs/mtty/cli/).
 
 ---
 
-*Synced from [`oxdingzg/mtty@d64b052`](https://github.com/oxdingzg/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/REMOTE.md).*
+*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/REMOTE.md).*

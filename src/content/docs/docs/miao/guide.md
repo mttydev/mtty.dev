@@ -13,7 +13,7 @@ releases. This guide covers install, usage, and troubleshooting end to end.
 
 miao is an open-source AI agent that works with you in the terminal, with an HTTP server and browser interface as well. It helps you write code, research topics, manage files, and automate tasks. It focuses on the work around model calls: durable sessions, context efficiency, collaboration, and visible cost.
 
-Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/README.md) and [workflow comparison](/docs/miao/comparison/).
+Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/README.md) and [workflow comparison](/docs/miao/comparison/).
 
 A useful first task is: “Find the cause of this failure, make the smallest appropriate fix, run the relevant checks, and explain the diff.” Add constraints while the agent works rather than starting a second conversation.
 
@@ -25,10 +25,10 @@ macOS, Linux and Windows. The Windows installer is checked in CI; terminal rende
 
 ```bash
 # stable
-curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash
+curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash
 
 # a specific version
-curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash -s -- --version 0.0.1
+curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash -s -- --version 0.0.1
 
 # from a local binary
 ./install --binary /path/to/miao
@@ -37,15 +37,15 @@ curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash -
 On Windows, run the PowerShell installer (Windows PowerShell 5.1 or PowerShell 7). It installs to `~\.miao\bin` and adds that directory to your user PATH:
 
 ```powershell
-irm https://raw.githubusercontent.com/oxdingzg/miao/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/mttydev/miao/main/install.ps1 | iex
 
 # a specific version
-$env:MIAO_VERSION = "0.0.33"; irm https://raw.githubusercontent.com/oxdingzg/miao/main/install.ps1 | iex
+$env:MIAO_VERSION = "0.0.33"; irm https://raw.githubusercontent.com/mttydev/miao/main/install.ps1 | iex
 ```
 
 The installer places the binary at `~/.miao/bin/miao` and updates PATH unless `--no-modify-path`.
 
-The current Windows release is not Authenticode-signed. The archive is `miao-windows-x64.zip` (older CPUs: `miao-windows-x64-baseline.zip`), containing `miao.exe`; you can also download and extract it manually from [miao GitHub Releases](https://github.com/oxdingzg/miao/releases). The install script itself usually runs without a prompt, but starting a downloaded `miao.exe` may trigger the SmartScreen “Windows protected your PC” dialog. Follow the [shared Windows security guidance](https://mtty.dev/docs/about/windows-downloads/) when it appears, and do not allow a threat reported by antivirus software.
+The current Windows release is not Authenticode-signed. The archive is `miao-windows-x64.zip` (older CPUs: `miao-windows-x64-baseline.zip`), containing `miao.exe`; you can also download and extract it manually from [miao GitHub Releases](https://github.com/mttydev/miao/releases). The install script itself usually runs without a prompt, but starting a downloaded `miao.exe` may trigger the SmartScreen “Windows protected your PC” dialog. Follow the [shared Windows security guidance](https://mtty.dev/docs/about/windows-downloads/) when it appears, and do not allow a threat reported by antivirus software.
 
 **Three entry points (coexisting, independent)**
 
@@ -109,7 +109,7 @@ overrides the path. Main fields:
 | `skills` / `commands` / `instructions` / `references` / `plugins` | skills, commands, instructions, references, plugins                                                                |
 | `watcher` / `attachments` / `tool_output` / `snapshots`           | watcher, attachments, tool-output thresholds, snapshots                                                            |
 | `providers`                                                       | custom providers/models (including native-currency `cost`)                                                         |
-| `engine`                                                          | native engine settings (global config only): `storage` places new Sessions on Rust; see [enabling the native engine](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-engine-enablement.en.md) |
+| `engine`                                                          | native engine settings (global config only): `storage` places new Sessions on Rust; see [enabling the native engine](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-engine-enablement.en.md) |
 | `experimental`                                                    | experimental flags (e.g. Code Mode)                                                                                |
 
 **Native currency**: set `providers.<id>.models.<m>.cost` in the provider's own currency (for
@@ -247,9 +247,9 @@ Content that a compaction removed from the model window stays durable on disk. T
 
 All shipped clients use the single V2 session runtime; the V1 session runtime and its `/session/*` routes have been removed.
 
-- [V1 retirement](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
-- [Session storage](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
-- [Agent concurrency](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
+- [V1 retirement](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
+- [Session storage](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
+- [Agent concurrency](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
 - Automatic post-crash execution continuation and clustered ownership are not implemented. The OS sandbox is built into the V2 `bash` tool but remains opt-in; see the [native/sandbox scope](/docs/miao/native-benchmarks/).
 
 ## 7. FAQ
@@ -316,8 +316,8 @@ bun --cwd packages/miao test
 
 ## License
 
-MIT. See [LICENSE](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
+MIT. See [LICENSE](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/guide.en.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/guide.en.md).*

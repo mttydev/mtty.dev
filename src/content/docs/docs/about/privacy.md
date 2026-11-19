@@ -42,8 +42,8 @@ static index. Theme preferences are stored in your browser's `localStorage`.
 ## Contact
 
 Questions about data handling: <contact@mtty.dev>, or open an issue on
-[mtty](https://github.com/oxdingzg/mtty/issues),
-[miao](https://github.com/oxdingzg/miao/issues) or
-[this website](https://github.com/oxdingzg/mtty.dev/issues).
+[mtty](https://github.com/mttydev/mtty/issues),
+[miao](https://github.com/mttydev/miao/issues) or
+[this website](https://github.com/mttydev/mtty.dev/issues).
 
 *Reviewed: 2026-10-07.*

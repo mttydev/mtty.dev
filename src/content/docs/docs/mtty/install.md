@@ -5,11 +5,11 @@ sidebar:
 ---
 
 mtty (formerly miaotty) is the native winit/wgpu application.
-There is one GUI executable and one CLI. See [identity and migration](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/APP-IDENTITY.md).
+There is one GUI executable and one CLI. See [identity and migration](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/APP-IDENTITY.md).
 
 ## Install a release
 
-Choose the latest package from [GitHub Releases](https://github.com/oxdingzg/mtty/releases/latest).
+Choose the latest package from [GitHub Releases](https://github.com/mttydev/mtty/releases/latest).
 
 | Platform | Package and first launch |
 |---|---|
@@ -60,7 +60,7 @@ The installed app uses the macOS system menu bar; a bare binary uses an in-windo
 
 ## Release packages
 
-[release.yml](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/.github/workflows/release.yml) requires Apple Silicon macOS,
+[release.yml](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/.github/workflows/release.yml) requires Apple Silicon macOS,
 Intel macOS, Linux and Windows runner builds. A `v*` tag publishes a release;
 manual dispatch rehearses packaging without publishing.
 
@@ -69,7 +69,7 @@ manual dispatch rehearses packaging without publishing.
 - Windows: zip and MSI, containing `mtty.exe` and `mtty-cli.exe`.
 
 Apple Developer ID signing/notarization, Windows MSI signing and minisign
-artifact signatures use the optional secrets described in [RELEASE.md](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/RELEASE.md).
+artifact signatures use the optional secrets described in [RELEASE.md](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/RELEASE.md).
 `dist-workspace.toml` remains a cargo-dist scaffold, not the active release pipeline.
 
 
@@ -89,4 +89,4 @@ identity remains unchanged.
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/INSTALL.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/INSTALL.md).*

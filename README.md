@@ -4,8 +4,8 @@ Source for **[mtty.dev](https://mtty.dev)**, the site that documents two product
 
 | Product | What it is | Repository |
 | --- | --- | --- |
-| **miao** | An open-source AI agent for the terminal | [oxdingzg/miao](https://github.com/oxdingzg/miao) |
-| **mtty** | An AI-native terminal and editor for local and remote work, written in Rust | [oxdingzg/mtty](https://github.com/oxdingzg/mtty) |
+| **miao** | An open-source AI agent for the terminal | [mttydev/miao](https://github.com/mttydev/miao) |
+| **mtty** | An AI-native terminal and editor for local and remote work, written in Rust | [mttydev/mtty](https://github.com/mttydev/mtty) |
 
 The two are separate projects; each works without the other. Inside an mtty pane, miao
 reports its state (working, waiting, done, error) to mtty, which badges the pane, notifies
@@ -20,7 +20,7 @@ when an agent needs you and sends a queued prompt when it goes idle. The home pa
 | `/miao/install` | 302 to miao's install script (see `public/_redirects`) |
 | `/models/api.json` | The model catalog miao fetches at runtime (generated, see `scripts/sync-models.ts`) |
 
-[oxdingzg/miaotty](https://github.com/oxdingzg/miaotty) was a personal, temporary macOS
+[mttydev/miaotty](https://github.com/mttydev/miaotty) was a personal, temporary macOS
 prototype of the terminal (a Ghostty fork). It is not documented here; its README points to
 mtty.
 

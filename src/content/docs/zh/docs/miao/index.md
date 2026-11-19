@@ -8,7 +8,7 @@ sidebar:
 miao 是面向终端的开源 AI 智能体。它帮助你编写代码、开展调研、管理文件和自动化任务，使用的模型由你选择。它把重点放在模型周围的工程能力：持久化
 会话、上下文效率、任务委派，以及每一轮都看得见的花费。
 
-搭配 [mtty](https://github.com/oxdingzg/mtty) 使用，可获得窗格级智能体状态、等待输入通知和提示排队。
+搭配 [mtty](https://github.com/mttydev/mtty) 使用，可获得窗格级智能体状态、等待输入通知和提示排队。
 
 ```sh
 curl -fsSL https://mtty.dev/miao/install | bash
@@ -26,7 +26,7 @@ curl -fsSL https://mtty.dev/miao/install | bash
 | [参与贡献](/zh/docs/miao/contributing/) | 报告问题与提交改动 |
 | [安全](/zh/docs/miao/security/) | 如何报告漏洞 |
 
-源码、问题与发布：[oxdingzg/miao](https://github.com/oxdingzg/miao)。
+源码、问题与发布：[mttydev/miao](https://github.com/mttydev/miao)。
 
 ## 来源与许可
 

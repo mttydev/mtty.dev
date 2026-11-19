@@ -54,7 +54,7 @@ Markdown 文件默认在一个写作窗格中打开。内容块原地渲染，�
 
 渲染器覆盖标题、列表、引用、表格、代码和链接，相对图片按文档所在目录解析，并渲染 Mermaid 的 `graph`/`flowchart`、`sequenceDiagram`、`stateDiagram`、`classDiagram`、`erDiagram` 和 `pie`。设 `mermaid-command` 可调用 `mermaid-cli` 获得完整 Mermaid。*Toggle Markdown Preview* 仍可额外打开独立预览窗格；预览随编辑器关闭，并保留在保存的会话中。
 
-本次实现的是块级原地编辑。逐 token 显示源码、高级表格交互及其他写作功能继续由 [Markdown 路线图](https://github.com/oxdingzg/mtty/issues/94) 跟踪。
+本次实现的是块级原地编辑。逐 token 显示源码、高级表格交互及其他写作功能继续由 [Markdown 路线图](https://github.com/mttydev/mtty/issues/94) 跟踪。
 
 ## 语言服务器
 
@@ -88,4 +88,4 @@ Close Others/Below 或退出前都会询问。本地文件变化时，干净窗�
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/EDITOR.zh-CN.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/EDITOR.zh-CN.md).*

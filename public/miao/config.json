@@ -48,7 +48,7 @@
         ],
         "additionalProperties": false
       },
-      "description": "Command configuration, see https://github.com/oxdingzg/miao/blob/main/packages/web/src/content/docs/commands.mdx"
+      "description": "Command configuration, see https://github.com/mttydev/miao/blob/main/packages/web/src/content/docs/commands.mdx"
     },
     "skills": {
       "description": "Additional paths or URLs to discover skills from",
@@ -273,7 +273,7 @@
       "additionalProperties": {
         "$ref": "#/$defs/AgentConfig"
       },
-      "description": "Agent configuration, see https://github.com/oxdingzg/miao/blob/main/packages/web/src/content/docs/agents.mdx"
+      "description": "Agent configuration, see https://github.com/mttydev/miao/blob/main/packages/web/src/content/docs/agents.mdx"
     },
     "provider": {
       "type": "object",
@@ -1621,7 +1621,7 @@
             ],
             "additionalProperties": false
           },
-          "description": "Command configuration, see https://github.com/oxdingzg/miao/blob/main/packages/web/src/content/docs/commands.mdx"
+          "description": "Command configuration, see https://github.com/mttydev/miao/blob/main/packages/web/src/content/docs/commands.mdx"
         },
         "skills": {
           "type": "object",
@@ -1825,7 +1825,7 @@
           "additionalProperties": {
             "$ref": "#/$defs/AgentConfig"
           },
-          "description": "Agent configuration, see https://github.com/oxdingzg/miao/blob/main/packages/web/src/content/docs/agents.mdx"
+          "description": "Agent configuration, see https://github.com/mttydev/miao/blob/main/packages/web/src/content/docs/agents.mdx"
         },
         "provider": {
           "type": "object",

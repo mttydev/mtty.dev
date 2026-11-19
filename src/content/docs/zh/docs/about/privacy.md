@@ -34,8 +34,8 @@ mtty.dev 通过 Cloudflare 提供静态页面，由其处理访问请求与站�
 ## 联系
 
 数据处理相关问题可发邮件至 <contact@mtty.dev>，或在
-[mtty](https://github.com/oxdingzg/mtty/issues)、
-[miao](https://github.com/oxdingzg/miao/issues) 或
-[本站](https://github.com/oxdingzg/mtty.dev/issues) 提交 issue。
+[mtty](https://github.com/mttydev/mtty/issues)、
+[miao](https://github.com/mttydev/miao/issues) 或
+[本站](https://github.com/mttydev/mtty.dev/issues) 提交 issue。
 
 *核对日期：2026-10-07。*

@@ -14,7 +14,7 @@ interface Props {
 const { lang } = Astro.props
 const prefix = prefixFor(lang)
 
-const REPO = "https://github.com/oxdingzg/mtty"
+const REPO = "https://github.com/mttydev/mtty"
 const RELEASES = `${REPO}/releases/latest`
 
 const copy = {
@@ -524,7 +524,7 @@ const copy = {
       <a class="btn" href={`${prefix}/docs/mtty/`}>{copy.docs} <span class="arrow">→</span></a>
     </div>
     <p class="fine src">{copy.srcLabel}</p>
-    <pre class="codeblock mtty"><code><span class="p">$ </span>git clone https://github.com/oxdingzg/mtty.git && cd mtty
+    <pre class="codeblock mtty"><code><span class="p">$ </span>git clone https://github.com/mttydev/mtty.git && cd mtty
 <span class="p">$ </span>cargo run --release -p mtty-app</code></pre>
   </section>
 </MarketingLayout>

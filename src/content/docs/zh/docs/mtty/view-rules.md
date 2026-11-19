@@ -5,7 +5,7 @@ sidebar:
 ---
 
 一个 pane 的标签标题、图标与徽章由 *View 规则引擎* 从上下文推导
-(设计见 [ADR 0007](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/decisions/0007-view-rule-engine.zh-CN.md))。规则存放于
+(设计见 [ADR 0007](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/decisions/0007-view-rule-engine.zh-CN.md))。规则存放于
 `~/.config/mtty/views.json`(JSON)。文件修改后 mtty 会自动重新加载,下一次有操作时
 几秒内生效;应用内的规则编辑器尚未提供。首次启动时若文件不存在,mtty 会生成一个
 空规则集的默认文件,方便直接编辑。
@@ -61,4 +61,4 @@ emoji、再到纯色圆点。内置名称:
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/VIEW-RULES.zh-CN.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/VIEW-RULES.zh-CN.md).*

@@ -32,8 +32,8 @@ V2 是唯一的会话运行时，工具位于 `packages/core/src/tool`；V1 兼�
 - **native addon：** 默认启用。它为沙箱 runner、编辑匹配、补丁派生与其他原生辅助提供支持。`MIAO_NATIVE=0` 全部禁用，改由 TypeScript 实现接管。
 - **进程内 Git：** addon 已加载时 `Git.status.entries` 走原生 `gitStatusAsync`（`gix`），返回每条路径的状态与增删行数；`MIAO_NATIVE=0` 或原生失败时回退到 `git status`/`git diff --numstat` 子进程路径。其余 git 操作仍走子进程。
 
-依赖沙箱前，请阅读 [使用指南](/zh/docs/miao/guide/#56-内核级沙箱需开启) 与 [接入风险](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/rust-integration-risks.zh.md)。Windows 内核沙箱尚未实现同等能力。
+依赖沙箱前，请阅读 [使用指南](/zh/docs/miao/guide/#56-内核级沙箱需开启) 与 [接入风险](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/rust-integration-risks.zh.md)。Windows 内核沙箱尚未实现同等能力。
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-benchmarks.zh.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-benchmarks.zh.md).*

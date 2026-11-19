@@ -40,7 +40,7 @@ miao 是运行在你本机的 AI 编程助手。它提供一套代理系统，�
 普通 CLI/TUI 每次调用都在同一进程中拥有独立的窗口级 Runtime。本地监听器绑定
 `127.0.0.1` 的临时端口，不通过 mDNS 广播，并使用每次新生成的私有凭据与 Runtime ID。
 关闭窗口会结束该窗口的执行与远程连接。私有 `miao runtime access` 桥接必须指定正在运行的
-Runtime ID，不会启动守护进程。见[运行时生命周期](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/runtime.md)。
+Runtime ID，不会启动守护进程。见[运行时生命周期](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/runtime.md)。
 
 `miao serve` 是显式启动的前台 API 服务。默认监听 `127.0.0.1`，但 `--hostname` 或服务端配置
 可以将它暴露到网络；`--mdns` 开启发现，在没有显式覆盖时会将监听地址改为 `0.0.0.0`。
@@ -67,7 +67,7 @@ Hub 登录负责中继访问，本地批准的设备公钥和限定范围、带�
 ## 报告安全问题
 
 请使用 GitHub Security Advisory 的
-["Report a Vulnerability"](https://github.com/oxdingzg/miao/security/advisories/new)
+["Report a Vulnerability"](https://github.com/mttydev/miao/security/advisories/new)
 入口。在公开之前，它一直是私密的。
 
 你会收到一封回信说明后续如何推进，之后也会同步修复的进展。这里没有安全团队，也没有承诺的响应时限
@@ -75,4 +75,4 @@ Hub 登录负责中继访问，本地批准的设备公钥和限定范围、带�
 
 ---
 
-*Synced from [`oxdingzg/miao@284be7f`](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/SECURITY.zh.md).*
+*Synced from [`mttydev/miao@284be7f`](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/SECURITY.zh.md).*

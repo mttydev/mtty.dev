@@ -15,12 +15,12 @@ sidebar:
 ## Release process
 
 1. **Prepare through a PR**: create a short-lived release branch, run `bun script/set-version.ts X.Y.Z`, and prepare the changelog and Simplified Chinese release-note mirror. Commit only the release paths, push, and open a PR. After the package checks and native CI pass, squash-merge it into `main`. Build and smoke-test the preview on a configured build host before publication.
-2. **Trigger from the merged main**: after explicit publication confirmation, run `gh workflow run release.yml --ref main --repo oxdingzg/miao`. The workflow takes **no inputs**; the version comes entirely from the root `package.json`, including when dispatched from the Actions UI. Do not commit or push release preparation directly to `main`.
+2. **Trigger from the merged main**: after explicit publication confirmation, run `gh workflow run release.yml --ref main --repo mttydev/miao`. The workflow takes **no inputs**; the version comes entirely from the root `package.json`, including when dispatched from the Actions UI. Do not commit or push release preparation directly to `main`.
 3. **Workflow `.github/workflows/release.yml`**:
    - `version`: runs `script/version.ts`, creates a **draft** release `vX.Y.Z` for the root `package.json` version with generated release notes, and outputs `version/release/tag/repo`.
    - `cli`: matrix `macos-26`(darwin-arm64) / `macos-26-intel`(darwin-x64) / `ubuntu-latest`(linux-x64) / `ubuntu-24.04-arm`(linux-arm64) / `windows-2025`(windows-x64). Each platform runs `bun install` + installs Rust, then `packages/miao/script/build.ts --single` builds the host binary (building and embedding the host native addon first) and uploads `miao-<target>.zip|tar.gz` to the draft release.
    - `publish`: after all platforms succeed, it appends the Windows signing status to the release body and runs `gh release edit --draft=false` to publish the release.
-4. **Assets**: `miao-darwin-{arm64,x64}.zip`, `miao-linux-{x64,arm64}.tar.gz`, and `miao-windows-x64.zip` (older CPUs: `miao-windows-x64-baseline.zip`), matching the `install` scripts and the updater (`Installation.latest` -> `oxdingzg/miao/releases/latest`).
+4. **Assets**: `miao-darwin-{arm64,x64}.zip`, `miao-linux-{x64,arm64}.tar.gz`, and `miao-windows-x64.zip` (older CPUs: `miao-windows-x64-baseline.zip`), matching the `install` scripts and the updater (`Installation.latest` -> `mttydev/miao/releases/latest`).
 
 The release workflow above is the maintained publication path. Each build loads the model catalog through `packages/miao/script/generate.ts` from miao's own catalog at `https://mtty.dev/models/api.json`; there is no fallback source, and an unreachable catalog fails the build. `MIAO_MODELS_JSON` can point at a local file, and `MIAO_MODELS_URL` can pin a different single source. There is no separate workflow that commits model snapshots to the repository; the runtime refreshes its cached catalog independently, revalidating with the source's ETag so an unchanged catalog is not re-downloaded.
 
@@ -35,7 +35,7 @@ Windows binaries are currently unsigned. The `publish` step records this status 
   - Write into `CHANGELOG.md`: add `--write`
   - At release time `script/version.ts` calls it with `--to <sha>` to produce `UPCOMING_CHANGELOG.md`, which becomes the release notes.
 - Release notes are **English and always link to a Simplified Chinese mirror**:
-  `docs/releases/<tag>.zh.md`, linked as `[简体中文](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/…)` under the first
+  `docs/releases/<tag>.zh.md`, linked as `[简体中文](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/…)` under the first
   heading. Write the mirror before dispatching a release — `script/release-notes.ts`
   fails the publish job when it is missing. The same rule applies to every miao
   project, including `mtty`.
@@ -44,8 +44,8 @@ Windows binaries are currently unsigned. The `publish` step records this status 
 
 - [ ] `docs/releases/<x.y.z>.zh.md` exists: the Simplified Chinese mirror the release body links to.
 - [ ] Windows real-machine VT verification: PowerShell 5.1 legacy console / Windows Terminal / pwsh 7 (the logic is only verified on macOS so far).
-- [ ] `curl -fsSL https://raw.githubusercontent.com/oxdingzg/miao/main/install | bash` installs that release.
-- [ ] `miao upgrade` and the startup update check point at `oxdingzg/miao` and detect the new version.
+- [ ] `curl -fsSL https://raw.githubusercontent.com/mttydev/miao/main/install | bash` installs that release.
+- [ ] `miao upgrade` and the startup update check point at `mttydev/miao` and detect the new version.
 - [ ] Native addon: confirm the built addon loads on each platform and `MIAO_NATIVE=0` falls back, so the OS sandbox runner and the other native helpers are not affected by the open native PoC risks.
 - [ ] No credentials/secrets committed; no `auth.json` / `.env` in the artifact.
 - [ ] LICENSE and attribution (based on opencode, MIT).
@@ -64,4 +64,4 @@ Windows binaries are currently unsigned. The `publish` step records this status 
 
 ---
 
-*Synced from [`oxdingzg/miao@284be7f`](https://github.com/oxdingzg/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/release.en.md).*
+*Synced from [`mttydev/miao@284be7f`](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/release.en.md).*

@@ -11,11 +11,11 @@ miao 是衍生自 [opencode](https://github.com/anomalyco/opencode) 的开源 AI
 
 miao 作为单独的项目维护，有自己的开发方向、问题追踪和发布版本。
 代码来源关系不代表与 opencode 维护者存在隶属关系或获得其背书。
-miao 的问题反馈与版本下载请使用 [oxdingzg/miao](https://github.com/oxdingzg/miao)。
+miao 的问题反馈与版本下载请使用 [mttydev/miao](https://github.com/mttydev/miao)。
 
 ## 许可与再分发
 
-miao 以 [MIT 许可证](https://github.com/oxdingzg/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE) 发布，许可证文件保留两条版权声明：
+miao 以 [MIT 许可证](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE) 发布，许可证文件保留两条版权声明：
 
 ```text
 Copyright (c) 2026 the miao authors
@@ -36,4 +36,4 @@ OpenCode Zen 与 Go 是可选的第三方供应商，其名称、ID 和端点标
 
 ---
 
-*Synced from [`oxdingzg/miao@269692d`](https://github.com/oxdingzg/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.zh.md).*
+*Synced from [`mttydev/miao@269692d`](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.zh.md).*

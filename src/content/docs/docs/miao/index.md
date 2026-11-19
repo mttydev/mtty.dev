@@ -8,7 +8,7 @@ sidebar:
 miao is an open-source AI agent for the terminal. It helps you write code, research topics, manage files and automate tasks, using the models you choose. It focuses on the engineering around the model: durable sessions, context efficiency, delegation
 and a visible cost per turn.
 
-Run it inside [mtty](https://github.com/oxdingzg/mtty) for per-pane agent status, input notifications and queued prompts.
+Run it inside [mtty](https://github.com/mttydev/mtty) for per-pane agent status, input notifications and queued prompts.
 
 ```sh
 curl -fsSL https://mtty.dev/miao/install | bash
@@ -26,7 +26,7 @@ curl -fsSL https://mtty.dev/miao/install | bash
 | [Contributing](/docs/miao/contributing/) | Reporting a problem and sending a change |
 | [Security](/docs/miao/security/) | How to report a vulnerability |
 
-Source, issues and releases: [oxdingzg/miao](https://github.com/oxdingzg/miao).
+Source, issues and releases: [mttydev/miao](https://github.com/mttydev/miao).
 
 ## Origins and license
 

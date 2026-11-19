@@ -32,8 +32,8 @@ V2 is the only session runtime. Its tools live in `packages/core/src/tool`; the 
 - **Native addon:** on by default. It backs the sandbox runner, the edit matching, the patch derivation and other native helpers. `MIAO_NATIVE=0` disables all of it and the TypeScript implementations take over.
 - **In-process Git:** `Git.status.entries` uses the native `gitStatusAsync` primitive (`gix`) whenever the addon is loaded, returning each path with its status and line additions/deletions; `MIAO_NATIVE=0` or a native failure falls back to the `git status`/`git diff --numstat` subprocess path. The other Git operations still shell out.
 
-Read the [guide](/docs/miao/guide/#56-kernel-level-sandbox-opt-in) and [integration risks](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/rust-integration-risks.en.md) before relying on the sandbox. Windows kernel sandbox parity is not implemented.
+Read the [guide](/docs/miao/guide/#56-kernel-level-sandbox-opt-in) and [integration risks](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/rust-integration-risks.en.md) before relying on the sandbox. Windows kernel sandbox parity is not implemented.
 
 ---
 
-*Synced from [`oxdingzg/miao@80819c6`](https://github.com/oxdingzg/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-benchmarks.en.md).*
+*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-benchmarks.en.md).*

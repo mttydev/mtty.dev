@@ -5,7 +5,7 @@ sidebar:
 ---
 
 A pane's tab title, icon and badge are derived from its context by the *view
-rule engine* (design: [ADR 0007](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/decisions/0007-view-rule-engine.md)). Rules
+rule engine* (design: [ADR 0007](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/decisions/0007-view-rule-engine.md)). Rules
 live in `~/.config/mtty/views.json` (JSON). mtty reloads the file when it
 changes, so an edit shows within a couple of seconds of the next activity; an
 in-app rule editor is not available yet. A fresh install seeds this file with
@@ -70,4 +70,4 @@ startup.
 
 ---
 
-*Synced from [`oxdingzg/mtty@72b0e56`](https://github.com/oxdingzg/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/VIEW-RULES.md).*
+*Synced from [`mttydev/mtty@72b0e56`](https://github.com/mttydev/mtty/blob/72b0e565759e53bb2f19148ed5d032d63fae626a/docs/VIEW-RULES.md).*

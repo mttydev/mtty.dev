@@ -108,4 +108,4 @@ MTP 是套接字上的换行分隔 JSON，客户端不必依赖 `mtty-cli`:写�
 
 ---
 
-*Synced from [`oxdingzg/mtty@d64b052`](https://github.com/oxdingzg/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/CLI.zh-CN.md).*
+*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/CLI.zh-CN.md).*

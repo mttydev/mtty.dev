@@ -14,11 +14,11 @@ and contributors for the terminal coding workflow and engineering foundation.
 miao is maintained as a separate project, with its own development direction,
 issue tracker and releases. The source relationship does not imply affiliation
 with or endorsement by the opencode maintainers. For miao support and releases,
-use [oxdingzg/miao](https://github.com/oxdingzg/miao).
+use [mttydev/miao](https://github.com/mttydev/miao).
 
 ## License and redistribution
 
-miao is distributed under the [MIT License](https://github.com/oxdingzg/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE). The license file keeps
+miao is distributed under the [MIT License](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE). The license file keeps
 both copyright notices:
 
 ```text
@@ -46,4 +46,4 @@ licensing relationship. See [providers and models](/docs/miao/providers/) and th
 
 ---
 
-*Synced from [`oxdingzg/miao@269692d`](https://github.com/oxdingzg/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.en.md).*
+*Synced from [`mttydev/miao@269692d`](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.en.md).*

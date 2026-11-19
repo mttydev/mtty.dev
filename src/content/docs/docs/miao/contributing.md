@@ -6,8 +6,8 @@ sidebar:
 ---
 
 miao is MIT licensed and developed in the open at
-[oxdingzg/miao](https://github.com/oxdingzg/miao). The full guide is
-[`CONTRIBUTING.md`](https://github.com/oxdingzg/miao/blob/main/CONTRIBUTING.md)
+[mttydev/miao](https://github.com/mttydev/miao). The full guide is
+[`CONTRIBUTING.md`](https://github.com/mttydev/miao/blob/main/CONTRIBUTING.md)
 in the repository; this page is the short version.
 
 ## Before you write code: open an issue
@@ -22,7 +22,7 @@ a small fix, a brief issue is enough: just enough context to understand the
 problem.
 
 Anyone can open an issue at
-[github.com/oxdingzg/miao/issues](https://github.com/oxdingzg/miao/issues).
+[github.com/mttydev/miao/issues](https://github.com/mttydev/miao/issues).
 
 ## Pull requests
 
@@ -57,7 +57,7 @@ The prefixes are `feat:`, `fix:`, `docs:`, `chore:`, `refactor:` and `test:`.
 
 The development setup, the commands for running from source, the API server, the
 web app and the desktop app, and the debugger setup are all in
-[`CONTRIBUTING.md`](https://github.com/oxdingzg/miao/blob/main/CONTRIBUTING.md).
+[`CONTRIBUTING.md`](https://github.com/mttydev/miao/blob/main/CONTRIBUTING.md).
 [The guide](/docs/miao/guide/) covers installing and using the released agent,
 which is usually the faster starting point.
 

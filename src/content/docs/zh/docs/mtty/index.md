@@ -11,7 +11,7 @@ mtty 是用 Rust 编写的 AI 原生终端与编辑器，面向本地与远程�
 
 应用以 **`mtty`** 的名字发布，同时提供 **`mtty-cli`** 控制客户端(v0.0.5 及之前两者都叫
 `miaotty`，首次启动时会复制已有的 `~/.config/miaotty`);源码在
-[`mtty`](https://github.com/oxdingzg/mtty) 仓库。
+[`mtty`](https://github.com/mttydev/mtty) 仓库。
 
 :::caution[预发布]
 API 尚未稳定。macOS 是主要平台;Windows 与 Linux 已构建、测试，并在真实桌面上验收。Apple 公证与
@@ -36,7 +36,7 @@ Windows MSI 签名尚未完成。
 ## 获取
 
 预发布包发布在
-[GitHub Releases](https://github.com/oxdingzg/mtty/releases/latest):macOS 是一个含
+[GitHub Releases](https://github.com/mttydev/mtty/releases/latest):macOS 是一个含
 `mtty.app` 的 zip，Linux 是 `.deb`/AppImage/tar，Windows 是 MSI/zip。每个包都带 minisign
 `.sig` 签名，公钥随版本一同发布。
 
@@ -62,8 +62,8 @@ GPU 代码，因此可以嵌入别的程序。
 
 内部工程记录留在仓库里，刻意不在这里发布:
 
-- [架构与设计](https://github.com/oxdingzg/mtty/blob/main/docs/ARCHITECTURE.zh-CN.md)
-- [性能预算与 CI 门](https://github.com/oxdingzg/mtty/blob/main/docs/PERFORMANCE.zh-CN.md)
-- [发布流水线、签名与更新清单](https://github.com/oxdingzg/mtty/blob/main/docs/RELEASE.zh-CN.md)
-- [产品需求与路线图](https://github.com/oxdingzg/mtty/blob/main/docs/PRODUCT.zh-CN.md)
-- [架构决策记录](https://github.com/oxdingzg/mtty/tree/main/docs/decisions)
+- [架构与设计](https://github.com/mttydev/mtty/blob/main/docs/ARCHITECTURE.zh-CN.md)
+- [性能预算与 CI 门](https://github.com/mttydev/mtty/blob/main/docs/PERFORMANCE.zh-CN.md)
+- [发布流水线、签名与更新清单](https://github.com/mttydev/mtty/blob/main/docs/RELEASE.zh-CN.md)
+- [产品需求与路线图](https://github.com/mttydev/mtty/blob/main/docs/PRODUCT.zh-CN.md)
+- [架构决策记录](https://github.com/mttydev/mtty/tree/main/docs/decisions)

@@ -7,7 +7,7 @@ sidebar:
 ## 报告安全问题
 
 请使用 GitHub Security Advisory 的
-["Report a Vulnerability"](https://github.com/oxdingzg/mtty/security/advisories/new)
+["Report a Vulnerability"](https://github.com/mttydev/mtty/security/advisories/new)
 入口。在公开之前，它一直是私密的。
 
 你会收到一封回信说明后续如何推进，之后也会同步修复的进展。这里没有安全团队，也没有承诺的响应时限
@@ -50,4 +50,4 @@ MTP —— `mtty-cli`，以及任何实现该协议的程序 —— 可以在窗
 
 ---
 
-*Synced from [`oxdingzg/mtty@d64b052`](https://github.com/oxdingzg/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/SECURITY.zh-CN.md).*
+*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/SECURITY.zh-CN.md).*
