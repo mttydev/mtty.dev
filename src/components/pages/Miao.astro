@@ -22,12 +22,12 @@ const copy = {
     description:
       "miao is an open-source AI agent: use the models you choose, steer long tasks while they run, delegate to subagents, and see the tokens and cost of every turn.",
     kind: "AI agent",
-    h1a: "Your models. Your workflow.",
-    h1b: "Less wasted context.",
-    lede: "An open-source AI agent that works with you in the terminal. Use the models you choose to write code, research topics, manage files and automate tasks — with visible progress, context usage and cost.",
-    sub: "miao focuses on the engineering around the model: context efficiency, durable sessions, collaboration, and control over long-running work.",
+    h1a: "Less context.",
+    h1b: "Lower bills.",
+    lede: "miao does the same work with fewer wasted tokens. A stable system-context baseline keeps provider cache prefixes reusable; compaction starts before the window fills and reuses the current request prefix for its summary.",
+    sub: "Per-turn tokens, cache hits, time to first token and estimated cost stay visible, and a session budget can cap money, tokens, turns and time. Install is one curl line; what lands is a single binary.",
     copyLabel: "Copy command",
-    platforms: "macOS and Linux · Windows builds exist · MIT",
+    platforms: "Single binary · macOS, Linux and Windows · MIT",
     guide: "Read the guide",
     whyPage: "Why choose miao?",
     comparisonPage: "Compare eight agent workflows",
@@ -47,12 +47,12 @@ const copy = {
     tQueue: "queue · waits until the session would go idle",
     t3: "Then open a draft PR description.",
     whyLabel: "why miao",
-    whyH: "Keep the task moving, and the process visible.",
+    whyH: "Less context, lower bills, one binary.",
     why: [
-      ["Choose the model that fits the work", "Several providers in one interface, model switching within a session, and specialist agents with their own models and permissions. Pick for reasoning quality, speed or price without rebuilding your workflow around one vendor."],
-      ["Give collaboration its own context", "Delegate a scoped task to a specialist subagent and continue that session later. With list_sessions and send_message, agents discover and message other sessions in the same project, subject to permissions."],
-      ["See where tokens and money go", "Per-turn usage, estimated cost, time to first token and prompt-cache telemetry. Stable context prefixes and chronological updates help reuse prompt caches."],
-      ["Keep a record you can continue", "Durable prompt admission and an event-backed history. List, reopen, fork and export sessions. Large tool results are bounded in context, with the full output kept in a temporary file when available."],
+      ["Stable prefixes, reusable cache", "The system-context baseline stays fixed and changes enter chronologically, so a provider can keep hitting its prompt cache across turns. Provider cache policy and cache TTL are configurable."],
+      ["Compact before the window fills", "Automatic compaction triggers near the threshold and reuses the current request prefix for its summary, so the provider cache still hits. Old tool output is pruned by default; oversized results keep their full text on disk, and the recall tool can find what a summary dropped."],
+      ["Every turn's bill, in view", "Per-turn tokens, cache-hit rate, time to first token and estimated cost. A session budget can cap cost, tokens, provider turns and wall-clock time — warn at four fifths, stop at the next safe provider boundary, never switch the model."],
+      ["One binary, one command", "The installer writes only miao; no separate engine or TUI files sit beside it. The same one-line install covers macOS, Linux and Windows, and the binary carries its own accelerators."],
     ],
     costNote: "Cost estimates use configured model rates; your provider's bill remains authoritative. Durable history does not mean automatic recovery after a crash — unfinished provider work needs an explicit resume.",
     dailyLabel: "everyday engineering",
@@ -127,12 +127,12 @@ const copy = {
     description:
       "miao 是开源 AI 智能体：模型由你选，长任务运行中也能补充要求，可委派子代理，每一轮的 token 与费用都看得见。",
     kind: "AI 智能体",
-    h1a: "模型由你选，工作持续推进，",
-    h1b: "少浪费上下文。",
-    lede: "miao 是一个在终端中与你协作的开源 AI 智能体。使用你选择的模型，编写代码、开展调研、管理文件和自动化任务，并随时查看执行进展、上下文用量与费用。",
-    sub: "miao 把重点放在模型周围的工程能力上：上下文效率、持久化会话、代理协作，以及长任务的执行控制。",
+    h1a: "更省上下文，",
+    h1b: "也更省钱。",
+    lede: "同样的任务，miao 少烧 token。稳定的系统上下文基线让供应商缓存前缀持续可用；窗口填满前主动压缩，摘要复用当前请求前缀，旧工具输出默认裁剪。",
+    sub: "逐轮 token、缓存命中、首 token 延迟与估算费用都在界面上；预算可限定金额、token、轮次和时长。安装只需一行 curl，落地的是单个二进制。",
     copyLabel: "复制命令",
-    platforms: "macOS 与 Linux · Windows 已有构建 · MIT",
+    platforms: "单二进制 · macOS、Linux、Windows · MIT",
     guide: "阅读使用指南",
     whyPage: "为什么选择 miao",
     comparisonPage: "八个开源代理对比",
@@ -152,12 +152,12 @@ const copy = {
     tQueue: "queue · 等会话即将空闲时再处理",
     t3: "然后写一份草稿 PR 描述。",
     whyLabel: "为什么选择 miao",
-    whyH: "把任务推进，也把过程看清楚。",
+    whyH: "更省上下文，更省钱，一个二进制。",
     why: [
-      ["按任务选择模型", "在同一个界面连接多个供应商，随时切换会话模型，也可以为专门的代理设置各自的模型和权限。按推理能力、响应速度或价格做选择，不必围着某一家重建工作流。"],
-      ["专项工作交给独立上下文", "把范围明确的任务委派给子代理，之后还能继续同一个子会话。借助 list_sessions 和 send_message，代理能在权限约束下发现并联系同项目的其他会话。"],
-      ["看清 token 和费用花在哪里", "逐轮用量、估算费用、首 token 延迟和提示缓存遥测。稳定的上下文前缀与按时间顺序引入的变化，帮助复用提示缓存。"],
-      ["工作记录可以继续", "持久化输入与事件记录保存会话：可查看、重新打开、分叉和导出。过大的工具输出在上下文中受到限制，完整内容在可用时保留到临时文件。"],
+      ["稳定前缀，缓存持续命中", "系统上下文基线保持不变，变化按时间顺序引入，供应商可以在多轮之间持续命中提示缓存；缓存策略与 TTL 可按供应商配置。"],
+      ["在窗口填满前压缩", "接近阈值时自动压缩，摘要复用当前请求前缀，供应商缓存仍然命中。旧工具输出默认裁剪；超大结果全文留在磁盘，recall 工具可以找回摘要丢掉的细节。"],
+      ["每一轮的账都看得见", "逐轮 token、缓存命中率、首 token 延迟与估算费用。会话预算可限定费用、token、模型轮次和实际耗时——花到五分之四提醒，到上限在下一个安全轮次边界停下，不会切换模型。"],
+      ["一个二进制，一行命令", "安装器只写入 miao，不需要额外的引擎或 TUI 文件。同一条命令覆盖 macOS、Linux 与 Windows，加速能力就在这个二进制里。"],
     ],
     costNote: "费用按配置的模型费率估算，实际扣费以供应商账单为准。保存历史不代表崩溃后自动续跑：未完成的模型执行需要显式恢复。",
     dailyLabel: "日常工程",
@@ -864,6 +864,91 @@ const copy = {
     .loop .codeblock {
       font-size: 0.78rem;
       padding: 20px;
+    }
+  }
+
+  /* --- Lookbook overrides --- */
+
+  .hero {
+    padding-top: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-grid {
+    gap: 64px;
+    padding-block: 64px;
+  }
+
+  .hero .label {
+    margin-bottom: 28px;
+  }
+
+  .h1 {
+    font-size: clamp(2.9rem, 5.4vw, 5.2rem);
+    line-height: 0.94;
+    letter-spacing: -0.034em;
+  }
+
+  :lang(zh-CN) .h1 {
+    font-size: clamp(2.4rem, 4.4vw, 4.2rem);
+    line-height: 1.06;
+  }
+
+  .hero-copy .lede {
+    margin-top: 26px;
+  }
+
+  .hero-copy .actions {
+    margin-top: 30px;
+  }
+
+  .hero-shot :global(img) {
+    border: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+  }
+
+  .why .n {
+    color: var(--fg-faint);
+    font-family: var(--font-sans);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    padding-top: 10px;
+  }
+
+  .why h3 {
+    font-size: clamp(1.45rem, 2vw, 1.85rem);
+  }
+
+  .why p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .mcard {
+    border-radius: 0;
+  }
+
+  .mcard:hover {
+    transform: none;
+  }
+
+  .mcard :global(.product-media) {
+    border: 1px solid var(--border);
+    border-radius: 0;
+  }
+
+  .end :global(.miao-mark) {
+    width: 48px;
+    height: 48px;
+  }
+
+  @media (max-width: 960px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 40px;
+      padding-block: 48px;
     }
   }
 </style>

@@ -26,6 +26,7 @@ export default defineConfig({
         zh: { label: "简体中文", lang: "zh-CN" },
       },
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/mttydev" }],
+      favicon: "/favicon.png",
       customCss: [
         "@fontsource/instrument-serif/latin-400.css",
         "@fontsource-variable/instrument-sans/wght.css",

@@ -33,27 +33,27 @@ const zh = lang === 'zh'
 </figure>
 
 <style>
-  .showcase-window { margin: 0; min-width: 0; padding: 0 5px 5px; border: 1px solid var(--border-strong); border-radius: 14px; background: var(--surface); box-shadow: 0 24px 44px -22px rgb(0 0 0 / .35), 0 3px 10px -4px rgb(0 0 0 / .12); }
-  .window-header { display: flex; align-items: center; gap: 10px; height: 36px; margin: 0; padding: 0 8px; font-size: .72rem; }
-  .window-brand { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); font-family: var(--font-mono); }
-  .window-kind { color: var(--fg-muted); }
+  .showcase-window { margin: 0; min-width: 0; padding: 0; border: 1px solid var(--border-strong); border-radius: 0; background: var(--surface); box-shadow: var(--shadow); }
+  .window-header { display: flex; align-items: center; gap: 10px; height: 38px; margin: 0; padding: 0 12px; border-bottom: 1px solid var(--border); font-size: .66rem; }
+  .window-brand { display: inline-flex; align-items: center; gap: 7px; color: var(--fg); font-family: var(--font-sans); font-weight: 600; }
+  .window-kind { color: var(--fg-faint); font-family: var(--font-sans); font-size: .56rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
   .playback { margin-left: auto; }
-  .window-stage { position: relative; aspect-ratio: var(--showcase-aspect-ratio, 8 / 5); overflow: hidden; border-radius: 9px; background: #111312; }
+  .window-stage { position: relative; aspect-ratio: var(--showcase-aspect-ratio, 8 / 5); overflow: hidden; border-radius: 0; background: #08080a; }
   .window-slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 450ms ease, visibility 450ms; cursor: zoom-in; }
   .window-slide[data-active] { opacity: 1; visibility: visible; pointer-events: auto; }
   .window-slide :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .window-footer { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 8px; }
-  .feature-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-muted); font-size: .65rem; }
+  .window-footer { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-top: 1px solid var(--border); }
+  .feature-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-faint); font-family: var(--font-sans); font-size: .58rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
   .slide-controls { display: flex; align-items: center; gap: 3px; margin-left: auto; }
-  button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: var(--fg-muted); font-size: 18px; cursor: pointer; }
-  button:hover { background: var(--border); color: var(--fg); }
-  button:focus-visible, .window-slide:focus-visible { outline: 2px solid var(--mtty-accent); outline-offset: -2px; }
+  button { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--fg-muted); font-size: 17px; cursor: pointer; }
+  button:hover { background: var(--bg-tint); color: var(--fg); }
+  button:focus-visible, .window-slide:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
   .playback { font-size: 11px; }
   .slide-dot { width: 16px; }
-  .slide-dot span { width: 5px; height: 5px; border-radius: 50%; background: var(--fg-faint); opacity: .4; transition: width 200ms, opacity 200ms; }
-  .slide-dot[aria-current] span { width: 12px; border-radius: 4px; opacity: 1; background: var(--mtty-ink); }
+  .slide-dot span { width: 5px; height: 5px; border-radius: 0; background: var(--fg-faint); opacity: .45; transition: width 200ms, opacity 200ms; }
+  .slide-dot[aria-current] span { width: 14px; opacity: 1; background: var(--fg); }
   .showcase-window[data-embedded] { position: relative; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-  [data-embedded] .window-header { position: absolute; bottom: 0; right: 4px; z-index: 1; height: 32px; padding: 0; }
+  [data-embedded] .window-header { position: absolute; bottom: 0; right: 4px; z-index: 1; height: 32px; padding: 0; border: 0; }
   [data-embedded] .window-brand, [data-embedded] .window-kind { display: none; }
   [data-embedded] .window-footer { height: 32px; padding-right: 34px; }
   [hidden] { display: none !important; }
