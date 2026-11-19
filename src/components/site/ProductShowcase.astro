@@ -1,6 +1,4 @@
 ---
-import MiaoMark from './MiaoMark.astro'
-import MttyMark from './MttyMark.astro'
 
 interface Props { lang: string; miaoKind: string; mttyKind: string }
 const { lang, miaoKind, mttyKind } = Astro.props
@@ -21,7 +19,6 @@ const products = [
         aria-controls={`showcase-panel-${product.name}`}
         tabindex={index === 0 ? 0 : -1}
       >
-        {product.name === 'miao' ? <MiaoMark size={18} /> : <MttyMark size={18} />}
         <span class="tab-copy"><b>{product.name}</b><span>{product.kind}</span></span>
       </button>
     ))}
@@ -42,15 +39,15 @@ const products = [
 <style>
   .product-showcase { min-width: 0; padding: 0; border: 1px solid var(--border-strong); border-radius: 0; background: var(--surface); box-shadow: var(--shadow); }
   .product-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; padding: 0; border-bottom: 1px solid var(--border); }
-  .product-tab { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 16px 22px; border: 0; border-radius: 0; background: transparent; color: var(--fg-faint); text-align: left; cursor: pointer; transition: background 160ms ease, color 160ms ease; }
+  .product-tab { display: flex; align-items: center; justify-content: center; min-width: 0; padding: 18px 22px; border: 0; border-radius: 0; background: transparent; color: var(--fg-faint); text-align: center; cursor: pointer; transition: background 160ms ease, color 160ms ease; }
   .product-tab + .product-tab { border-left: 1px solid var(--border); }
   .product-tab:hover { background: var(--surface-raised); color: var(--fg); }
   .product-tab[aria-selected="true"] { background: var(--surface-raised); color: var(--fg); }
   .product-tab[aria-selected="true"] b { color: var(--miao-ink); }
   .product-tab[aria-selected="true"]#showcase-tab-mtty b { color: var(--mtty-ink); }
   .product-tab:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
-  .tab-copy { display: grid; gap: 3px; min-width: 0; }
-  .tab-copy b { font-family: var(--font-sans); font-size: .82rem; font-weight: 600; letter-spacing: .01em; }
+  .tab-copy { display: grid; gap: 3px; min-width: 0; justify-items: center; text-align: center; }
+  .tab-copy b { font-family: var(--font-display); font-size: 1.32rem; font-weight: 400; letter-spacing: .015em; line-height: 1; }
   .tab-copy > span { color: var(--fg-faint); font-family: var(--font-sans); font-size: .58rem; font-weight: 500; letter-spacing: .14em; line-height: 1.4; text-transform: uppercase; }
   .product-panel { --showcase-aspect-ratio: 1100 / 720; }
   [hidden] { display: none !important; }

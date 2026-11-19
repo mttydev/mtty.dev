@@ -28,7 +28,7 @@ export default defineConfig({
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/mttydev" }],
       favicon: "/favicon.png",
       customCss: [
-        "@fontsource/instrument-serif/latin-400.css",
+        "@fontsource-variable/bodoni-moda/wght.css",
         "@fontsource-variable/instrument-sans/wght.css",
         "@fontsource-variable/jetbrains-mono/wght.css",
         "./src/styles/tokens.css",
