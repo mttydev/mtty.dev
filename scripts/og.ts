@@ -206,7 +206,7 @@ body {
 .headline {
   font-family: var(--font-display);
   font-size: ${card.lang === "zh" ? 66 : 80}px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: ${card.lang === "zh" ? 1.2 : 1.02};
   letter-spacing: ${card.lang === "zh" ? "0" : "-0.015em"};
 }
