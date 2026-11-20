@@ -20,27 +20,27 @@ const RELEASES = "https://github.com/mttydev/mtty/releases/latest"
 
 const copy = {
   en: {
-    title: "miao — a leaner context, transparent cost, a one-line install",
+    title: "miao — designed for focus",
     description:
-      "miao is an open-source AI agent for the terminal. A stable system-context baseline keeps provider caches reusable, compaction begins before the window fills, and every turn's cost remains visible. Installation is a single command.",
+      "miao is an open-source AI agent for the terminal: a leaner context, a transparent bill, and a one-line install.",
     kicker: "An open-source AI agent for the terminal",
-    h1a: "Context, distilled.",
-    h1b: "Cost, transparent.",
-    h1c: "Install, one line.",
+    h1a: "Less noise.",
+    h1b: "More composure.",
+    h1c: "One line to begin.",
     heroLede:
-      "miao delivers the same work with a leaner context. The system-context baseline stays fixed, changes enter chronologically, and provider cache prefixes remain reusable; compaction begins before the window is full, with tokens, cache hits and estimated cost visible for every turn.",
+      "Designed for focus. Context keeps only what matters, every turn's cost stays visible, and installation is a single command.",
     pillars: [
       [
-        "Context, distilled",
-        "A fixed system-context baseline and chronological changes keep provider cache prefixes reusable. Compaction begins before 90% of the window is used, and its summary reuses the current request prefix; old tool output is pruned by default.",
+        "Context, only what matters",
+        "A stable system-context baseline keeps provider caches reusable. Compaction begins before the window fills and reuses the current request prefix; old tool output is pruned by default.",
       ],
       [
-        "Cost, transparent",
-        "Per-turn tokens, cache-hit rate, time to first token and estimated cost are recorded. A session budget can cap cost, tokens, provider turns and wall-clock time — a warning at four fifths, a stop at a safe turn boundary.",
+        "Cost, always in view",
+        "Per-turn tokens, cache hits and estimated cost are recorded. Budgets can be set over cost, tokens, provider turns and time, with a warning at four fifths.",
       ],
       [
-        "Install, one line",
-        "A single command. The installer writes one binary, with no separate engine or TUI files; macOS, Linux and Windows builds are published.",
+        "One line to begin",
+        "The installer writes one binary, with no separate engine or TUI files. macOS, Linux and Windows are supported.",
       ],
     ],
     miaoBlurb:
@@ -60,12 +60,12 @@ const copy = {
     productsLabel: "the products",
     productsH: "Two independent projects.",
     miaoKind: "AI agent",
-    miaoH: "The same result, with a leaner context.",
+    miaoH: "Less noise, more composure.",
     miaoPoints: [
-      ["A stable context prefix", "The system-context baseline stays fixed and changes enter chronologically, so a provider can keep hitting its prompt cache across turns."],
-      ["Compaction before cost rises", "Compaction begins before the window fills and its summary reuses the current request prefix; old tool output is pruned by default, with full results kept on disk."],
-      ["Every turn's cost, accounted for", "Per-turn tokens, cache-hit rate, time to first token and estimated cost, with budgets over cost, tokens, turns and time."],
-      ["One binary, one command", "The installer writes only miao, with no separate engine or TUI; one command covers macOS, Linux and Windows."],
+      ["Context, only what matters", "The system-context baseline stays fixed and changes enter chronologically, so a provider can keep hitting its prompt cache across turns."],
+      ["Compact before cost rises", "Compaction begins before the window fills and its summary reuses the current request prefix; old tool output is pruned by default, with full results kept on disk."],
+      ["Every turn, accounted for", "Per-turn tokens, cache-hit rate, time to first token and estimated cost, with budgets over cost, tokens, turns and time."],
+      ["One line to begin", "The installer writes only miao, with no separate engine or TUI; one command covers macOS, Linux and Windows."],
     ],
     miaoMeta: "Single binary · Rust accelerators · MIT",
     miaoMore: "Explore miao",
@@ -80,7 +80,7 @@ const copy = {
     mttyMeta: "Rust · Apache-2.0 · pre-release",
     mttyMore: "Explore mtty",
     togetherLabel: "better together",
-    togetherH: "Run four agents without watching a single window.",
+    togetherH: "Four agents at once, none of them watched.",
     togetherLede:
       "Inside an mtty pane, miao reports its state over the terminal's control plane. mtty badges the pane, raises a notification when an agent needs you, keeps the machine awake while one is working, and sends your queued prompt the moment it goes idle.",
     togetherFine:
@@ -106,37 +106,37 @@ const copy = {
       ["/shots/mtty-splits.webp", "mtty · recursive splits", "Git changes and a running local HTTP server side by side in the same workspace."],
     ],
     honestLabel: "status",
-    honestH: "Early, evolving quickly, and explicit about its limits.",
+    honestH: "Early, but clear about its limits.",
     honest: [
       ["Pre-1.0", "Both projects release often and change between versions. Release notes live on GitHub."],
       ["Docs from the source", "User guides for both products are synced from their repositories; each synced page names its source commit."],
       ["Claims with caveats", "Benchmarks say what they measure. Features that are opt-in or experimental say so."],
     ],
-    endH: "Start with one command.",
+    endH: "Begin with one line.",
     docs: "Read the docs",
   },
   zh: {
-    title: "miao — 以更精简的上下文，交付同等的成果",
+    title: "miao — 为专注而设计",
     description:
-      "miao 是终端中的开源 AI 智能体。稳定的系统上下文基线使供应商缓存可持续复用，压缩在窗口填满之前开始；每一轮的成本清晰可见，安装仅需一行命令。",
+      "miao 是终端中的开源 AI 智能体。上下文精简，开销透明，安装只需一行。",
     kicker: "终端中的开源 AI 智能体",
-    h1a: "上下文，精简有序。",
-    h1b: "开销，清晰可见。",
-    h1c: "安装，一行即成。",
+    h1a: "少一点冗余。",
+    h1b: "多一点从容。",
+    h1c: "一行，即可开始。",
     heroLede:
-      "以更精简的上下文完成同样的工作。系统上下文基线保持稳定，变化按时间顺序引入，供应商缓存前缀因此可以持续复用；压缩在窗口填满之前开始，每一轮 token、缓存命中与估算费用均可核对。",
+      "为专注而设计。上下文只保留必要部分，每一轮开销清晰可查；安装只需一行命令。",
     pillars: [
       [
-        "上下文精简",
-        "系统上下文基线保持不变，变化按时间顺序引入，供应商缓存前缀因此可以持续复用。压缩在窗口使用率达到 90% 之前开始，摘要复用当前请求前缀；旧工具输出默认裁剪。",
+        "上下文，只留必要",
+        "稳定的系统上下文基线让供应商缓存持续复用。压缩在窗口填满之前开始，摘要复用当前请求前缀；旧工具输出默认裁剪。",
       ],
       [
-        "成本透明",
-        "逐轮 token、缓存命中率、首 token 延迟与估算费用均有记录。会话预算可限定金额、token、模型轮次与实际耗时：使用至五分之四时提醒，达到上限时在安全轮次边界停止。",
+        "开销，始终可见",
+        "逐轮 token、缓存命中与估算费用均有记录。预算可按金额、token、模型轮次与实际耗时设定，使用至五分之四时提醒。",
       ],
       [
-        "安装从简",
-        "安装仅需一行命令。安装器只写入单个二进制，无需额外的引擎或 TUI 文件；macOS、Linux 与 Windows 均提供构建。",
+        "开始，只需一行",
+        "安装器只写入单个二进制，无需额外的引擎或 TUI 文件。macOS、Linux 与 Windows 均可使用。",
       ],
     ],
     miaoBlurb: "阅读仓库、修改代码、执行命令并验证结果。模型可自主选择，每一轮的开销均有记录。",
@@ -154,12 +154,12 @@ const copy = {
     productsLabel: "两个产品",
     productsH: "两个彼此独立的项目。",
     miaoKind: "AI 智能体",
-    miaoH: "以更精简的上下文，交付同等的成果。",
+    miaoH: "少一点冗余，多一点从容。",
     miaoPoints: [
-      ["稳定的上下文前缀", "系统上下文基线保持不变，变化按时间顺序引入，供应商可跨轮持续命中提示缓存。"],
+      ["上下文只留必要", "系统上下文基线保持不变，变化按时间顺序引入，供应商可跨轮持续命中提示缓存。"],
       ["在成本上升之前压缩", "压缩在窗口填满之前开始，摘要复用当前请求前缀；旧工具输出默认裁剪，完整结果保留在磁盘。"],
-      ["每一轮成本均可核对", "逐轮 token、缓存命中率、首 token 延迟与估算费用，并可通过金额、token、轮次和时长设定预算。"],
-      ["单个二进制，一行命令", "安装器仅写入 miao，无需额外的引擎或 TUI；同一条命令覆盖 macOS、Linux 与 Windows。"],
+      ["每一轮都有据可查", "逐轮 token、缓存命中率、首 token 延迟与估算费用，并可按金额、token、轮次与时长设定预算。"],
+      ["开始只需一行", "安装器仅写入 miao，无需额外的引擎或 TUI；同一条命令覆盖 macOS、Linux 与 Windows。"],
     ],
     miaoMeta: "单二进制 · Rust 加速 · MIT",
     miaoMore: "了解 miao",
@@ -174,7 +174,7 @@ const copy = {
     mttyMeta: "Rust · Apache-2.0 · 预发布",
     mttyMore: "了解 mtty",
     togetherLabel: "配合使用",
-    togetherH: "同时运行四个代理，而无需逐一查看窗口。",
+    togetherH: "四个代理同时运行，无需逐一查看。",
     togetherLede:
       "在 mtty 的窗格中，miao 通过终端的控制面上报状态。mtty 据此为窗格添加徽章，在代理需要确认时发出通知，在代理执行期间阻止电脑休眠，并在其空闲时发出排队的提示。",
     togetherFine:
@@ -200,13 +200,13 @@ const copy = {
       ["/shots/mtty-splits.webp", "mtty · 递归分屏", "Git 改动与实际运行的本地 HTTP 服务并排，共用一个工作区。"],
     ],
     honestLabel: "现状",
-    honestH: "仍处早期，迭代迅速，边界陈述明确。",
+    honestH: "早期，但边界清楚。",
     honest: [
       ["1.0 之前", "两个项目发布频繁，版本之间可能存在变化。发布说明见 GitHub。"],
       ["文档源自源码", "两个产品的使用文档均从对应仓库同步，每篇同步页面注明来源提交。"],
       ["陈述均附边界", "基准测试说明其测量对象；可选或实验性能力均会明确标注。"],
     ],
-    endH: "从一条命令开始。",
+    endH: "从一行命令开始。",
     docs: "阅读文档",
   },
 }[lang]
