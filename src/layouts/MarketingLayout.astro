@@ -38,8 +38,21 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
     <link rel="alternate" hreflang={htmlLang} href={canonical} />
     <link rel="alternate" hreflang={lang === "en" ? "zh-CN" : "en"} href={alternate} />
     <link rel="alternate" hreflang="x-default" href={lang === "en" ? canonical : alternate} />
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    {
+      route === "mtty" ? (
+        <>
+          <link rel="icon" type="image/svg+xml" href="/mtty/favicon.svg" />
+          <link rel="icon" type="image/png" sizes="64x64" href="/mtty/favicon.png" />
+        </>
+      ) : (
+        <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+      )
+    }
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={route === "mtty" ? "/mtty/apple-touch-icon.png" : "/apple-touch-icon.png"}
+    />
     <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#08080a" media="(prefers-color-scheme: dark)" />
     <meta property="og:title" content={title} />
@@ -71,7 +84,7 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
   <body>
     <a class="skip" href="#main">{lang === "en" ? "Skip to content" : "跳到正文"}</a>
     <div class="scroll-progress" aria-hidden="true"></div>
-    <SiteHeader lang={lang} />
+    <SiteHeader lang={lang} product={route} />
     <main id="main">
       <slot />
     </main>
