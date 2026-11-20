@@ -19,13 +19,13 @@ const RELEASES = `${REPO}/releases/latest`
 
 const copy = {
   en: {
-    title: "mtty — a terminal and editor written in Rust",
+    title: "mtty — a terminal and editor in Rust",
     description:
-      "A terminal and editor written in Rust. Terminals, files, remote hosts and coding agents in one window, local or remote.",
+      "A terminal and editor in Rust. Terminals, files, remote hosts and coding agents in one window.",
     kind: "Terminal · editor · agents",
     h1a: "Terminal, editor, agents:",
     h1b: "one window.",
-    lede: "Edit a file beside the shell, see the moment an agent needs you, and line up the next prompt while it works. mtty runs locally and hosts the agent you choose; it does not call a model itself.",
+    lede: "Edit beside the shell, see when an agent needs input, queue the next prompt while it works. Runs locally; never calls a model.",
     naming: "The application ships as <code>mtty</code> (called <code>miaotty</code> up to v0.0.5); the source lives in <code>mtty</code>.",
     download: "Download the preview",
     build: "Installation guide",
@@ -52,16 +52,16 @@ const copy = {
       ["3. Run your agent", "Start an installed agent CLI in a pane. miao reports state automatically; other supported agents have hook setup actions."],
     ],
     pillarsLabel: "three parts",
-    pillarsH: "Three things, one window.",
+    pillarsH: "Terminal, editor, agents.",
     pillars: [
       ["Terminal and remote", "Your shells and hosts", "GPU-rendered tabs and splits, session restore, saved hosts, SSH keys, SFTP and FTP, port forwarding, jump hosts, snippets and broadcast input. Serial, Telnet, raw TCP and encrypted .ppk import are available too."],
       ["Editor", "Code beside its terminal", "Native editor panes with syntax highlighting, multiple cursors, find and replace, large-file view mode, Markdown and Mermaid preview, language servers, optional vim, folding and outline."],
       ["Agent workspace", "See, steer and review", "State badges, notifications and follow-up prompt queues. Review undoable inline edit proposals, use ACP agents, send selections or diagnostics as context, and automate with mtty-cli."],
     ],
     engineLabel: "the engine",
-    engineH: "The engine is the engine. The app is the app.",
-    engineBody: "Dependencies point one way: host, renderer, core. The core has no windowing or GPU code, so it can be embedded elsewhere. The app is the engine's first user, not its owner.",
-    hot: "Output queues have a ceiling, redraws follow what changed, and allocation has a measured budget.",
+    engineH: "Engine and app, separate.",
+    engineBody: "Dependencies point one way: host, renderer, core. The core has no windowing or GPU code and can be embedded elsewhere; the app is its first user.",
+    hot: "Bounded output queues, redraws limited to changed regions, measured allocation budgets.",
     layers: [
       ["host", "mtty-widget", "winit + wgpu render loop; composites egui chrome in the same frame"],
       ["render", "mtty-render", "wgpu + glyphon glyph grid; quad and image pipelines"],
@@ -70,8 +70,8 @@ const copy = {
     beside: ["graphics", "config", "mtp", "ui"],
     besideLabel: "alongside",
     perfLabel: "measured",
-    perfH: "Performance, checked in CI.",
-    perfBody: "Every metric has headroom: an order-of-magnitude regression fails the build; a jittery runner does not.",
+    perfH: "Performance, checked by CI.",
+    perfBody: "Metrics keep wide margins: an order-of-magnitude regression fails the build; runner jitter does not.",
     perfHead: ["Metric", "Budget", "Baseline"],
     perf: [
       ["VT parse throughput", "≥ 25 MB/s", "73 MB/s"],
@@ -81,7 +81,7 @@ const copy = {
     ],
     perfFine: "Baselines are release builds on an M-series Mac. Frame time and key-to-glyph latency need a real window and GPU, so they are measured by hand rather than gated.",
     wsLabel: "the workspace",
-    wsH: "More than a prompt in a window.",
+    wsH: "Beyond the prompt.",
     ws: [
       ["Tabs and splits", "A recursive split tree with draggable dividers. Tabs can be marked and grouped, and both survive a restart.", "⌘D  ⇧⌘D"],
       ["Open Quickly", "One palette over tabs, agents, snippets, hosts, files in the current folder, recent files and commands.", shortcuts.openQuickly.mac],
@@ -95,7 +95,7 @@ const copy = {
       ["The pane's own task list", "The Outline panel keeps the commands run in this pane, with their directory, so the work of a session stays visible beside it.", shortcuts.details.mac],
     ],
     screensLabel: "the screens",
-    screensH: "Shot in the real app.",
+    screensH: "In the real app.",
     screensBody:
       "Captures from the 2026-10-04 development build, using an isolated example project: agent badges, live preview, inline edit review, hosts, splits and the details panels. Agent-state events and edit proposals are driven through the real control plane; the host addresses are examples.",
     screens: [
@@ -142,13 +142,13 @@ const copy = {
     docs: "Documentation",
   },
   zh: {
-    title: "mtty — 用 Rust 写的终端与编辑器",
+    title: "mtty — 用 Rust 编写的终端与编辑器",
     description:
-      "mtty 是用 Rust 写的终端与编辑器。终端、文件、远程主机和编码代理都在一个窗口里，本地和远程一样顺手。",
+      "用 Rust 编写的终端与编辑器。终端、文件、远程主机与编码代理同处一窗，本地与远程一致。",
     kind: "终端 · 编辑器 · 代理",
-    h1a: "终端、编辑器、代理，",
-    h1b: "一个窗口。",
-    lede: "在 shell 旁边改文件，代理需要你时马上知道，它干活的时候先把下一条提示排好。mtty 在本地运行，托管你选的代理，自己不调用模型。",
+    h1a: "终端、编辑器与代理。",
+    h1b: "同处一窗。",
+    lede: "在 shell 旁编辑文件，代理需输入时可见，工作期间可预备下一条提示。本地运行，不调用模型。",
     naming: "应用以 <code>mtty</code> 的名字发布（v0.0.5 及之前名为 <code>miaotty</code>），源码在 <code>mtty</code> 仓库。",
     download: "下载预览版",
     build: "安装指引",
@@ -159,7 +159,7 @@ const copy = {
     ],
     shot: "当前 mtty 工作区：会话侧栏、Markdown 编辑器、Mermaid 渲染预览和分屏终端。",
     cap: "编辑器、Mermaid 预览与终端 · 同一个示例工作区",
-    preview: "<strong>预发布。</strong>API 还没稳定。macOS 是主要平台；Windows 和 Linux 已经构建、测试，也在真实桌面上跑过。Apple 公证和 Windows MSI 签名还没完成。",
+    preview: "<strong>预发布。</strong>API 未稳定。macOS 为主要平台；Windows 与 Linux 已构建、测试并在真实桌面验证。Apple 公证与 Windows MSI 签名尚未完成。",
     glanceLabel: "一眼看懂",
     glance: [
       ["终端与远程", "GPU 渲染的标签与分屏，主机库、SFTP、端口转发与跳板机，走你自己的 OpenSSH。"],
@@ -171,20 +171,20 @@ const copy = {
     installGuide: "安装包选择与首次启动步骤",
     start: [
       ["1. 选择安装包", "macOS 按 Apple 芯片或 Intel 选 zip；Linux 选 .deb、AppImage 或 tar；Windows 选 MSI 或 zip。"],
-      ["2. 打开 mtty", "使用本地终端或连接已保存的 SSH 主机。在命令面板选择打开文件，让代码与 shell 并排。"],
+      ["2. 打开 mtty", "使用本地终端或连接已保存的 SSH 主机。在命令面板打开文件，与 shell 并排。"],
       ["3. 运行代理", "在窗格里启动已安装的代理 CLI。miao 自动上报状态；其他受支持代理提供 hook 设置入口。"],
     ],
     pillarsLabel: "三个部分",
-    pillarsH: "三样东西，一个窗口。",
+    pillarsH: "终端、编辑器、代理。",
     pillars: [
       ["终端与远程", "管理 shell 与主机", "GPU 渲染的标签与分屏、会话恢复、主机库、SSH 密钥、SFTP 与 FTP、端口转发、跳板机、片段与广播输入。串口、Telnet、原始 TCP 和加密 .ppk 导入也已可用。"],
       ["编辑器", "代码就在终端旁", "原生编辑器窗格提供语法高亮、多光标、查找替换、大文件查看模式、Markdown 与 Mermaid 预览、语言服务器，以及可选 vim、折叠与大纲。"],
       ["代理工作台", "看状态、补要求、审改动", "状态徽章、通知与后续提示队列。可审阅可撤销的行内编辑提案，使用 ACP 代理，发送选区或诊断作为上下文，也能用 mtty-cli 自动化操作。"],
     ],
     engineLabel: "引擎",
-    engineH: "引擎是引擎，应用是应用。",
-    engineBody: "依赖只朝一个方向走：宿主 → 渲染 → 内核。内核里没有窗口，也没有 GPU 代码，所以能嵌进别的程序。应用只是引擎的第一个用户，不是它的主人。",
-    hot: "输出队列有上限，只重绘变化的部分，内存分配有实测预算。",
+    engineH: "引擎与应用分离。",
+    engineBody: "依赖单向：宿主、渲染、内核。内核不含窗口与 GPU 代码，可嵌入其他程序；应用是引擎的首个使用者。",
+    hot: "输出队列有界，仅重绘变化区域，分配有实测预算。",
     layers: [
       ["host", "mtty-widget", "winit + wgpu 渲染循环，在同一帧合成 egui 界面"],
       ["render", "mtty-render", "wgpu + glyphon 字形网格，四边形与图像管线"],
@@ -193,8 +193,8 @@ const copy = {
     beside: ["graphics", "config", "mtp", "ui"],
     besideLabel: "并列模块",
     perfLabel: "实测",
-    perfH: "性能，由 CI 把关。",
-    perfBody: "每项指标都留足了余量：差一个数量级，构建就会失败；机器抖一下，不会。",
+    perfH: "性能由 CI 把关。",
+    perfBody: "指标保留充足余量：数量级退化使构建失败，运行器抖动不会。",
     perfHead: ["指标", "预算", "基线"],
     perf: [
       ["VT 解析吞吐", "≥ 25 MB/s", "73 MB/s"],
@@ -204,7 +204,7 @@ const copy = {
     ],
     perfFine: "基线为 M 系列 Mac 上的 release 构建。帧时间与按键到字形的延迟需要真实窗口和 GPU，因此手动测量，不作为 CI 门槛。",
     wsLabel: "工作台",
-    wsH: "窗口里不止有提示符。",
+    wsH: "不止提示符。",
     ws: [
       ["标签与分屏", "递归分屏树，分隔条可拖动。标签可以加标记、分组，重启后依然保留。", "⌘D  ⇧⌘D"],
       ["快速打开", "一个面板覆盖标签、代理、命令片段、主机、当前目录的文件、最近文件和命令。", shortcuts.openQuickly.mac],
@@ -218,7 +218,7 @@ const copy = {
       ["窗格自己的任务清单", "大纲面板保留本窗格执行过的命令及其目录，一次会话做过的事就在旁边一目了然。", shortcuts.details.mac],
     ],
     screensLabel: "界面",
-    screensH: "都拍自真实的应用。",
+    screensH: "实景。",
     screensBody:
       "使用独立示例项目，从 2026-10-04 的开发构建采集：代理徽章、实时预览、行内改动审阅、主机库、分屏和详情面板。代理状态事件与改动提议通过真实控制面驱动；主机地址为示例。",
     screens: [
