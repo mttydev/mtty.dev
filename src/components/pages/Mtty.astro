@@ -274,9 +274,9 @@ const copy = {
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="label mtty rise"><MttyMark size={18} /><b>mtty</b> {copy.kind}</p>
-        <h1 class="display h1 rise" style="--i:1">
-          <span class="hl">{copy.h1a}</span>
-          <em class="hl accent mtty">{copy.h1b}</em>
+        <h1 class="display h1">
+          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+          <em class="hl accent mtty" style="--line:1"><span>{copy.h1b}</span></em>
         </h1>
         <p class="lede rise" style="--i:2">{copy.lede}</p>
         <p class="fine naming rise" style="--i:2" set:html={copy.naming} />

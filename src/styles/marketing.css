@@ -59,6 +59,24 @@ pre {
   outline-offset: 3px;
 }
 
+/* Reading progress: one hairline, revealed only once the page moves. */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: 1px;
+  background: var(--fg);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+  transition: opacity 400ms var(--ease);
+}
+
+:root[data-scrolled="true"] .scroll-progress {
+  opacity: 0.55;
+}
+
 .skip {
   position: absolute;
   left: 16px;
@@ -119,6 +137,28 @@ pre {
 
 .h1 {
   font-size: clamp(3.2rem, 7.4vw, 7.2rem);
+  line-height: 1.02;
+}
+
+/* Each line rises out of its own mask. The markup supplies --line so the
+   three-line home headline and the two-line product headline share one rule. */
+.h1 .hl {
+  display: block;
+  overflow: hidden;
+  padding-inline: 0.04em;
+  margin-inline: -0.04em;
+}
+
+.h1 .hl > span {
+  display: block;
+  animation: line-in 1200ms var(--ease) both;
+  animation-delay: calc(120ms + var(--line, 0) * 140ms);
+}
+
+@keyframes line-in {
+  from {
+    transform: translateY(112%);
+  }
 }
 
 .h2 {
@@ -519,16 +559,68 @@ kbd {
 /* --- Scroll reveal, driven by src/scripts/site.ts -------------------------
  *
  * That script hands out .reveal-pending itself, and only to elements below the
- * fold when it ran, so this file never hides anything on its own. */
+ * fold when it ran, so this file never hides anything on its own. The section
+ * fades as a block; its contents drift up a little later, one after another. */
 .reveal-pending {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+  transition: opacity 800ms var(--ease);
 }
 
 .reveal-pending.is-revealed {
   opacity: 1;
+}
+
+.reveal-pending .section-head > *,
+.reveal-pending .duo > .card,
+.reveal-pending .scard,
+.reveal-pending .honest > li,
+.reveal-pending .together-copy > *,
+.reveal-pending .board {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 900ms var(--ease), transform 900ms var(--ease);
+}
+
+.reveal-pending.is-revealed .section-head > *,
+.reveal-pending.is-revealed .duo > .card,
+.reveal-pending.is-revealed .scard,
+.reveal-pending.is-revealed .honest > li,
+.reveal-pending.is-revealed .together-copy > *,
+.reveal-pending.is-revealed .board {
+  opacity: 1;
   transform: none;
+}
+
+/* A short, fixed stagger keeps the rhythm readable instead of mechanical. */
+.reveal-pending.is-revealed .section-head > *:nth-child(2) {
+  transition-delay: 90ms;
+}
+
+.reveal-pending.is-revealed .section-head > *:nth-child(3) {
+  transition-delay: 180ms;
+}
+
+.reveal-pending.is-revealed .duo > .card:nth-child(2),
+.reveal-pending.is-revealed .honest > li:nth-child(2),
+.reveal-pending.is-revealed .together-copy > *:nth-child(2) {
+  transition-delay: 110ms;
+}
+
+.reveal-pending.is-revealed .honest > li:nth-child(3),
+.reveal-pending.is-revealed .together-copy > *:nth-child(3) {
+  transition-delay: 220ms;
+}
+
+.reveal-pending.is-revealed .scard:nth-child(2) {
+  transition-delay: 90ms;
+}
+
+.reveal-pending.is-revealed .scard:nth-child(3) {
+  transition-delay: 180ms;
+}
+
+.reveal-pending.is-revealed .scard:nth-child(4) {
+  transition-delay: 270ms;
 }
 
 /* The one orchestrated moment: the hero arrives in a short stagger. */
@@ -549,12 +641,26 @@ kbd {
     scroll-behavior: auto;
   }
 
+  .scroll-progress {
+    display: none;
+  }
+
+  .h1 .hl > span {
+    animation: none;
+  }
+
   .rise {
     animation: none;
   }
 
   .reveal-pending,
-  .reveal-pending.is-revealed {
+  .reveal-pending.is-revealed,
+  .reveal-pending .section-head > *,
+  .reveal-pending .duo > .card,
+  .reveal-pending .scard,
+  .reveal-pending .honest > li,
+  .reveal-pending .together-copy > *,
+  .reveal-pending .board {
     opacity: 1;
     transform: none;
     transition: none;

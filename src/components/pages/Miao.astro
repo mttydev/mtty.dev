@@ -238,9 +238,9 @@ const copy = {
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <p class="label miao rise"><MiaoMark size={18} /><b>miao</b> {copy.kind}</p>
-        <h1 class="display h1 rise" style="--i:1">
-          <span class="hl">{copy.h1a}</span>
-          <em class="hl accent">{copy.h1b}</em>
+        <h1 class="display h1">
+          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+          <em class="hl accent" style="--line:1"><span>{copy.h1b}</span></em>
         </h1>
         <p class="lede rise" style="--i:2">{copy.lede}</p>
         <p class="sub rise" style="--i:2">{copy.sub}</p>
@@ -885,7 +885,7 @@ const copy = {
 
   .h1 {
     font-size: clamp(2.55rem, 5.8vw, 5.6rem);
-    line-height: 0.99;
+    line-height: 1.02;
     letter-spacing: -0.018em;
   }
 
@@ -928,10 +928,19 @@ const copy = {
 
   .mcard {
     border-radius: 0;
+    overflow: clip;
   }
 
   .mcard:hover {
     transform: none;
+  }
+
+  .mcard :global(img) {
+    transition: transform 1200ms var(--ease);
+  }
+
+  .mcard:hover :global(img) {
+    transform: scale(1.012);
   }
 
   .mcard :global(.product-media) {
@@ -949,6 +958,16 @@ const copy = {
       grid-template-columns: minmax(0, 1fr);
       gap: 40px;
       padding-block: 48px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mcard :global(img) {
+      transition: none;
+    }
+
+    .mcard:hover :global(img) {
+      transform: none;
     }
   }
 </style>

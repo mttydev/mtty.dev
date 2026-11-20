@@ -42,6 +42,8 @@ const zh = lang === 'zh'
   .window-slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 450ms ease, visibility 450ms; cursor: zoom-in; }
   .window-slide[data-active] { opacity: 1; visibility: visible; pointer-events: auto; }
   .window-slide :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .window-slide[data-active] :global(img) { animation: media-settle 7200ms var(--ease) both; }
+  @keyframes media-settle { from { transform: scale(1.022); } to { transform: scale(1); } }
   .window-footer { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-top: 1px solid var(--border); }
   .feature-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-faint); font-family: var(--font-sans); font-size: .58rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
   .slide-controls { display: flex; align-items: center; gap: 3px; margin-left: auto; }
@@ -57,7 +59,7 @@ const zh = lang === 'zh'
   [data-embedded] .window-brand, [data-embedded] .window-kind { display: none; }
   [data-embedded] .window-footer { height: 32px; padding-right: 34px; }
   [hidden] { display: none !important; }
-  @media (prefers-reduced-motion: reduce) { .window-slide, .slide-dot span { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .window-slide, .slide-dot span { transition: none; } .window-slide[data-active] :global(img) { animation: none; } }
 </style>
 
 <script>
