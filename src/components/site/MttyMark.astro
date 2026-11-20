@@ -2,6 +2,9 @@
 // mtty's mark: the app icon from mtty/scripts/make-icon.py, redrawn as
 // vectors so it scales. Same proportions as the script — rounded tile at 0.22
 // radius, a Nord8 chevron, a Nord13 cursor block — on a 32-unit grid.
+// The icon keeps the app's own Nord palette instead of the site's muted
+// `--mtty-*` chrome tokens: #16171a on #3f6d7a is only 3.1:1 and reads as a
+// black square at header size.
 interface Props {
   size?: number
 }
@@ -9,14 +12,14 @@ const { size = 32 } = Astro.props
 ---
 
 <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
-  <rect width="32" height="32" rx="7" fill="var(--mtty-tile)" />
+  <rect width="32" height="32" rx="7" fill="#2e3440" />
   <path
     d="M9.25 11.5 15.25 16 9.25 20.5"
     fill="none"
-    stroke="var(--mtty-accent)"
+    stroke="#88c0d0"
     stroke-width="2.75"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
-  <rect x="17.25" y="18.75" width="6.25" height="2" fill="var(--mtty-warm)" />
+  <rect x="17.25" y="18.75" width="6.25" height="2" fill="#ebcb8b" />
 </svg>
