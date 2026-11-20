@@ -1,5 +1,6 @@
 ---
 import { prefixFor, type Locale } from "../../i18n/routes"
+import MttyMark from "./MttyMark.astro"
 
 interface Props {
   lang?: Locale
@@ -52,7 +53,11 @@ const columns = [
   <div class="inner">
     <div class="sign">
       <p class="mark">
-        <img src="/miao/mark.png" width="42" height="42" alt="" />
+        {product === "mtty" ? (
+          <MttyMark size={42} />
+        ) : (
+          <img src="/miao/mark.png" width="42" height="42" alt="" />
+        )}
         <span>mtty<span class="tld">.dev</span></span>
       </p>
       <p class="motto" data-reveal>
@@ -132,11 +137,20 @@ const columns = [
     line-height: 1;
   }
 
-  .mark img {
+  .mark img,
+  .mark svg {
     width: 42px;
     height: 42px;
     object-fit: contain;
+  }
+
+  .mark img {
     filter: invert(1);
+  }
+
+  .mark svg {
+    display: block;
+    flex: none;
   }
 
   .tld {
