@@ -221,10 +221,10 @@ const copy = {
         <span>OPEN SOURCE · MIT</span>
       </div>
 
-      <h1 class="display h1 rise" style="--i:1">
-        <span class="hl">{copy.h1a}</span>
-        <span class="hl">{copy.h1b}</span>
-        <em class="hl accent">{copy.h1c}</em>
+      <h1 class="display h1">
+        <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+        <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
+        <em class="hl accent" style="--line:2"><span>{copy.h1c}</span></em>
       </h1>
 
       <div class="hero-intro rise" style="--i:2">
@@ -1100,7 +1100,7 @@ const copy = {
   .h1 {
     margin: 44px 0 0;
     font-size: clamp(2.6rem, 9vw, 8.6rem);
-    line-height: 0.96;
+    line-height: 1.02;
     letter-spacing: -0.02em;
   }
 
@@ -1244,6 +1244,11 @@ const copy = {
     font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1;
+    transition: letter-spacing 400ms var(--ease);
+  }
+
+  .card:hover .card-name {
+    letter-spacing: 0.012em;
   }
 
   .card-kind {
@@ -1315,6 +1320,15 @@ const copy = {
 
   .scard {
     margin: 0;
+    overflow: clip;
+  }
+
+  .scard :global(img) {
+    transition: transform 1200ms var(--ease);
+  }
+
+  .scard:hover :global(img) {
+    transform: scale(1.012);
   }
 
   .scard:first-child {
@@ -1476,6 +1490,21 @@ const copy = {
 
     .scard:first-child {
       grid-column: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-name,
+    .scard :global(img) {
+      transition: none;
+    }
+
+    .card:hover .card-name {
+      letter-spacing: -0.01em;
+    }
+
+    .scard:hover :global(img) {
+      transform: none;
     }
   }
 </style>

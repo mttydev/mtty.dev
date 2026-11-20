@@ -70,6 +70,7 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
   </head>
   <body>
     <a class="skip" href="#main">{lang === "en" ? "Skip to content" : "跳到正文"}</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <SiteHeader lang={lang} />
     <main id="main">
       <slot />

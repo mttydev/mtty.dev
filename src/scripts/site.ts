@@ -7,6 +7,27 @@
 
 const targets = document.querySelectorAll<HTMLElement>("[data-reveal]")
 
+// The hairline under the header is the page's reading progress. It is updated
+// in a frame callback so a fast scroll cannot queue a write per event.
+const progress = document.querySelector<HTMLElement>(".scroll-progress")
+
+if (progress) {
+  let frame = 0
+  const update = () => {
+    frame = 0
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    const ratio = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
+    progress.style.transform = `scaleX(${ratio})`
+    document.documentElement.dataset.scrolled = window.scrollY > 8 ? "true" : "false"
+  }
+  const request = () => {
+    if (!frame) frame = requestAnimationFrame(update)
+  }
+  addEventListener("scroll", request, { passive: true })
+  addEventListener("resize", request)
+  update()
+}
+
 if (targets.length > 0 && "IntersectionObserver" in window) {
   const pending = Array.from(targets).filter(
     (target) => target.getBoundingClientRect().top > window.innerHeight * 0.85,
