@@ -16,7 +16,7 @@ const temporary = await mkdtemp(join(tmpdir(), "mtty-schemas-"))
 
 try {
   const result = Bun.spawn(
-    ["bun", "script/schema.ts", join(temporary, "config.json"), join(temporary, "tui.json")],
+    [process.execPath, "script/schema.ts", join(temporary, "config.json"), join(temporary, "tui.json")],
     {
       cwd: join(resolve(source), "packages/miao"),
       stdout: "inherit",
