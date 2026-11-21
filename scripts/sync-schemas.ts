@@ -12,13 +12,20 @@ if (index === -1 || !source || source.startsWith("--")) {
   )
 }
 const check = process.argv.includes("--check")
+const generator = join(resolve(source), "packages/miao/script/schema.ts")
+if (!(await Bun.file(generator).exists())) {
+  console.log(
+    "miao no longer ships packages/miao/script/schema.ts; keeping the committed config and TUI schemas",
+  )
+  process.exit(0)
+}
 const temporary = await mkdtemp(join(tmpdir(), "mtty-schemas-"))
 
 try {
   const result = Bun.spawn(
-    [process.execPath, "script/schema.ts", join(temporary, "config.json"), join(temporary, "tui.json")],
+    [process.execPath, generator, join(temporary, "config.json"), join(temporary, "tui.json")],
     {
-      cwd: join(resolve(source), "packages/miao"),
+      cwd: dirname(generator),
       stdout: "inherit",
       stderr: "inherit",
     },
