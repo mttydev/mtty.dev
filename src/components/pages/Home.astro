@@ -1122,19 +1122,19 @@ const copy = {
 
   .hero-split {
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
-    gap: 48px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 40px;
     align-items: center;
     margin-top: 44px;
   }
 
   .hero-split .h1 {
     margin: 0;
-    font-size: clamp(2.6rem, 6.2vw, 6.2rem);
+    font-size: clamp(2.6rem, 4.8vw, 4.8rem);
   }
 
   :lang(zh-CN) .hero-split .h1 {
-    font-size: clamp(2.3rem, 6.6vw, 5.8rem);
+    font-size: clamp(2.3rem, 5vw, 5rem);
   }
 
   .hero-split .hero-stage {
@@ -1439,7 +1439,7 @@ const copy = {
     justify-content: center;
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1100px) {
     .hero-split {
       grid-template-columns: minmax(0, 1fr);
       gap: 32px;
