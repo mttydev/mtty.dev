@@ -221,11 +221,28 @@ const copy = {
         <span>OPEN SOURCE · MIT</span>
       </div>
 
-      <h1 class="display h1">
-        <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-        <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
-        <em class="hl accent" style="--line:2"><span>{copy.h1c}</span></em>
-      </h1>
+      <div class="hero-split">
+        <h1 class="display h1">
+          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+          <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
+          <em class="hl accent" style="--line:2"><span>{copy.h1c}</span></em>
+        </h1>
+
+        <div class="hero-stage rise" style="--i:4">
+          <ProductShowcase lang={lang} miaoKind={copy.miaoKind} mttyKind={copy.mttyKind}>
+              <ShowcaseWindow slot="miao" embedded product="miao" kind={copy.miaoKind} lang={lang} slides={[
+                { src: "/shots/miao.webp", label: lang === "zh" ? "行内代码改动与上下文用量 · 示例会话" : "Inline code changes and context usage · Example session", alt: copy.shotMiao },
+                { src: "/shots/miao-providers.webp", label: lang === "zh" ? "连接你选择的模型服务" : "Connect your choice of model provider", alt: lang === "zh" ? "miao 模型服务选择面板" : "miao model provider selection" },
+                { src: "/shots/miao-home.webp", label: lang === "zh" ? "从一个提示开始" : "Start with a prompt", alt: lang === "zh" ? "miao 启动界面和提示输入框" : "miao start screen and prompt input" },
+              ]} />
+              <ShowcaseWindow slot="mtty" embedded product="mtty" kind={copy.mttyKind} lang={lang} slides={[
+                { src: "/shots/mtty.webp", label: lang === "zh" ? "编辑器、预览与终端" : "Editor, preview and terminal", alt: copy.shotMtty },
+                { src: "/shots/mtty-editor.webp", label: lang === "zh" ? "Markdown 与 Mermaid 实时预览" : "Live Markdown and Mermaid preview", alt: lang === "zh" ? "mtty Markdown 编辑器和实时预览" : "mtty Markdown editor with live preview" },
+                { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
+              ]} />
+          </ProductShowcase>
+        </div>
+      </div>
 
       <div class="hero-intro rise" style="--i:2">
         <p class="lede">{copy.heroLede}</p>
@@ -247,21 +264,6 @@ const copy = {
         ))
       }
     </ol>
-
-    <div class="hero-stage rise" style="--i:4">
-      <ProductShowcase lang={lang} miaoKind={copy.miaoKind} mttyKind={copy.mttyKind}>
-          <ShowcaseWindow slot="miao" embedded product="miao" kind={copy.miaoKind} lang={lang} slides={[
-            { src: "/shots/miao.webp", label: lang === "zh" ? "行内代码改动与上下文用量 · 示例会话" : "Inline code changes and context usage · Example session", alt: copy.shotMiao },
-            { src: "/shots/miao-providers.webp", label: lang === "zh" ? "连接你选择的模型服务" : "Connect your choice of model provider", alt: lang === "zh" ? "miao 模型服务选择面板" : "miao model provider selection" },
-            { src: "/shots/miao-home.webp", label: lang === "zh" ? "从一个提示开始" : "Start with a prompt", alt: lang === "zh" ? "miao 启动界面和提示输入框" : "miao start screen and prompt input" },
-          ]} />
-          <ShowcaseWindow slot="mtty" embedded product="mtty" kind={copy.mttyKind} lang={lang} slides={[
-            { src: "/shots/mtty.webp", label: lang === "zh" ? "编辑器、预览与终端" : "Editor, preview and terminal", alt: copy.shotMtty },
-            { src: "/shots/mtty-editor.webp", label: lang === "zh" ? "Markdown 与 Mermaid 实时预览" : "Live Markdown and Mermaid preview", alt: lang === "zh" ? "mtty Markdown 编辑器和实时预览" : "mtty Markdown editor with live preview" },
-            { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
-          ]} />
-      </ProductShowcase>
-    </div>
   </section>
 
   <section class="wrap section" data-reveal>
@@ -1118,6 +1120,30 @@ const copy = {
     color: var(--fg-faint);
   }
 
+  .hero-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+    gap: 48px;
+    align-items: center;
+    margin-top: 44px;
+  }
+
+  .hero-split .h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 6.2vw, 6.2rem);
+  }
+
+  :lang(zh-CN) .hero-split .h1 {
+    font-size: clamp(2.3rem, 6.6vw, 5.8rem);
+  }
+
+  .hero-split .hero-stage {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+
   .hero-intro {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(300px, 0.68fr);
@@ -1414,6 +1440,20 @@ const copy = {
   }
 
   @media (max-width: 960px) {
+    .hero-split {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+      margin-top: 28px;
+    }
+
+    .hero-split .h1 {
+      font-size: clamp(2.6rem, 9vw, 8.6rem);
+    }
+
+    :lang(zh-CN) .hero-split .h1 {
+      font-size: clamp(2.3rem, 9.4vw, 7rem);
+    }
+
     .hero-intro {
       grid-template-columns: minmax(0, 1fr);
       gap: 30px;
