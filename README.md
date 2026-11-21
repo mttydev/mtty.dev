@@ -64,7 +64,7 @@ Run from the repository root:
 | `bun run check:content` | Check source provenance, published schemas and retired marketing claims |
 | `bun run sync:docs` | Sync both products' bilingual user guides and marketing shortcuts |
 | `bun run sync:docs --check` | Detect body/link drift; ignore unrelated commit-only changes |
-| `bun run sync:schemas --miao <checkout>` | Generate config/TUI schemas from an installed miao source checkout |
+| `bun run sync:schemas --miao <checkout>` | Regenerate config/TUI schemas when the miao checkout ships the generator |
 | `bun run sync:models` | Build `public/models/api.json`, the catalog miao fetches |
 | `bun run og` | Re-render the social preview cards in `public/og/` |
 
@@ -90,8 +90,10 @@ bun run check:content
 ```
 
 Install miao's dependencies first with `bun install --frozen-lockfile --ignore-scripts`;
-schema generation does not require a native build. The model schema remains
-generated from the catalog by `sync:models` at deployment time.
+schema generation does not require a native build. The Rust-only miao tree retired
+`packages/miao/script/schema.ts`, so `sync:schemas` keeps the committed schemas unless a
+checkout ships that file again. The model schema remains generated from the catalog by
+`sync:models` at deployment time.
 
 The `product-content-sync` workflow runs daily, manually, or on a
 `product-docs-updated` repository dispatch. It checks out both products, updates
