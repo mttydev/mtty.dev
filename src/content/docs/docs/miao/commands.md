@@ -222,6 +222,77 @@ A prompt beginning with `!` executes one shell command directly; the output beco
 | `MIAO_WEB_PORT`       | Default port for `miao web` (`4096`)                        |
 | `MIAO_UPGRADE_FEED`   | Override the release feed used by upgrade checks            |
 
+## 10. Alphabetical index (A–Z)
+
+This index merges the CLI subcommands and TUI slash commands, sorted by command name (ignoring the `miao ` and `/` prefixes). `Type` says where the command lives; options and details remain in the sections above.
+
+| Command | Type | What it does |
+| --- | --- | --- |
+| `accounts` | TUI | Manage provider accounts (`/login`, `/logout`) |
+| `acp` | CLI | Serve Agent Client Protocol over stdio |
+| `agent` | CLI | List configured agents (`agent list`) |
+| `attach` | CLI | Probe a running miao server |
+| `auth` | CLI | Log in, log out, list credentials |
+| `changes` | TUI | Show workspace file changes (`/diff`) |
+| `clear` | TUI | Clear this session's model context |
+| `compact` | TUI | Compact this session's history now |
+| `completion` | CLI | Print a bash/zsh completion script |
+| `context` | TUI | Context window occupancy |
+| `db` | CLI | Database path, stats, vacuum, backup and diagnostic bundle |
+| `debug` | CLI / TUI | Engine, configuration, routes, LSP and MCP details |
+| `doctor` | CLI | Check storage, schema, configuration, routes and dependencies |
+| `editor` | TUI | Compose the prompt in `$EDITOR` |
+| `export` | CLI | Export session events as JSONL |
+| `goal` | TUI | Raise the Goal turn budget (`/goal budget <n>`) |
+| `help` | TUI | Keys and commands |
+| `hub` | CLI | Run the local session hub |
+| `hubctl` | CLI | Talk to a running hub |
+| `import-claude` | CLI | List or import Claude Code sessions |
+| `init` | TUI | Write an `AGENTS.md` for the project |
+| `lang` | TUI | Switch the interface language (`/language`) |
+| `mcp` | TUI | Show the MCP servers |
+| `memory` | CLI | Summarise the workspace knowledge store |
+| `model` | TUI | Select a model |
+| `models` | CLI | List addressable `provider/model` ids |
+| `new` | TUI | New session |
+| `paste` | TUI | Paste the clipboard |
+| `permissions` | TUI | Review saved permissions (`/approvals`) |
+| `plugins` | CLI | Show whether a JavaScript sidecar is needed |
+| `pr` | CLI | Show the current branch and working-tree changes |
+| `project` | CLI | Copy a project as a git worktree |
+| `providers` | CLI | List routes, plugins and credentials |
+| `quit` | TUI | Quit miao (`/exit`) |
+| `recall` | TUI | Restore an archived tool output by handle |
+| `redo` | TUI | Restore the last undone turn |
+| `redraw` | TUI | Redraw the terminal |
+| `remote` | CLI | Show this machine's pairing state |
+| `rename` | TUI | Rename the session |
+| `report` | CLI | Hand a conclusion back to another session |
+| `run` | CLI | Run one prompt non-interactively |
+| `runtime` | CLI | Internal Remote Control pipe |
+| `sandbox` | TUI | Toggle the OS sandbox for shell commands |
+| `serve` | CLI | Run the resident local server |
+| `session` | CLI | List, resume, fork, archive, move, export and import sessions |
+| `sessions` | TUI | Browse sessions (`/resume`) |
+| `stash` | TUI | Restore a stashed prompt |
+| `stash-draft` | TUI | Stash the current prompt |
+| `stats` | CLI | Summarise tokens, cache and time to first token |
+| `status` | TUI | Session status and usage (`/cost`) |
+| `suspend` | TUI | Suspend to the shell |
+| `tag` | TUI | Tag the session |
+| `terminal-title` | TUI | Toggle the terminal title |
+| `theme` | TUI | Select a theme |
+| `timeline` | TUI | Rewind to an earlier message |
+| `timings` | TUI | Show phase timings of this turn |
+| `tui` | CLI | Start the terminal UI explicitly |
+| `undo` | TUI | Undo the last turn |
+| `undo-files` | TUI | Restore files the last turn changed |
+| `uninstall` | CLI | Uninstall; dry run by default |
+| `upgrade` | CLI | Upgrade; `--check` reports only |
+| `web` | CLI | Start the server and print the browser address |
+| `workflow` | CLI | Run a declarative plan or Rhai script |
+| `worktree` | CLI / TUI | Manage or inspect git worktrees |
+
 ---
 
-*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/commands.en.md).*
+*Synced from [`mttydev/miao@6997524`](https://github.com/mttydev/miao/blob/6997524bf0a7a5e7b3da04ea272bf349872a522c/docs/commands.en.md).*
