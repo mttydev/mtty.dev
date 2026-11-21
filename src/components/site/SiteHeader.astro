@@ -54,6 +54,13 @@ const alternate = alternateFor(lang, Astro.url.pathname)
       <a class="docs" href={`${prefix}/docs/`} aria-current={isCurrent(`${prefix}/docs/`) ? "page" : undefined}>
         {lang === "en" ? "Docs" : "文档"}
       </a>
+      <a
+        class="docs"
+        href={`${prefix}/docs/miao/faq/`}
+        aria-current={isCurrent(`${prefix}/docs/miao/faq/`) ? "page" : undefined}
+      >
+        FAQ
+      </a>
       <a class="gh" href="https://github.com/mttydev" aria-label="GitHub">
         <svg width="17" height="17" viewBox="0 0 16 16" aria-hidden="true"
           ><path
@@ -230,6 +237,7 @@ const alternate = alternateFor(lang, Astro.url.pathname)
     letter-spacing: 0.16em;
     text-decoration: none;
     text-transform: uppercase;
+    white-space: nowrap;
     transition: color 140ms ease;
   }
 
