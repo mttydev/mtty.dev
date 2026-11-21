@@ -101,4 +101,30 @@ const { id, command, tone = "miao", label = "Copy", prompt = "$" } = Astro.props
     display: block;
     color: #8fd18f;
   }
+
+  @media (max-width: 560px) {
+    .cmd {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 8px;
+      padding: 12px 10px 12px 14px;
+      font-size: 0.72rem;
+    }
+
+    .prompt {
+      line-height: 1.5;
+    }
+
+    code {
+      overflow-x: visible;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      align-self: start;
+    }
+  }
+
 </style>
