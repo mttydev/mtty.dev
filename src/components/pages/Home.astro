@@ -28,19 +28,19 @@ const copy = {
     h1b: "for the terminal.",
     h1c: "Open source.",
     heroLede:
-      "Context and cost, recorded turn by turn. Installed in one line.",
+      "Read the repo, make the change, run the checks. <strong>Context and cost, visible every turn.</strong>",
     pillars: [
       [
         "Context",
-        "A fixed baseline, changes appended in order, so caches keep hitting. Compaction starts before the window fills.",
+        "A fixed baseline, changes appended in order. Caches keep hitting; compaction starts before the window fills.",
       ],
       [
         "Cost",
-        "Tokens, cache hits and estimated cost per turn. Budgets by money, tokens, turns and time.",
+        "Tokens, cache and estimated cost per turn. Budgets by money, turns and time.",
       ],
       [
         "Install",
-        "One binary, no separate engine or TUI.",
+        "One binary. No separate engine, no second TUI.",
       ],
     ],
     miaoBlurb:
@@ -124,19 +124,19 @@ const copy = {
     h1b: "编码代理。",
     h1c: "开源。",
     heroLede:
-      "逐轮记录上下文与费用。安装只需一行。",
+      "读仓库、改代码、跑检查。<strong>上下文与费用，逐轮可见。</strong>",
     pillars: [
       [
         "上下文",
-        "基线固定，变化按序追加，缓存持续命中；窗口将满时压缩。",
+        "固定基线，变化按序追加。缓存持续命中，压缩在窗口填满之前发生。",
       ],
       [
         "费用",
-        "逐轮记录 token、缓存命中与估算费用；预算按金额、token、轮次与时长设定。",
+        "token、缓存与估算费用逐轮记录。预算按金额、轮次与时长设定。",
       ],
       [
         "安装",
-        "单个二进制，无额外引擎或 TUI。",
+        "一个二进制。没有额外引擎，没有第二套 TUI。",
       ],
     ],
     miaoBlurb: "读仓库、改代码、运行命令、验证结果。模型自选，费用逐轮记录。",
@@ -216,11 +216,21 @@ const copy = {
   <section class="hero">
     <div class="wrap hero-head">
       <div class="hero-split">
-        <h1 class="display h1">
-          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-          <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
-          <em class="hl accent" style="--line:2"><span>{copy.h1c}</span></em>
-        </h1>
+        <div class="hero-copy">
+          <h1 class="display h1">
+            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+            <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
+            <span class="hl h1-accent" style="--line:2"><span>{copy.h1c}</span></span>
+          </h1>
+
+          <div class="hero-intro rise" style="--i:2">
+            <p class="lede" set:html={copy.heroLede} />
+            <div class="hero-install">
+              <p class="install-caption">{copy.installHead} · {copy.installMeta}</p>
+              <InstallCommand id="install-hero" label={copy.copyLabel} />
+            </div>
+          </div>
+        </div>
 
         <div class="hero-stage rise" style="--i:4">
           <ProductShowcase lang={lang} miaoKind={copy.miaoKind} mttyKind={copy.mttyKind}>
@@ -235,14 +245,6 @@ const copy = {
                 { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
               ]} />
           </ProductShowcase>
-        </div>
-      </div>
-
-      <div class="hero-intro rise" style="--i:2">
-        <p class="lede">{copy.heroLede}</p>
-        <div class="hero-install">
-          <p class="install-caption">{copy.installHead} · {copy.installMeta}</p>
-          <InstallCommand id="install-hero" label={copy.copyLabel} />
         </div>
       </div>
     </div>
@@ -643,13 +645,13 @@ const copy = {
 
   .points dt {
     font-weight: 600;
-    font-size: 0.93rem;
+    font-size: 1.03rem;
   }
 
   .points dd {
     margin: 0;
     color: var(--fg-muted);
-    font-size: 0.91rem;
+    font-size: 1rem;
   }
 
   .card-foot {
@@ -882,8 +884,8 @@ const copy = {
   .honest h3 {
     margin: 14px 0 8px;
     font-family: var(--font-display);
-    font-weight: 400;
-    font-size: 1.7rem;
+    font-weight: 500;
+    font-size: 2rem;
     line-height: 1.1;
   }
 
@@ -1091,6 +1093,13 @@ const copy = {
     margin-top: 44px;
   }
 
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
   :lang(zh-CN) .hero-split {
     grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
     gap: 32px;
@@ -1098,11 +1107,27 @@ const copy = {
 
   .hero-split .h1 {
     margin: 0;
-    font-size: clamp(2.6rem, 4.8vw, 4.8rem);
+    font-size: clamp(2.7rem, 4.6vw, 4.9rem);
+    line-height: 1.02;
   }
 
   :lang(zh-CN) .hero-split .h1 {
-    font-size: clamp(2.3rem, 5.4vw, 5.4rem);
+    font-size: clamp(2.5rem, 5.6vw, 5.5rem);
+    line-height: 1.08;
+  }
+
+  .h1-accent {
+    margin-top: 0.14em;
+    color: var(--miao-ink);
+    font-size: max(1rem, 0.34em);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  :lang(zh-CN) .h1-accent {
+    font-weight: 600;
+    letter-spacing: 0.12em;
   }
 
   .hero-split .hero-stage {
@@ -1114,34 +1139,35 @@ const copy = {
 
   .hero-intro {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.68fr);
-    gap: 56px;
-    align-items: end;
-    margin-top: 48px;
-    padding-top: 26px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    align-items: start;
+    margin-top: 40px;
+    padding-top: 24px;
     border-top: 1px solid var(--border);
   }
 
   .hero-intro .lede {
-    max-width: 48ch;
-    font-size: 1.06rem;
+    max-width: 34ch;
+    font-size: clamp(1.18rem, 1.55vw, 1.4rem);
+    line-height: 1.7;
   }
 
   .hero-install {
     display: grid;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
-    max-width: 460px;
-    justify-self: end;
+    max-width: none;
+    justify-self: stretch;
   }
 
   .install-caption {
     margin: 0;
     color: var(--fg-faint);
     font-family: var(--font-sans);
-    font-size: 0.62rem;
+    font-size: 0.78rem;
     font-weight: 550;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
@@ -1168,7 +1194,7 @@ const copy = {
   .hero-features .n {
     color: var(--fg-faint);
     font-family: var(--font-sans);
-    font-size: 0.64rem;
+    font-size: 0.78rem;
     font-weight: 550;
     letter-spacing: 0.16em;
   }
@@ -1176,18 +1202,22 @@ const copy = {
   .pillar-head {
     margin: 16px 0 12px;
     font-family: var(--font-display);
-    font-size: clamp(1.62rem, 2.4vw, 2.3rem);
+    font-size: clamp(1.9rem, 2.6vw, 2.6rem);
     font-weight: 500;
     line-height: 1.04;
     letter-spacing: -0.01em;
+  }
+
+  :lang(zh-CN) .pillar-head {
+    font-weight: 600;
   }
 
   .hero-features p {
     margin: 0;
     max-width: 38ch;
     color: var(--fg-muted);
-    font-size: 0.9rem;
-    line-height: 1.7;
+    font-size: 1.05rem;
+    line-height: 1.75;
   }
 
   .hero-stage {
