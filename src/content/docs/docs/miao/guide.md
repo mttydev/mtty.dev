@@ -13,7 +13,7 @@ releases. This guide covers install, usage, and troubleshooting end to end.
 
 miao is an open-source AI agent that works with you in the terminal, with an HTTP server and browser interface as well. It helps you write code, research topics, manage files, and automate tasks. It focuses on the work around model calls: durable sessions, context efficiency, collaboration, and visible cost.
 
-Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/README.md) and [workflow comparison](/docs/miao/comparison/).
+Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/README.md) and [workflow comparison](/docs/miao/comparison/).
 
 A useful first task is: “Find the cause of this failure, make the smallest appropriate fix, run the relevant checks, and explain the diff.” Add constraints while the agent works rather than starting a second conversation.
 
@@ -51,7 +51,7 @@ The current Windows release is not Authenticode-signed. The archive is `miao-win
 
 | Command        | What it is                                                                                           | Data / config                       | Updates                |
 | -------------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------- |
-| `miao`         | Stable release binary                                                                                | channel `latest`, DB `miao.db`      | background auto-update |
+| `miao`         | Stable release binary                                                                                | channel `latest`, DB `miao.db`      | explicit `miao upgrade` |
 | `miao-dev`     | Runs from source; the only entry that sees uncommitted edits                                         | channel `local`, DB `miao-local.db` | manual                 |
 | `miao-preview` | Compiled build of the current checkout (`./script/install-local.sh --binary /path/to/prebuilt/miao`) | channel = current branch            | none                   |
 
@@ -62,13 +62,19 @@ The current Windows release is not Authenticode-signed. The archive is `miao-win
 ```bash
 miao upgrade
 miao uninstall
-MIAO_DISABLE_AUTOUPDATE=1 miao   # disable auto-update for one run
+```
+
+An upgrade repoints `~/.miao/bin/miao` at a new version directory (`~/.miao/bin/.versions/<id>/miao`, previous ones are kept). It does **not** happen in the background, and no environment variable turns it on or off. Windows that are already open keep running the build they started with: the footer reports the **running** build and switching needs a restart — from the release that carries the notice, the status strip says `X installed · restart to apply`. To see which build a window runs, compare its start time with the version directory it is bound to:
+
+```bash
+ps -o lstart= -p <pid>
+lsof -p <pid> | grep '.versions/'
 ```
 
 ## 3. Quick start
 
 ```bash
-miao providers login   # credentials are written to auth.json
+miao auth login <integration> <key>   # or use /accounts in the TUI for OAuth / API key login
 miao models                  # list available models
 cd /path/to/project
 miao                         # start the TUI
@@ -89,39 +95,42 @@ Replace `<provider>/<model>` with an entry from `miao models`. A typical config 
 
 ## 4. Configuration
 
-Config files merge by precedence: project `.miao/` > global `~/.config/miao/`; `MIAO_CONFIG`
-overrides the path. Main fields:
+Config files merge by precedence: project `.miao/` > global `~/.config/miao/` > managed
+`/etc/miao/` (Linux), `/Library/Application Support/miao/` (macOS), `%ProgramData%\miao\`
+(Windows). The managed layer only exists when an administrator deployed one, and it never
+wins against a user or project key; `MIAO_MANAGED_CONFIG_DIR` relocates it and
+`MIAO_CONFIG` overrides the whole path. `miao debug config` prints each resolved key with
+the file that won it. Main fields:
 
-| Field                                                             | Purpose                                                                                                            |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `model`                                                           | default model (`provider/model`)                                                                                   |
-| `default_agent`                                                   | default agent                                                                                                      |
-| `permission`                                                      | permission rules (`allow` / `ask` / `deny`, by tool/path); unmatched defaults to `ask`                             |
-| `agents`                                                          | custom agents (model, system prompt, permissions, step cap)                                                        |
-| `lsp`                                                             | language servers: `true` enables all built-ins, `false` disables, or a per-name record. **Omitted = all disabled** |
-| `formatter`                                                       | formatters: `true` enables built-ins, or a per-name record with commands                                           |
-| `mcp`                                                             | MCP servers (local stdio / remote streamable-http)                                                                 |
-| `compaction`                                                      | `prune` old tool output, `threshold` ratio, `max_context` per-model window, `summarize_small`, `hot_prefix`, `precise_tokens` |
-| `cache`                                                           | `ttl_seconds` extends the prompt-cache TTL                                                                         |
-| `cost`                                                            | `budget_usd` per-session cost budget (warns and stops continuation)                                                |
-| `loop`                                                            | autonomous continuation (see §5.8)                                                                                 |
-| `shell`                                                           | default shell                                                                                                      |
-| `skills` / `commands` / `instructions` / `references` / `plugins` | skills, commands, instructions, references, plugins                                                                |
-| `watcher` / `attachments` / `tool_output` / `snapshots`           | watcher, attachments, tool-output thresholds, snapshots                                                            |
-| `providers`                                                       | custom providers/models (including native-currency `cost`)                                                         |
-| `engine`                                                          | native engine settings (global config only): `storage` places new Sessions on Rust; see [enabling the native engine](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-engine-enablement.en.md) |
-| `experimental`                                                    | experimental flags (e.g. Code Mode)                                                                                |
+| Field                                                             | Purpose                                                                                                                                              |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `model`                                                           | default model (`provider/model`)                                                                                                                     |
+| `default_agent`                                                   | default agent                                                                                                                                        |
+| `permission`                                                      | permission rules (`allow` / `ask` / `deny`, by tool/path); unmatched defaults to `ask`                                                               |
+| `agents`                                                          | custom agents (model, system prompt, permissions, step cap)                                                                                          |
+| `lsp`                                                             | language servers: `true` enables all built-ins, `false` disables, or a per-name record. **Omitted = all disabled**                                   |
+| `formatter`                                                       | formatters: `true` enables built-ins, or a per-name record with commands                                                                             |
+| `mcp`                                                             | MCP servers (local stdio / remote streamable-http)                                                                                                   |
+| `compaction`                                                      | `prune` old tool output, `threshold` ratio, `max_context` per-model window, `summarize_small`, `hot_prefix`, `precise_tokens`                        |
+| `cache`                                                           | `ttl_seconds` extends the prompt-cache TTL                                                                                                           |
+| `budget`                                                          | Session budget: `cost_usd`, `tokens`, `turns`, `wallclock_ms` (warns at four fifths, stops at the limit)                                             |
+| `cost`                                                            | `budget_usd` money axis of the same Session budget; a Goal states its own with `goal.budget`                                                          |
+| `loop`                                                            | autonomous continuation (see §5.8)                                                                                                                   |
+| `shell`                                                           | default shell                                                                                                                                        |
+| `skills` / `commands` / `instructions` / `references` / `plugins` | skills, commands, instructions, references, plugins                                                                                                  |
+| `watcher` / `attachments` / `tool_output` / `snapshots`           | watcher, attachments, tool-output thresholds, snapshots                                                                                              |
+| `providers`                                                       | custom providers/models (including native-currency `cost`)                                                                                           |
+| `engine`                                                          | legacy engine selection, kept only for compatibility; the engine always runs in-process, so this no longer changes placement |
+| `experimental`                                                    | experimental flags (e.g. Code Mode)                                                                                                                  |
 
 **Native currency**: set `providers.<id>.models.<m>.cost` in the provider's own currency (for
-example DeepSeek in CNY) to estimate costs using the declared currency; `/currency` in the TUI switches the
-display currency (defaults to USD, with a static conversion for providers without a declared
-currency).
+example DeepSeek in CNY) to estimate costs using the declared currency. Amounts are recorded in
+that currency and never converted; the ledger keeps one bucket per currency.
 
-**Native engine (opt-in)**: set `engine.storage` in the global config to place new Sessions on the
-Rust engine; `MIAO_ENGINE_STORAGE` overrides it. The release installs `miao-engine` next to the CLI,
-so no binary path is needed; existing Sessions keep their recorded engine. `miao doctor` reports the
-binary version, protocol and whether placement is on. Storage is separate from the TypeScript store,
-and `miao session migrate` moves an existing Session offline.
+**Engine**: the engine runs inside the `miao` binary, so there is no separate engine to install or
+point at. `MIAO_ENGINE_STORAGE` overrides where it keeps its storage (default
+`~/.local/share/miao-engine/storage`); `miao doctor` reports the protocol, the schema version and the
+database it would open. A development build can drive a separately built engine with `MIAO_ENGINE_BIN`.
 
 ## 5. Daily use
 
@@ -141,20 +150,38 @@ The default **leader key is `ctrl+x`**:
 | `ctrl+x` `g` | timeline                                             |
 | `ctrl+x` `q` | quit                                                 |
 
+While the prompt holds the keyboard:
+
+| Keys                                    | Action                                                     |
+| --------------------------------------- | ---------------------------------------------------------- |
+| `shift+←` `shift+→` `shift+↑` `shift+↓` | select text (`shift+Home/End`, `shift+ctrl+←/→` for words) |
+| `alt+a`                                 | select the whole draft                                     |
+| `alt+z` / `alt+.`                       | undo / redo inside the draft                               |
+| `ctrl+y`                                | copy the selection, or the last response                   |
+| `ctrl+j`                                | start a new line without sending                           |
+| `ctrl+c`                                | clear the draft (an empty draft quits)                     |
+| `tab`                                   | accept the grey offer in the prompt (indents when a draft exists) |
+
+Once a turn settles, the empty prompt offers the next thing this Session's todo
+list still has to do (`Next: …`). `tab` turns it into the draft so it can be
+edited before sending; a draft, a `!` command line, or a running turn keeps the
+offer away.
+
 Rebind in `~/.config/miao/tui.json` (or `keybinds` in miao.jsonc).
 
 ### 5.2 Sessions and models
 
 - `/model` or `ctrl+x m` switches models (the last model per agent is remembered).
 - `miao session list` / `miao export <sessionID>` manage and export sessions
-  (`--format jsonl` writes one message per line for grep/backup).
+  (JSONL with one committed event per line, for grep/backup).
 - `miao run "..."` runs once non-interactively.
 
 ### 5.3 Commands and skills
 
 - Slash commands come from the `commands` config and are triggered by `/`.
 - Skills are matched by description; the model loads skill content with the `skill` tool.
-- `miao agent create` generates a custom agent.
+- Custom agents are defined under `agents` in configuration; `miao agent list` shows them.
+- See the [command reference](/docs/miao/commands/) for the full list.
 
 ### 5.4 MCP
 
@@ -218,7 +245,7 @@ In V2, an input is admitted durably before execution is scheduled. Input sent du
 
 For example, after asking for a bug fix, add “Keep the public API unchanged and run the package tests.” The pending-input display records that the requirement is waiting to be promoted. The public V2 API also supports queue delivery and `resume: false` for admission without execution.
 
-Reopen sessions from the session list or export them with `miao export <sessionID> --format jsonl`. Persisted history survives a terminal lifetime, but a crash does not automatically retry unfinished provider execution. Resume deliberately, inspect completed changes, and verify any commands with external side effects before repeating them.
+Reopen sessions from the session list or export them with `miao export <sessionID>` (JSONL). Persisted history survives a terminal lifetime, but a crash does not automatically retry unfinished provider execution. Resume deliberately, inspect completed changes, and verify any commands with external side effects before repeating them.
 
 ### 5.10 Specialist agents and project-local messages
 
@@ -237,7 +264,7 @@ V2's `list_sessions` discovers project peers, and `send_message` accepts a sessi
 }
 ```
 
-This optional project configuration combines continued todo work, a scheduling budget, old-output pruning, and a bound on each tool's model-visible output. A budget does not interrupt an in-flight turn and is not a billing cap. Output files are temporary; the bounded transcript is the durable record. Tool-output pruning is on by default (disable with `"prune": false`). Automatic compaction triggers at `threshold` (default `0.9`) of the window using the provider's reported prompt tokens, so it runs before the window fills rather than at the last moment. Proactive compaction summarizes once over the request prefix, so the provider serves it from its prompt cache, and falls back to staged recovery when the prefix no longer has room for the instruction; set `"hot_prefix": false` to force the staged strategy. Small-model summaries stay opt-in: enable them after checking that the resolved cheap model suits your provider and workload.
+This optional project configuration combines continued todo work, a scheduling budget, old-output pruning, and a bound on each tool's model-visible output. A budget is enforced, per Session from configuration and per Goal from `goal.budget`: at four fifths spent the run is warned once with the remaining amount, and at the limit it stops at the next provider-turn boundary. Input you already admitted stays in the durable inbox for the next run, and the model is never switched to fit a budget. Money counts only what a provider reported, so a money note discloses turns that carried no charge and reads as a lower bound until billing settles. A budget does not interrupt an in-flight turn and is not a billing cap. Output files are temporary; the bounded transcript is the durable record. Tool-output pruning is on by default (disable with `"prune": false`). Automatic compaction triggers at `threshold` (default `0.9`) of the window using the provider's reported prompt tokens, so it runs before the window fills rather than at the last moment. Proactive compaction summarizes once over the request prefix, so the provider serves it from its prompt cache, and falls back to staged recovery when the prefix no longer has room for the instruction; set `"hot_prefix": false` to force the staged strategy. Small-model summaries stay opt-in: enable them after checking that the resolved cheap model suits your provider and workload.
 
 `compaction.max_context` works in a smaller window than the model declares — for cost, latency, or cache churn. It takes one value for every model or a map keyed by `"<providerID>/<modelID>"` (globs allowed, longest key wins): a token count, a `"300K"` / `"1.5M"` shorthand, or `"50%"` of the model window. The value is clamped to the model's real window and never raises it; compaction, context notices, and overflow recovery all plan against the clamped window. Because a config merge cannot delete a key, `0` restores the model default.
 
@@ -247,62 +274,37 @@ Content that a compaction removed from the model window stays durable on disk. T
 
 All shipped clients use the single V2 session runtime; the V1 session runtime and its `/session/*` routes have been removed.
 
-- [V1 retirement](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
-- [Session storage](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
-- [Agent concurrency](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
+- [V1 retirement](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
+- [Session storage](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
+- [Agent concurrency](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
 - Automatic post-crash execution continuation and clustered ownership are not implemented. The OS sandbox is built into the V2 `bash` tool but remains opt-in; see the [native/sandbox scope](/docs/miao/native-benchmarks/).
 
 ## 7. FAQ
 
-**Sidebar LSP always says "LSPs are disabled"?**
-`lsp` is omitted (omitted means disabled). Add `"lsp": true`: the native engine reloads the config
-and connects the server without a restart; the TypeScript engine still needs a restart.
+The frequently asked questions now live on their own page: [FAQ](/docs/miao/faq/), covering install and
+upgrade, providers and models, permissions, configuration, MCP, data locations and troubleshooting.
+Two answers are kept here because they affect basic usability:
 
-**`ctrl+x b` does not open the sidebar?**
-Child sessions (spawned by task/subagent, non-empty `parent_id`) force-hide the sidebar;
-top-level sessions work. Narrow terminals (width ≤ 120) do not show it in `auto` mode, but the
-manual toggle still works.
-
-**How do I configure models/providers?**
-`miao providers login` writes credentials; `miao models` lists them; customize under
-`providers` in `miao.jsonc`. Use `miao debug config` to inspect resolved configuration and `miao debug info` for installation and plugin diagnostics; `miao debug` lists its subcommands.
-
-**How do I use my Command Code subscription?**
-Connect once with `miao auth login commandcode` (a browser-assisted login), or set
-`CMD_API_KEY` to an API key from [commandcode.ai Studio](https://commandcode.ai/studio/).
-Its models are discovered from your account when it connects. Command Code uses its CLI
-subscription endpoint rather than the documented Provider API, so model capabilities and
-pricing are conservative until the catalog reports them.
-
-**Cost does not match the bill?**
-Use native-currency pricing (`providers.<id>.models.<m>.cost`), or switch display currency with
-`/currency`.
-
-**Native (Rust) addon problems?**
-`MIAO_NATIVE=0` disables the addon, and the TypeScript implementations of edit matching and patch derivation take over. The addon also backs the OS sandbox runner. See the [native component scope](/docs/miao/native-benchmarks/).
-
-**Can it keep working autonomously like a single long run?**
-Use the `loop` config (§5.8), or an external loop `miao run --continue "...continue..."`.
-
-**Does it modify my git repo?**
-Snapshots use a separate git directory (`~/.local/share/miao/snapshot/…`), so the worktree is not
-polluted; edits and commands follow the configured permission rules.
+- The sidebar says “LSPs are disabled”: `lsp` is omitted, and omitted means disabled. Add
+  `"lsp": true` to `miao.jsonc`; the native engine reloads the configuration and connects the server.
+- `ctrl+x b` does not open the sidebar: child sessions (spawned by task/subagent, non-empty
+  `parent_id`) force-hide it; narrow terminals (width ≤ 120) do not show it in `auto` mode, but the
+  manual toggle still works.
 
 ## 8. Troubleshooting
 
 ```bash
 miao db path              # database path
 miao db stats             # per-table/event usage (find bloat)
-miao db vacuum            # checkpoint + VACUUM to reclaim free pages
-miao db backfill          # project legacy V1 session messages into the V2 schema (idempotent)
-miao db compact           # after backfill: drop the retired message/part tables and their events
-miao export <sessionID> --format jsonl
+miao db vacuum --apply    # reclaim free pages
+miao db backup --to <path>  # verified database backup
+miao export <sessionID>   # export a session as JSONL
 MIAO_CONFIG=/path/miao.jsonc miao
 ```
 
-Logs live in `~/.local/share/miao/log/`. In databases written before V2, bloat comes mainly from
-legacy per-delta events; use `miao db stats` to monitor, `miao db compact` to retire the old tables,
-and `vacuum` to reclaim free pages.
+Logs live in `~/.local/share/miao/log/`. Use `miao db stats` to monitor growth and
+`miao db vacuum --apply` to reclaim free pages; `miao db retention` only reports events a retention
+policy could drop and never deletes them.
 
 ## 9. Development
 
@@ -316,8 +318,8 @@ bun --cwd packages/miao test
 
 ## License
 
-MIT. See [LICENSE](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
+MIT. See [LICENSE](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
 
 ---
 
-*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/guide.en.md).*
+*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/guide.en.md).*

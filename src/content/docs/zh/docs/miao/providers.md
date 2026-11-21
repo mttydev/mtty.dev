@@ -9,28 +9,24 @@ miao 自带模型层，但不自带模型本身：你连接自己已经在用的
 ## 连接供应商
 
 ```bash
-miao providers login     # 选择供应商，再用 OAuth 或 API key
-miao providers list      # 已连接了什么
-miao providers logout    # 移除保存的凭证
+miao auth login <integration> <key>          # 保存 API key
+miao auth login <integration> <key> --account work
+miao auth login <integration> <token> --oauth
+miao auth                                    # 列出凭据（不显示密钥）
+miao auth logout <integration> [--account NAME]
 ```
 
-`miao auth login <provider>` 是同一条命令。不带名字的 `miao providers login` 会列出你的构建所知的供应商并提示选择；带名字则直接进入该供应商（例如 `miao auth login commandcode`）。凭证写入 `auth.json`，在 `miao` / `miao-dev` / `miao-preview` 几个入口之间共享，所以只需登录一次。
-
-有些供应商走 OAuth（终端打印网址或打开浏览器，然后等待回调），另一些接受 API key。环境变量里已有 key 的供应商无需 `login` 也会被识别。
+也可以在 TUI 里输入 `/accounts`，按提示完成 OAuth 或 API key 登录。凭据写入共享凭据库，在 `miao` / `miao-dev` / `miao-preview` 几个入口之间共享，所以只需登录一次。环境变量里已有 key 的供应商无需 `login` 也会被识别。
 
 ## 列出与选择模型
 
 ```bash
-miao models                     # 当前 channel 能跑的模型（已有凭证或已登录）
-miao models anthropic           # 只看某个供应商
-miao models --verbose           # 带上成本等元数据
-miao models --refresh           # 先从 mtty.dev 刷新目录
-miao models --all               # 全部目录，并标注当前 channel 跑不了的条目
+miao models            # 当前配置和凭据能寻址的 provider/model
+miao providers         # 路由、插件数量和已保存凭据
+miao debug routes      # 解析出的路由清单（JSON）
 ```
 
-没有凭证的供应商、以及被构建禁用的模型默认不列出——TUI 和 `miao run` 都会拒绝
-它们。`--all` 仍会列出并追加 `(unavailable)`，登录前想浏览某个供应商有哪些模型
-时就查它。
+没有凭证的供应商不会被列出，因为 TUI 和 `miao run` 都无法使用它们；需要确认解析结果时看 `miao debug routes`。
 
 在 TUI 里，`/model` 或 `ctrl+x m` 切换模型；每个 agent 上次使用的模型会被记住。没有选定模型的会话使用 `model` 设置，写作 `<provider>/<model>`：
 
@@ -81,6 +77,7 @@ miao auth login mtty
       "models": {
         "llama-3.3-70b": {
           "name": "Llama 3.3 70B",
+          "capabilities": { "tools": true, "input": ["text"] },
           "cost": { "input": 0.2, "output": 0.6 },
           "limit": { "context": 131072 },
         },
@@ -92,18 +89,27 @@ miao auth login mtty
 
 `env` 指定供应商从哪些环境变量读取 key；`disabled` 会在即使存在凭证的情况下隐藏该供应商及其模型。`api` 选择通信协议，整个文件由 `$schema` 校验。改动后运行 `miao models` 确认该供应商现在报告的内容。
 
+`capabilities` 声明模型能做什么，并决定引擎给它发什么：`tools` 控制工具调用；`input` 列出模型接受的输入形态（`text`、`image`、`pdf`）。路由省略 `image` 时，引擎会把附加的图片替换成省略标记并指示模型告知操作者——所以自定义供应商背后的视觉模型必须声明 `["text", "image"]`，例如：
+
+```jsonc
+"deepseek-v4-1-flash-261017": {
+  "name": "DeepSeek V4.1 Flash",
+  "capabilities": { "tools": true, "input": ["text", "image"] },
+},
+```
+
 ## 原生引擎路由
 
 放到原生引擎上的会话通过可信宿主路由清单访问同样的供应商。目录供应商到原生
 transport 的映射、清单字段、凭证引用，以及明确留在 TypeScript 侧的供应商，见
-[原生引擎的供应商路由](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.zh.md)。供应商仍在这里配置和登录；
+[原生引擎的供应商路由](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/native-provider-routes.zh.md)。供应商仍在这里配置和登录；
 清单由产品生成，不需要手工编辑。
 
 ## 成本与货币
 
 每个供应商轮次都会记录用量、首 token 时间、缓存命中情况和估算成本；会话总计显示在侧边栏。成本是按模型标价的估算——以供应商的账单为准。
 
-价格可用供应商自己的货币声明（例如 DeepSeek 用 CNY）。TUI 里 `/currency` 切换显示货币；未声明货币的条目按静态汇率折算为美元。
+价格可用供应商自己的货币声明（例如 DeepSeek 用 CNY）。成本按声明的币种记录，不做汇率换算；账本按币种分别累计，避免把 CNY 和 USD 直接相加。
 
 ## 供应商策略（实验性）
 
@@ -123,11 +129,11 @@ transport 的映射、清单字段、凭证引用，以及明确留在 TypeScrip
 ## 排障
 
 - `miao debug config` 查看生效配置，`miao debug info` 查看安装与插件信息；`miao debug` 列出可用子命令。
-- 鉴权错误会指出修复方式，通常是 `miao auth login <provider>`；保存的 token 过期时重跑 `miao providers login`。
-- 供应商不显示任何模型，通常是缺凭证或被策略禁用；`miao models <provider> --all --verbose` 列出目录里的条目，`miao models <provider> --verbose` 显示可用时的解析结果。
+- 鉴权错误会指出修复方式，通常是 `miao auth login <integration> <key>`；保存的 token 过期时重新登录。
+- 供应商不显示任何模型，通常是缺凭证或被策略禁用；用 `miao debug routes` 和 `miao debug config` 查看解析结果。
 
 配置优先级见[使用指南](/zh/docs/miao/guide/)，供应商层的演进见[开源代理对比](/zh/docs/miao/comparison/)。
 
 ---
 
-*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.zh.md).*
+*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/providers.zh.md).*

@@ -18,6 +18,8 @@ curl -fsSL https://mtty.dev/miao/install | bash
 |---|---|
 | [为什么选择 miao](/zh/docs/miao/why-miao/) | 适用场景、当前功能与限制、方向性 roadmap |
 | [使用指南](/zh/docs/miao/guide/) | 安装与升级、供应商、配置、键位、会话与模型、命令与技能、MCP、LSP、沙箱、费用遥测、自治续跑、FAQ 与排障 |
+| [命令大全](/zh/docs/miao/commands/) | CLI 子命令、TUI 斜杠命令和常用环境变量，以及每个命令的用途 |
+| [常见问题](/zh/docs/miao/faq/) | 安装、供应商、权限、配置、数据与排障中的高频问题 |
 | [供应商与模型](/zh/docs/miao/providers/) | 连接供应商、选择与计价模型、自定义供应商，以及目录来源 |
 | [远程控制](/zh/docs/miao/remote/) | 连接窗口与自己的 Hub、配对设备、管理范围授权与连接生命周期 |
 | [版本管理与发布](/zh/docs/miao/release/) | 版本如何编号、构建和发布，以及如何回滚 |

@@ -18,6 +18,8 @@ curl -fsSL https://mtty.dev/miao/install | bash
 |---|---|
 | [Why choose miao?](/docs/miao/why-miao/) | Use cases, current features and limits, and development direction |
 | [Guide](/docs/miao/guide/) | Install and upgrade, providers, configuration, keybindings, sessions and models, commands and skills, MCP, LSP, the sandbox, cost telemetry, the autonomous loop, FAQ and troubleshooting |
+| [Command reference](/docs/miao/commands/) | Every CLI subcommand, TUI slash command and common environment variable, with what each one does |
+| [FAQ](/docs/miao/faq/) | Common questions about install, providers, permissions, configuration, data and troubleshooting |
 | [Providers and models](/docs/miao/providers/) | Connect providers, choose and price models, custom providers and where the catalog comes from |
 | [Remote Control](/docs/miao/remote/) | Connect a window to your Hub, pair a device, manage scoped access and understand its lifecycle |
 | [Versioning and release](/docs/miao/release/) | How versions are numbered, built and published, and how to roll back |

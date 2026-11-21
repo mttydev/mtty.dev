@@ -39,6 +39,12 @@ export const pages: DocPage[] = [
   },
   {
     repo: "mttydev/miao",
+    to: "miao/commands",
+    order: 3,
+    sources: { en: "docs/commands.en.md", zh: "docs/commands.zh.md" },
+  },
+  {
+    repo: "mttydev/miao",
     to: "miao/providers",
     order: 3,
     sources: { en: "docs/providers.en.md", zh: "docs/providers.zh.md" },
@@ -72,6 +78,12 @@ export const pages: DocPage[] = [
     to: "miao/native-benchmarks",
     order: 6,
     sources: { en: "docs/native-benchmarks.en.md", zh: "docs/native-benchmarks.zh.md" },
+  },
+  {
+    repo: "mttydev/miao",
+    to: "miao/faq",
+    order: 9,
+    sources: { en: "docs/faq.en.md", zh: "docs/faq.zh.md" },
   },
 
   // The security policy is published verbatim rather than summarised. A
