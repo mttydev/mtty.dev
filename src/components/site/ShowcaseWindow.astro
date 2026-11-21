@@ -7,7 +7,7 @@ interface Props { product: 'miao' | 'mtty'; kind: string; lang: string; slides: 
 const { product, kind, lang, slides, embedded = false } = Astro.props
 const zh = lang === 'zh'
 ---
-<figure class="showcase-window" data-embedded={embedded ? '' : undefined} data-showcase data-interval={product === 'miao' ? 6500 : 7500} aria-label={`${product} ${zh ? '功能展示' : 'feature showcase'}`}>
+<figure class="showcase-window" data-embedded={embedded ? '' : undefined} data-showcase data-interval={product === 'miao' ? 5000 : 5500} aria-label={`${product} ${zh ? '功能展示' : 'feature showcase'}`}>
   <figcaption class="window-header">
     <span class="window-brand">
       {product === 'miao' ? <MiaoMark size={15} /> : <MttyMark size={15} />}<b>{product}</b>
@@ -39,8 +39,8 @@ const zh = lang === 'zh'
   .window-kind { color: var(--fg-faint); font-family: var(--font-sans); font-size: .56rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
   .playback { margin-left: auto; }
   .window-stage { position: relative; aspect-ratio: var(--showcase-aspect-ratio, 8 / 5); overflow: hidden; border-radius: 0; background: #08080a; }
-  .window-slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 450ms ease, visibility 450ms; cursor: zoom-in; }
-  .window-slide[data-active] { opacity: 1; visibility: visible; pointer-events: auto; }
+  .window-slide { position: absolute; inset: 0; display: block; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(18px); transition: opacity 450ms ease, visibility 450ms, transform 650ms var(--ease); cursor: zoom-in; }
+  .window-slide[data-active] { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
   .window-slide :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
   .window-slide[data-active] :global(img) { animation: media-settle 7200ms var(--ease) both; }
   @keyframes media-settle { from { transform: scale(1.022); } to { transform: scale(1); } }
@@ -72,11 +72,10 @@ const zh = lang === 'zh'
     let index = 0
     let paused = reduce.matches
     let visible = false
-    let hovered = false
     let timer: ReturnType<typeof setTimeout> | undefined
     const schedule = () => {
       clearTimeout(timer)
-      if (paused || !visible || hovered || document.hidden || root.contains(document.activeElement)) return
+      if (paused || !visible || document.hidden || root.contains(document.activeElement)) return
       timer = setTimeout(() => { show(index + 1); schedule() }, Number(root.dataset.interval))
     }
     const show = (next: number) => {
@@ -105,8 +104,7 @@ const zh = lang === 'zh'
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
       event.preventDefault(); show(index + (event.key === 'ArrowRight' ? 1 : -1)); schedule()
     })
-    root.addEventListener('mouseenter', () => { hovered = true; schedule() })
-    root.addEventListener('mouseleave', () => { hovered = false; schedule() })
+
     root.addEventListener('focusin', schedule)
     root.addEventListener('focusout', () => setTimeout(schedule, 0))
     document.addEventListener('visibilitychange', schedule)
