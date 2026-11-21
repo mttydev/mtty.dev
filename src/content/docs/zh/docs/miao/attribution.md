@@ -1,7 +1,7 @@
 ---
 title: "项目来源与许可"
 sidebar:
-  order: 10
+  order: 11
 ---
 
 ## 来源与致谢

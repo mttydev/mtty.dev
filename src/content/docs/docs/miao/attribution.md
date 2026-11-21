@@ -1,7 +1,7 @@
 ---
 title: "Project origins and licensing"
 sidebar:
-  order: 10
+  order: 11
 ---
 
 ## Origins and acknowledgements

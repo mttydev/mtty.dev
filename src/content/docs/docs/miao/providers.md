@@ -12,35 +12,29 @@ credentials go straight to the provider.
 ## Connect a provider
 
 ```bash
-miao providers login     # choose a provider, then OAuth or an API key
-miao providers list      # what is connected
-miao providers logout    # remove stored credentials
+miao auth login <integration> <key>          # store an API key
+miao auth login <integration> <key> --account work
+miao auth login <integration> <token> --oauth
+miao auth                                    # list credentials (never secrets)
+miao auth logout <integration> [--account NAME]
 ```
 
-`miao auth login <provider>` is the same command. `miao providers login`
-without a name lists what your build knows and prompts; with a name it goes
-straight to that provider (for example `miao auth login commandcode`).
-Credentials are written to `auth.json`, which is shared across the
-`miao` / `miao-dev` / `miao-preview` entry points, so you log in once.
-
-Some providers offer an OAuth flow (the terminal prints a URL, or opens the
-browser, and waits for the callback); others take an API key. A provider that
+You can also type `/accounts` in the TUI and complete OAuth or an API-key login
+there. Credentials are written to the shared credential store, which the
+`miao` / `miao-dev` / `miao-preview` entry points share, so you log in once.
+A provider that
 has a key in the environment is also picked up without `login`.
 
 ## List and select models
 
 ```bash
-miao models                     # models this channel can run (credential or login present)
-miao models anthropic           # filter to one provider
-miao models --verbose           # include metadata such as costs
-miao models --refresh           # refresh the catalog from mtty.dev first
-miao models --all               # whole catalog, marking what this channel cannot run
+miao models            # provider/model ids this configuration and its credentials can address
+miao providers         # routes, plugin count and stored credentials
+miao debug routes      # the resolved route manifest as JSON
 ```
 
-Providers without a credential and models the build disables are left out by
-default, because the TUI and `miao run` reject them. `--all` lists them anyway
-and appends `(unavailable)`, which is the way to browse a provider's model ids
-before logging in.
+Providers without a credential are left out because the TUI and `miao run`
+cannot use them; use `miao debug routes` when you need to see what resolved.
 
 Inside the TUI, `/model` or `ctrl+x m` switches the model; the last model used
 per agent is remembered. A session without a chosen model uses the `model`
@@ -109,6 +103,7 @@ and native-currency cost.
       "models": {
         "llama-3.3-70b": {
           "name": "Llama 3.3 70B",
+          "capabilities": { "tools": true, "input": ["text"] },
           "cost": { "input": 0.2, "output": 0.6 },
           "limit": { "context": 131072 },
         },
@@ -124,13 +119,27 @@ and native-currency cost.
 `$schema`. After editing, run `miao models` to confirm what the provider now
 reports.
 
+`capabilities` declares what the model can do, and it gates what the engine
+sends it. `tools` gates tool calling; `input` lists the modalities the model
+accepts (`text`, `image`, `pdf`). A route that omits `image` makes the engine
+replace attached images with an omission marker and instructs the model to
+tell the operator — so a vision model behind a custom provider must declare
+`["text", "image"]`, for example:
+
+```jsonc
+"deepseek-v4-1-flash-261017": {
+  "name": "DeepSeek V4.1 Flash",
+  "capabilities": { "tools": true, "input": ["text", "image"] },
+},
+```
+
 ## Native engine routes
 
 Sessions placed on the native engine reach these same providers through a
 trusted host route manifest. The mapping from a catalog provider to a native
 transport, the manifest fields, credential references, and the providers that
 deliberately stay on TypeScript are documented in
-[Native engine provider routes](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/native-provider-routes.en.md). You still
+[Native engine provider routes](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/native-provider-routes.en.md). You still
 configure and authenticate providers here; the manifest is generated, not
 edited.
 
@@ -141,8 +150,8 @@ estimated cost; session totals appear in the sidebar. Costs are estimates from
 the model's declared rates — your provider's invoice is authoritative.
 
 Pricing may be declared in the provider's own currency (for example DeepSeek in
-CNY). `/currency` in the TUI switches the display currency; entries without a
-declared currency use a static conversion to USD.
+CNY). Amounts are recorded in that currency and never converted; the ledger
+keeps one bucket per currency so CNY and USD are never added together.
 
 ## Provider policy (experimental)
 
@@ -164,11 +173,10 @@ wins**. The supported action is `provider.use`; `resource` accepts wildcard patt
 ## Troubleshooting
 
 - `miao debug config` shows resolved configuration; `miao debug info` shows installation and plugin information. `miao debug` lists the available subcommands.
-- An authentication error names the fix, usually `miao auth login <provider>`;
-  re-run `miao providers login` if the stored token expired.
+- An authentication error names the fix, usually `miao auth login <integration> <key>`;
+  log in again if the stored token expired.
 - A provider that shows no models is usually missing credentials or disabled by
-  policy; `miao models <provider> --all --verbose` shows what the catalog holds
-  and `miao models <provider> --verbose` shows what resolves once it is usable.
+  policy; use `miao debug routes` and `miao debug config` to inspect what resolved.
 
 See the [guide](/docs/miao/guide/) for configuration precedence and the
 [agent workflow comparison](/docs/miao/comparison/) for how the provider layer
@@ -176,4 +184,4 @@ evolved.
 
 ---
 
-*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/providers.en.md).*
+*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/providers.en.md).*
