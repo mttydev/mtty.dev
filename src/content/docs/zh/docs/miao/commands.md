@@ -222,6 +222,77 @@ sidebar:
 | `MIAO_WEB_PORT`       | `miao web` 的默认端口（默认 `4096`）                       |
 | `MIAO_UPGRADE_FEED`   | 覆盖升级检查使用的 release 源                              |
 
+## 10. 按首字母排列（A–Z）
+
+这张索引把 CLI 子命令和 TUI 斜杠命令合在一起，按命令名首字母排序（忽略 `miao ` 和 `/` 前缀）。`类型` 说明命令出现在哪里；详细参数仍见前面的分节。
+
+| 命令 | 类型 | 用途 |
+| --- | --- | --- |
+| `accounts` | TUI | 管理供应商账户（`/login`、`/logout`） |
+| `acp` | CLI | 通过 stdio 提供 Agent Client Protocol |
+| `agent` | CLI | 列出配置定义的 agent（`agent list`） |
+| `attach` | CLI | 探测运行中的 miao 服务 |
+| `auth` | CLI | 登录、登出、列出凭据 |
+| `changes` | TUI | 查看工作区文件改动（`/diff`） |
+| `clear` | TUI | 清空当前会话的模型上下文 |
+| `compact` | TUI | 立即压缩当前会话历史 |
+| `completion` | CLI | 输出 bash/zsh 补全脚本 |
+| `context` | TUI | 查看上下文窗口占用 |
+| `db` | CLI | 数据库路径、统计、回收、备份、诊断包 |
+| `debug` | CLI / TUI | 读取引擎、配置、路由、LSP、MCP 信息 |
+| `doctor` | CLI | 检查存储、schema、配置、路由和依赖 |
+| `editor` | TUI | 用 `$EDITOR` 编辑提示词 |
+| `export` | CLI | 把会话事件导出为 JSONL |
+| `goal` | TUI | 提高 Goal 轮次预算（`/goal budget <n>`） |
+| `help` | TUI | 查看按键和命令 |
+| `hub` | CLI | 运行本地会话 hub |
+| `hubctl` | CLI | 与运行中的 hub 通信 |
+| `import-claude` | CLI | 列出或导入 Claude Code 会话 |
+| `init` | TUI | 为项目写 `AGENTS.md` |
+| `lang` | TUI | 切换界面语言（`/language`） |
+| `mcp` | TUI | 查看 MCP 服务器 |
+| `memory` | CLI | 汇总工作区知识库 |
+| `model` | TUI | 选择模型 |
+| `models` | CLI | 列出可寻址的 `provider/model` |
+| `new` | TUI | 新建会话 |
+| `paste` | TUI | 粘贴剪贴板 |
+| `permissions` | TUI | 查看已保存权限（`/approvals`） |
+| `plugins` | CLI | 显示是否需要 JavaScript sidecar |
+| `pr` | CLI | 显示当前分支和工作树改动 |
+| `project` | CLI | 把项目复制成 git worktree |
+| `providers` | CLI | 列出路由、插件和凭据 |
+| `quit` | TUI | 退出 miao（`/exit`） |
+| `recall` | TUI | 按句柄恢复归档的工具输出 |
+| `redo` | TUI | 恢复上次撤销的轮次 |
+| `redraw` | TUI | 重绘终端 |
+| `remote` | CLI | 显示本机配对状态 |
+| `rename` | TUI | 重命名会话 |
+| `report` | CLI | 向另一个会话交回结论 |
+| `run` | CLI | 非交互执行一次提示词 |
+| `runtime` | CLI | 内部 Remote Control 管道 |
+| `sandbox` | TUI | 切换 shell 命令的 OS 沙箱 |
+| `serve` | CLI | 运行常驻本地服务 |
+| `session` | CLI | 会话列表、恢复、分叉、归档、移动、导入导出 |
+| `sessions` | TUI | 浏览会话（`/resume`） |
+| `stash` | TUI | 恢复暂存的提示草稿 |
+| `stash-draft` | TUI | 暂存当前提示草稿 |
+| `stats` | CLI | 汇总 token、缓存和首 token 延迟 |
+| `status` | TUI | 会话状态与用量（`/cost`） |
+| `suspend` | TUI | 挂起到 shell |
+| `tag` | TUI | 给会话打标签 |
+| `terminal-title` | TUI | 开关终端标题 |
+| `theme` | TUI | 选择主题 |
+| `timeline` | TUI | 回到较早的消息 |
+| `timings` | TUI | 查看本轮各阶段耗时 |
+| `tui` | CLI | 显式启动终端界面 |
+| `undo` | TUI | 撤销上一轮 |
+| `undo-files` | TUI | 恢复上一轮改过的文件 |
+| `uninstall` | CLI | 卸载，默认 dry-run |
+| `upgrade` | CLI | 升级，`--check` 只检查 |
+| `web` | CLI | 启动服务并打印浏览器地址 |
+| `workflow` | CLI | 运行声明式计划或 Rhai 脚本 |
+| `worktree` | CLI / TUI | 管理或查看 git worktree |
+
 ---
 
-*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/commands.zh.md).*
+*Synced from [`mttydev/miao@6997524`](https://github.com/mttydev/miao/blob/6997524bf0a7a5e7b3da04ea272bf349872a522c/docs/commands.zh.md).*
