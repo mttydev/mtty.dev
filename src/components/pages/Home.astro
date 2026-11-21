@@ -215,12 +215,6 @@ const copy = {
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
   <section class="hero">
     <div class="wrap hero-head">
-      <div class="hero-topline rise">
-        <span><MiaoMark size={15} /> miao</span>
-        <span>{copy.kicker}</span>
-        <span>OPEN SOURCE · MIT</span>
-      </div>
-
       <div class="hero-split">
         <h1 class="display h1">
           <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
@@ -1068,37 +1062,6 @@ const copy = {
     padding-top: 56px;
   }
 
-  .hero-topline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--border);
-    color: var(--fg-faint);
-    font-family: var(--font-sans);
-    font-size: 0.64rem;
-    font-weight: 550;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
-  .hero-topline span {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-  }
-
-  .hero-topline span:first-child {
-    color: var(--fg);
-  }
-
-  .hero-topline span:nth-child(2) {
-    flex: 1;
-    justify-content: center;
-  }
-
   .h1 {
     margin: 44px 0 0;
     font-size: clamp(2.6rem, 9vw, 8.6rem);
@@ -1511,14 +1474,6 @@ const copy = {
   }
 
   @media (max-width: 760px) {
-    .hero-topline span:nth-child(2) {
-      display: none;
-    }
-
-    .hero-topline {
-      justify-content: space-between;
-    }
-
     .duo {
       grid-template-columns: minmax(0, 1fr);
     }
