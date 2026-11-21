@@ -721,7 +721,7 @@ kbd {
 .media-original {
   color: var(--fg-faint);
   font-family: var(--font-sans);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-decoration: none;
   text-transform: uppercase;

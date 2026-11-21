@@ -62,22 +62,18 @@ const copy = {
     miaoKind: "Coding agent",
     miaoH: "Context first.",
     miaoPoints: [
-      ["Context", "A fixed baseline, changes appended in order, so prompt caches keep hitting."],
-      ["Compaction", "Starts before the window fills; the summary reuses the current prefix."],
-      ["Cost", "Tokens, cache-hit rate, time to first token and estimated cost, per turn."],
-      ["Install", "One binary, no engine or TUI."],
+      ["Context", "A fixed baseline, ordered changes. Prompt caches keep hitting."],
+      ["Cost", "Tokens, cache, latency and estimated cost, every turn."],
     ],
-    miaoMeta: "Single binary · Rust accelerators · MIT",
+    miaoMeta: "Single binary · MIT",
     miaoMore: "Explore miao",
-    mttyKind: "Terminal · editor · agents",
+    mttyKind: "Terminal and editor",
     mttyH: "Terminal, editor, agents: one window.",
     mttyPoints: [
-      ["GPU rendering", "Only changed regions redraw; frame budgets are measured."],
-      ["Workspace", "Tabs, recursive splits, quick navigation and native editor panes with LSP."],
-      ["Agent awareness", "Badges, notifications, sleep guard and prompt queue, driven by agent state."],
-      ["Remote hosts", "Host library, SFTP, port forwarding, jump hosts and snippets over OpenSSH."],
+      ["Workspace", "Terminal, editor and splits in one window, with LSP."],
+      ["Agent aware", "Badges, notifications and prompt queue follow agent state."],
     ],
-    mttyMeta: "Rust · Apache-2.0 · pre-release",
+    mttyMeta: "Rust · Apache-2.0",
     mttyMore: "Explore mtty",
     togetherLabel: "better together",
     togetherH: "Four agents in parallel, none watched.",
@@ -96,14 +92,8 @@ const copy = {
     shotsLabel: "in pictures",
     shotsH: "In use.",
     shots: [
-      ["/shots/miao-session.mp4", "miao · review, then choose a model", "An illustrative session shows the edit diff and context telemetry; model selection stays in the same conversation."],
-      ["/shots/mtty-states.mp4", "mtty · agent state, live", "Control-plane events update the tab badge and Agent panel through processing, awaiting, error and idle."],
-      ["/shots/miao-providers.mp4", "miao · bring your own provider", "Browse the provider picker and choose the service that fits your work."],
-      ["/shots/mtty-editor.mp4", "mtty · editor and live preview", "A Markdown edit updates the adjacent preview, with Mermaid, tables and code blocks."],
-      ["/shots/miao-web.mp4", "miao · the browser workspace", "Expand a code diff and open the review panel in the browser, using the same illustrative session."],
-      ["/shots/mtty-review.mp4", "mtty · inline edit review", "Review a proposed change in the editor, then accept it through the command palette."],
-      ["/shots/mtty-hosts.webp", "mtty · local and remote", "A grouped host library with file access and saved port forwards; all addresses shown are examples."],
-      ["/shots/mtty-splits.webp", "mtty · recursive splits", "Git changes and a running local HTTP server side by side in the same workspace."],
+      ["/shots/miao-win.webp", "miao · a real session", "A real session in a Windows terminal: read the file, answer in three bullets, and keep the model and context usage beside the work."],
+      ["/shots/mtty-win.webp", "mtty · the Markdown editor", "Checklists, tables and code blocks render in place in the same window, with a source toggle in the toolbar."],
     ],
     honestLabel: "status",
     honestH: "Before 1.0.",
@@ -156,22 +146,18 @@ const copy = {
     miaoKind: "编码代理",
     miaoH: "上下文优先。",
     miaoPoints: [
-      ["上下文", "基线固定，变化按序追加，提示缓存跨轮命中。"],
-      ["压缩", "窗口将满前开始，摘要复用当前前缀。"],
-      ["费用", "逐轮记录 token、缓存命中率、首 token 延迟与估算费用。"],
-      ["安装", "单个二进制，无引擎或 TUI。"],
+      ["上下文", "基线固定，变化按序追加，提示缓存持续命中。"],
+      ["费用", "token、缓存、延迟与估算费用，逐轮记录。"],
     ],
-    miaoMeta: "单二进制 · Rust 加速 · MIT",
+    miaoMeta: "单二进制 · MIT",
     miaoMore: "了解 miao",
-    mttyKind: "终端 · 编辑器 · 代理",
+    mttyKind: "终端与编辑器",
     mttyH: "终端、编辑器、代理，同处一窗。",
     mttyPoints: [
-      ["GPU 渲染", "仅重绘变化区域，帧预算经实测。"],
-      ["工作台", "标签、递归分屏、快速导航，以及支持 LSP 的编辑器窗格。"],
-      ["代理感知", "徽章、通知、防休眠与提示队列，均由代理状态驱动。"],
-      ["远程主机", "主机库、SFTP、端口转发、跳板机与片段，基于 OpenSSH。"],
+      ["工作台", "终端、编辑器与分屏同处一窗，支持 LSP。"],
+      ["代理感知", "徽章、通知与提示队列随代理状态变化。"],
     ],
-    mttyMeta: "Rust · Apache-2.0 · 预发布",
+    mttyMeta: "Rust · Apache-2.0",
     mttyMore: "了解 mtty",
     togetherLabel: "配合使用",
     togetherH: "四个代理并行，无需逐一查看。",
@@ -190,14 +176,8 @@ const copy = {
     shotsLabel: "看图",
     shotsH: "实景。",
     shots: [
-      ["/shots/miao-session.mp4", "miao · 审阅改动，再选模型", "示例会话展示编辑 diff 和上下文用量；模型选择也留在同一个会话中。"],
-      ["/shots/mtty-states.mp4", "mtty · 代理状态，实时变化", "控制面事件让标签徽章和 Agent 面板依次显示 processing、awaiting、error 与 idle。"],
-      ["/shots/miao-providers.mp4", "miao · 自带模型服务商", "打开供应商选择器，浏览并选择适合任务的服务。"],
-      ["/shots/mtty-editor.mp4", "mtty · 编辑器与实时预览", "Markdown 改动同步更新旁边的预览，包含 Mermaid、表格与代码块。"],
-      ["/shots/miao-web.mp4", "miao · 浏览器工作区", "在浏览器里展开代码 diff、打开审阅面板，使用同一个示例会话。"],
-      ["/shots/mtty-review.mp4", "mtty · 行内改动审阅", "在编辑器里审阅拟议改动，再通过命令面板接受。"],
-      ["/shots/mtty-hosts.webp", "mtty · 本地与远程", "分组主机库提供文件入口和已保存的端口转发；地址都是示例。"],
-      ["/shots/mtty-splits.webp", "mtty · 递归分屏", "Git 改动与实际运行的本地 HTTP 服务并排，共用一个工作区。"],
+      ["/shots/miao-win.webp", "miao · 真实会话", "Windows 终端里的真实会话：读取文件、用三条结论回答，模型与上下文用量就在旁边。"],
+      ["/shots/mtty-win.webp", "mtty · Markdown 编辑器", "清单、表格与代码块在同一个窗口里直接呈现，工具栏可切回源码。"],
     ],
     honestLabel: "现状",
     honestH: "1.0 之前。",
@@ -273,7 +253,6 @@ const copy = {
           <MiaoMark size={40} />
           <div>
             <span class="card-name">miao</span>
-            <span class="card-kind">{copy.miaoKind}</span>
           </div>
         </div>
         <h3 class="display h3">{copy.miaoH}</h3>
@@ -297,7 +276,6 @@ const copy = {
           <MttyMark size={40} />
           <div>
             <span class="card-name">mtty</span>
-            <span class="card-kind">{copy.mttyKind}</span>
           </div>
         </div>
         <h3 class="display h3">{copy.mttyH}</h3>
@@ -365,7 +343,7 @@ const copy = {
       {
         copy.shots.map(([src, head, body]) => (
           <figure class="scard">
-            <ProductMedia src={src} alt={body} />
+            <ProductMedia src={src} alt={body} sizes="(max-width: 960px) 100vw, 1040px" />
             <figcaption>
               <b>{head}</b>
               <span>{body}</span>
@@ -615,12 +593,6 @@ const copy = {
     letter-spacing: -0.02em;
   }
 
-  .card-kind {
-    color: var(--tone);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-  }
-
   .card .h3 {
     max-width: 24ch;
   }
@@ -645,13 +617,14 @@ const copy = {
 
   .points dt {
     font-weight: 600;
-    font-size: 1.03rem;
+    font-size: 1.08rem;
   }
 
   .points dd {
     margin: 0;
     color: var(--fg-muted);
-    font-size: 1rem;
+    font-size: 1.04rem;
+    line-height: 1.65;
   }
 
   .card-foot {
@@ -666,7 +639,7 @@ const copy = {
   .card-meta {
     color: var(--fg-faint);
     font-family: var(--font-mono);
-    font-size: 0.74rem;
+    font-size: 0.82rem;
   }
 
   /* --- Together --- */
@@ -948,14 +921,14 @@ const copy = {
 
   .scard b {
     font-family: var(--font-sans);
-    font-size: 0.97rem;
+    font-size: 1.06rem;
     font-weight: 600;
   }
 
   .scard span {
     color: var(--fg-muted);
-    font-size: 0.88rem;
-    line-height: 1.55;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   @media (max-width: 960px) {
@@ -1264,7 +1237,7 @@ const copy = {
 
   .card-name {
     font-family: var(--font-display);
-    font-size: 2.25rem;
+    font-size: 2.6rem;
     font-weight: 500;
     letter-spacing: -0.01em;
     line-height: 1;
@@ -1275,35 +1248,26 @@ const copy = {
     letter-spacing: 0.012em;
   }
 
-  .card-kind {
-    margin-top: 4px;
-    font-family: var(--font-sans);
-    font-size: 0.64rem;
-    font-weight: 550;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
   .card .h3 {
     max-width: 20ch;
-    font-size: clamp(1.8rem, 3vw, 2.7rem);
-    line-height: 1.06;
+    font-size: clamp(2.1rem, 3.2vw, 3rem);
+    line-height: 1.08;
   }
 
   .points div {
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr);
     gap: 24px;
-    padding: 15px 0;
+    padding: 18px 0;
   }
 
   .points dt {
-    font-size: 0.87rem;
+    font-size: 1.02rem;
     font-weight: 600;
   }
 
   .points dd {
-    font-size: 0.87rem;
-    line-height: 1.7;
+    font-size: 1.04rem;
+    line-height: 1.65;
   }
 
   .card-foot {
@@ -1312,9 +1276,13 @@ const copy = {
 
   .card-meta {
     font-family: var(--font-sans);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  .card .more {
+    font-size: 0.88rem;
+    letter-spacing: 0.08em;
   }
 
   .together {
@@ -1338,8 +1306,8 @@ const copy = {
 
   .shotgrid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 56px 32px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 64px;
   }
 
   .scard {
@@ -1356,27 +1324,27 @@ const copy = {
   }
 
   .scard:first-child {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   .scard :global(figcaption) {
     display: grid;
-    gap: 7px;
-    padding-top: 16px;
+    gap: 10px;
+    padding-top: 20px;
     border-top: 1px solid var(--border);
   }
 
   .scard :global(figcaption b) {
     font-family: var(--font-sans);
-    font-size: 0.76rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
+    letter-spacing: 0;
   }
 
   .scard :global(figcaption span) {
     color: var(--fg-muted);
-    font-size: 0.84rem;
-    line-height: 1.6;
+    font-size: 1.15rem;
+    line-height: 1.65;
   }
 
   .honest {
