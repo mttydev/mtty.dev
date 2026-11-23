@@ -267,7 +267,10 @@ const copy = {
   .slogan .hl {
     display: block;
     overflow: hidden;
-    padding-block: 0.04em;
+    /* Room below for the serif's descender (the tail of "y"); the negative
+       margin gives the space back so the line spacing does not change. */
+    padding-block: 0.04em 0.24em;
+    margin-bottom: -0.2em;
   }
 
   .slogan .hl > span {
@@ -276,17 +279,18 @@ const copy = {
     animation-delay: calc(140ms + var(--line, 0) * 160ms);
   }
 
-  /* "NOT" carries the weight; "only" stays in the same face, lower case and
-     lighter, so the whole line reads as one typeface. */
+  /* "NOT" carries the weight; "only" drops into the display serif, lower case
+     and italic, the way a couture headline sets its one soft word. */
   .slogan b {
     font-weight: 700;
     letter-spacing: 0.1em;
   }
 
   .slogan i {
-    font-style: normal;
+    font-family: var(--font-display);
+    font-style: italic;
     font-weight: 400;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
     text-transform: none;
   }
 
