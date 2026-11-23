@@ -33,8 +33,8 @@ const copy = {
     discover: "Discover miao",
     install: "Install",
     campaignAlt:
-      "A real miao session in a Windows terminal: reading a file, answering in three points, with model and context usage alongside.",
-    campaignCaption: "A real session · Windows Terminal",
+      "A real miao session inside mtty: a run of file edits shown as diffs, with sessions on the left and tokens, cost, context and todos on the right.",
+    campaignCaption: "A real session · miao in mtty",
     selectionLabel: "The selection",
     selectionH: "One agent, many hands.",
     tiles: [
@@ -84,8 +84,8 @@ const copy = {
       "读仓库、改代码、跑检查；也调研、写作、运行长任务、看守终端、按计划行事。上下文与费用，逐轮可见。",
     discover: "了解 miao",
     install: "安装",
-    campaignAlt: "Windows 终端里的真实 miao 会话：读取文件、用三条结论回答，模型与上下文用量就在旁边。",
-    campaignCaption: "真实会话 · Windows 终端",
+    campaignAlt: "mtty 里的真实 miao 会话：一串文件编辑以 diff 呈现，左侧是会话列表，右侧是 token、费用、上下文与待办。",
+    campaignCaption: "真实会话 · mtty 中的 miao",
     selectionLabel: "精选",
     selectionH: "一个代理，多种能力。",
     tiles: [
@@ -142,7 +142,7 @@ const copy = {
   </section>
 
   <figure class="campaign rise" style="--i:5">
-    <ProductMedia src="/shots/miao-win.webp" alt={copy.campaignAlt} eager sizes="100vw" />
+    <ProductMedia src="/shots/miao-mtty-session.webp" alt={copy.campaignAlt} eager sizes="100vw" />
     <figcaption>{copy.campaignCaption}</figcaption>
   </figure>
 
@@ -267,7 +267,10 @@ const copy = {
   .slogan .hl {
     display: block;
     overflow: hidden;
-    padding-block: 0.04em;
+    /* Room below for the serif's descender (the tail of "y"); the negative
+       margin gives the space back so the line spacing does not change. */
+    padding-block: 0.04em 0.24em;
+    margin-bottom: -0.2em;
   }
 
   .slogan .hl > span {
@@ -387,17 +390,18 @@ const copy = {
 
   .tile-media {
     display: block;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     margin-bottom: 14px;
-    background: var(--bg-tint);
+    background: #0b0b0b;
   }
 
+  /* The captures are landscape; show each one whole instead of cropping. */
   .tile-media :global(.product-media) {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: left top;
+    object-fit: contain;
+    object-position: center;
     transition: transform 900ms var(--ease);
   }
 
