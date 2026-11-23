@@ -1,0 +1,389 @@
+---
+// Sign-in and sign-up, in both languages. Accounts are served by the hub, which
+// is not open yet, so these pages are the finished front door with the lock
+// still on: the form renders and validates, and submitting says when to come
+// back instead of posting anywhere.
+import MarketingLayout from "../../layouts/MarketingLayout.astro"
+import { prefixFor, type Locale } from "../../i18n/routes"
+
+interface Props {
+  lang: Locale
+  mode: "sign-in" | "sign-up"
+}
+const { lang, mode } = Astro.props
+const prefix = prefixFor(lang)
+const signIn = mode === "sign-in"
+
+const copy = {
+  en: {
+    title: signIn ? "Sign in — mtty.dev" : "Create an account — mtty.dev",
+    description: "One account for miao and mtty: hosts, devices and preferences across machines.",
+    eyebrow: "mtty.dev account",
+    heading: signIn ? "Sign in" : "Create your account",
+    lede: signIn
+      ? "Welcome back. One account for miao and mtty."
+      : "One account carries your hosts, devices and preferences between machines.",
+    github: "Continue with GitHub",
+    or: "or",
+    name: "Name",
+    email: "Email",
+    password: "Password",
+    passwordHint: "At least 12 characters.",
+    remember: "Keep me signed in",
+    forgot: "Forgot your password?",
+    terms: "I accept the privacy notice and licence terms.",
+    submit: signIn ? "Sign in" : "Create account",
+    switchText: signIn ? "New to mtty.dev?" : "Already have an account?",
+    switchLink: signIn ? "Create an account" : "Sign in",
+    soon: "Accounts are opening soon. Nothing you type here is sent anywhere yet.",
+    held: "Thank you. Accounts are not open yet — we will announce it in the release notes.",
+    perks: [
+      ["Hosts", "Reach your machines from anywhere through the end-to-end encrypted relay."],
+      ["Devices", "Keys for each device, revocable from one place."],
+      ["Preferences", "Theme, models and shortcuts follow you."],
+    ],
+  },
+  zh: {
+    title: signIn ? "登录 — mtty.dev" : "注册账户 — mtty.dev",
+    description: "一个账户，通用 miao 与 mtty：主机、设备与偏好在不同机器间同步。",
+    eyebrow: "mtty.dev 账户",
+    heading: signIn ? "登录" : "注册账户",
+    lede: signIn ? "欢迎回来。一个账户，通用 miao 与 mtty。" : "一个账户，让主机、设备与偏好跟随你在不同机器间同步。",
+    github: "使用 GitHub 继续",
+    or: "或",
+    name: "名称",
+    email: "邮箱",
+    password: "密码",
+    passwordHint: "至少 12 个字符。",
+    remember: "保持登录",
+    forgot: "忘记密码？",
+    terms: "我已阅读并接受隐私说明与许可条款。",
+    submit: signIn ? "登录" : "注册",
+    switchText: signIn ? "还没有账户？" : "已有账户？",
+    switchLink: signIn ? "注册账户" : "登录",
+    soon: "账户即将开放。目前在此输入的内容不会发送到任何地方。",
+    held: "感谢关注。账户尚未开放，开放时会在发布说明中公告。",
+    perks: [
+      ["主机", "通过端到端加密中继，从任何地方连接你的机器。"],
+      ["设备", "每台设备独立密钥，可在一处吊销。"],
+      ["偏好", "主题、模型与快捷键随你同步。"],
+    ],
+  },
+}[lang]
+
+const other = `${prefix}/account/${signIn ? "sign-up" : "sign-in"}`
+---
+
+<MarketingLayout lang={lang} title={copy.title} description={copy.description} card="home" noindex>
+  <section class="account wrap">
+    <div class="panel-form">
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h1 class="heading">{copy.heading}</h1>
+      <p class="lede">{copy.lede}</p>
+
+      <button class="btn oauth" type="button" data-account-held>
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"
+          ><path
+            fill="currentColor"
+            d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38v-1.33c-2.23.48-2.7-1.07-2.7-1.07-.36-.92-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.72 1.22 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
+          ></path></svg
+        >
+        {copy.github}
+      </button>
+
+      <p class="or"><span>{copy.or}</span></p>
+
+      <form class="form" data-account-form novalidate={false}>
+        {
+          !signIn && (
+            <label class="field">
+              <span>{copy.name}</span>
+              <input name="name" type="text" autocomplete="name" required />
+            </label>
+          )
+        }
+        <label class="field">
+          <span>{copy.email}</span>
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label class="field">
+          <span>{copy.password}</span>
+          <input
+            name="password"
+            type="password"
+            autocomplete={signIn ? "current-password" : "new-password"}
+            minlength={signIn ? undefined : 12}
+            required
+          />
+          {!signIn && <small>{copy.passwordHint}</small>}
+        </label>
+
+        {
+          signIn ? (
+            <div class="row">
+              <label class="check">
+                <input type="checkbox" name="remember" />
+                <span>{copy.remember}</span>
+              </label>
+              <a class="small-link" href={`${prefix}/account/sign-in#reset`} data-account-held>
+                {copy.forgot}
+              </a>
+            </div>
+          ) : (
+            <label class="check">
+              <input type="checkbox" name="terms" required />
+              <span>
+                <a class="small-link" href={`${prefix}/docs/about/privacy/`}>{copy.terms}</a>
+              </span>
+            </label>
+          )
+        }
+
+        <button class="btn solid submit" type="submit">{copy.submit}</button>
+        <p class="status" role="status" data-account-status>{copy.soon}</p>
+      </form>
+
+      <p class="switch">
+        {copy.switchText} <a class="small-link" href={other}>{copy.switchLink}</a>
+      </p>
+    </div>
+
+    <aside class="panel-perks" aria-label={copy.eyebrow}>
+      <ul>
+        {
+          copy.perks.map(([head, body]) => (
+            <li>
+              <h2>{head}</h2>
+              <p>{body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </section>
+</MarketingLayout>
+
+<script define:vars={{ held: copy.held }}>
+  // The hub is not open yet: keep every account action on the page and say so,
+  // rather than posting credentials to an endpoint that does not exist.
+  const status = document.querySelector("[data-account-status]")
+  const hold = (event) => {
+    event.preventDefault()
+    if (status) status.textContent = held
+  }
+  document.querySelector("[data-account-form]")?.addEventListener("submit", hold)
+  for (const control of document.querySelectorAll("[data-account-held]")) {
+    control.addEventListener("click", hold)
+  }
+</script>
+
+<style>
+  .account {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(48px, 8vw, 120px);
+    padding-block: clamp(72px, 9vw, 128px);
+  }
+
+  .panel-form {
+    width: 100%;
+    max-width: 440px;
+    justify-self: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 24px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  :lang(zh-CN) .heading {
+    letter-spacing: 0.2em;
+  }
+
+  .lede {
+    margin: 18px 0 36px;
+    color: var(--fg-muted);
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .oauth {
+    width: 100%;
+  }
+
+  .or {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0;
+    color: var(--fg-faint);
+    font-size: 0.66rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .or::before,
+  .or::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .form {
+    display: grid;
+    gap: 24px;
+  }
+
+  .field {
+    display: grid;
+    gap: 8px;
+  }
+
+  .field span {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .field input {
+    height: 46px;
+    padding: 0 2px;
+    border: 0;
+    border-bottom: 1px solid var(--border-strong);
+    border-radius: 0;
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color 160ms ease;
+  }
+
+  .field input:focus {
+    outline: none;
+    border-bottom-color: var(--fg);
+  }
+
+  .field input:focus-visible {
+    box-shadow: 0 1px 0 var(--fg);
+  }
+
+  .field small {
+    color: var(--fg-faint);
+    font-size: 0.78rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .check {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--fg-muted);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+
+  .check input {
+    width: 15px;
+    height: 15px;
+    margin: 3px 0 0;
+    accent-color: #000;
+  }
+
+  .small-link {
+    color: var(--fg);
+    font-size: 0.86rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .small-link:hover {
+    color: var(--fg-muted);
+  }
+
+  .submit {
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .status {
+    margin: 0;
+    color: var(--fg-faint);
+    font-size: 0.8rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .switch {
+    margin: 40px 0 0;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    color: var(--fg-muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .panel-perks {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding: clamp(40px, 6vw, 80px);
+    background: #000;
+    color: #fff;
+  }
+
+  .panel-perks ul {
+    display: grid;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .panel-perks h2 {
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+  }
+
+  .panel-perks p {
+    max-width: 34ch;
+    margin: 0;
+    color: rgb(255 255 255 / 0.66);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 900px) {
+    .account {
+      grid-template-columns: 1fr;
+    }
+
+    .panel-form {
+      justify-self: center;
+    }
+  }
+</style>

@@ -56,15 +56,15 @@
 :root,
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f7f7f5;
-  --bg-tint: #efefec;
+  --bg: #ffffff;
+  --bg-tint: #f5f5f4;
   --surface: #ffffff;
-  --surface-raised: #fbfbf9;
-  --border: #e3e3de;
-  --border-strong: #c6c6bf;
-  --fg: #0b0b0c;
-  --fg-muted: #575752;
-  --fg-faint: #8b8b84;
+  --surface-raised: #fafafa;
+  --border: #e6e6e6;
+  --border-strong: #c9c9c9;
+  --fg: #000000;
+  --fg-muted: #4a4a4a;
+  --fg-faint: #858585;
   --accent: #b4471f;
   --accent-contrast: #ffffff;
   --miao-ink: #b4471f;

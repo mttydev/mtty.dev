@@ -13,8 +13,12 @@ interface Props {
   title: string
   description: string
   lang?: Locale
+  /** The social card to use when the route has none of its own (account pages). */
+  card?: string
+  /** Keep the page out of search results, for pages that are not content. */
+  noindex?: boolean
 }
-const { title, description, lang = "en" } = Astro.props
+const { title, description, lang = "en", card, noindex = false } = Astro.props
 
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const alternate = new URL(alternateFor(lang, Astro.url.pathname), Astro.site)
@@ -22,9 +26,10 @@ const htmlLang = lang === "en" ? "en" : "zh-CN"
 
 // scripts/og.ts names a card after the route it belongs to, so the image is
 // derived here rather than passed in: "/" is home, "/miao/" is miao, and the
-// locale picks the suffix. Adding a marketing page means adding a card.
+// locale picks the suffix. Adding a marketing page means adding a card, or
+// naming an existing one through `card`.
 const route = Astro.url.pathname.replace(/^\/zh(?=\/|$)/, "").replace(/\//g, "")
-const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astro.site)
+const ogImage = new URL(`/og/${card ?? (route === "" ? "home" : route)}-${lang}.png`, Astro.site)
 ---
 
 <!doctype html>
@@ -34,6 +39,7 @@ const ogImage = new URL(`/og/${route === "" ? "home" : route}-${lang}.png`, Astr
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={htmlLang} href={canonical} />
     <link rel="alternate" hreflang={lang === "en" ? "zh-CN" : "en"} href={alternate} />

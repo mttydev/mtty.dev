@@ -1,12 +1,13 @@
 ---
 // The home page, in both languages. The copy for each language sits side by
 // side so a change to one is visibly a change to the other.
+//
+// The composition borrows from a couture house's gift selection: a centred,
+// spaced-out uppercase masthead, one full-bleed campaign image, a grid of
+// tiles with a name, a line and a "discover" link, and long stretches of white.
+// Colour is left to the screenshots; the page itself is black on white.
 import MarketingLayout from "../../layouts/MarketingLayout.astro"
 import InstallCommand from "../site/InstallCommand.astro"
-import MiaoMark from "../site/MiaoMark.astro"
-import MttyMark from "../site/MttyMark.astro"
-import ShowcaseWindow from "../site/ShowcaseWindow.astro"
-import ProductShowcase from "../site/ProductShowcase.astro"
 import ProductMedia from "../site/ProductMedia.astro"
 import { prefixFor, type Locale } from "../../i18n/routes"
 
@@ -20,351 +21,183 @@ const RELEASES = "https://github.com/mttydev/mtty/releases/latest"
 
 const copy = {
   en: {
-    title: "miao — a coding agent for the terminal",
+    title: "miao — NOT only coding agent",
     description:
-      "An open-source coding agent for the terminal. Lean context, visible cost, one-line install.",
-    kicker: "An open-source coding agent for the terminal",
-    h1a: "A coding agent",
-    h1b: "for the terminal.",
-    h1c: "Open source.",
+      "miao is an open-source agent for the terminal that codes — and researches, writes, runs jobs and keeps its own schedule. Visible context and cost, one-line install.",
+    kicker: "miao · open source",
+    sloganNot: "NOT",
+    sloganOnly: "only",
+    sloganRest: "coding agent",
     heroLede:
-      "Read the repo, make the change, run the checks. <strong>Context and cost, visible every turn.</strong>",
+      "It reads the repo and ships the change. It also researches, writes, runs long jobs, watches a terminal and keeps its own schedule — with context and cost visible every turn.",
+    discover: "Discover miao",
+    install: "Install",
+    campaignAlt:
+      "A real miao session in a Windows terminal: reading a file, answering in three points, with model and context usage alongside.",
+    campaignCaption: "A real session · Windows Terminal",
+    selectionLabel: "The selection",
+    selectionH: "One agent, many hands.",
+    tiles: [
+      ["/shots/miao.webp", "Code", "Reads the repository, edits in place, runs the checks and shows the diff.", "miao"],
+      ["/shots/miao-providers.webp", "Your models", "Any provider you choose. Tokens, cache and cost are recorded per turn.", "miao"],
+      ["/shots/miao-web.webp", "Beyond code", "Research the web, read images, draft documents, run jobs and wake itself on a schedule.", "miao"],
+      ["/shots/mtty.webp", "mtty", "A terminal and editor in Rust that knows when an agent needs you.", "mtty"],
+    ],
+    tileMore: "Discover",
+    beyondLabel: "Beyond the code",
+    beyondH: "Not only code. Still only what you ask.",
+    beyondLede:
+      "A coding agent is where miao starts, not where it stops. The same session that fixes a test can survey a site, compare two designs, keep a terminal alive and report back an hour later.",
+    beyond: [
+      ["Research", "Fetches and reads pages, papers and screenshots, and cites what it used."],
+      ["Write", "Drafts documents, release notes and replies in your language."],
+      ["Operate", "Starts background jobs and terminals, watches their output and stops them cleanly."],
+      ["Remember", "Durable sessions, todo lists and notes survive restarts and compaction."],
+    ],
+    pillarsLabel: "The essentials",
     pillars: [
-      [
-        "Context",
-        "A fixed baseline, changes appended in order. Caches keep hitting; compaction starts before the window fills.",
-      ],
-      [
-        "Cost",
-        "Tokens, cache and estimated cost per turn. Budgets by money, turns and time.",
-      ],
-      [
-        "Install",
-        "One binary. No separate engine, no second TUI.",
-      ],
+      ["Context", "A fixed baseline with changes appended in order. Caches keep hitting; compaction starts before the window fills."],
+      ["Cost", "Tokens, cache and estimated cost per turn. Budgets by money, turns and time."],
+      ["One binary", "No separate engine, no second TUI. macOS, Linux and Windows."],
     ],
-    miaoBlurb:
-      "Reads the repo, edits code, runs commands, verifies the result. Model selection is yours; cost is recorded per turn.",
-    mttyBlurb:
-      "A terminal and editor in Rust. Terminals, files, remote hosts and agents in one window, aware of agent state.",
-    installHead: "Install miao",
-    installMeta: "macOS · Linux · Windows",
-    downloadHead: "Get mtty",
-    download: "Download the preview",
-    downloadMeta: "macOS · Linux · Windows · preview",
-    copyLabel: "Copy command",
-    shotMtty: "Current mtty example workspace with a session sidebar, Markdown editor, Mermaid preview and a split terminal.",
-    shotMiao: "Current miao example session with an inline edit diff, response and context telemetry.",
-    capMtty: "mtty · editor, preview, terminal and agent state",
-    capMiao: "miao · tasks, changes, tools and context (example session)",
-    productsLabel: "the products",
-    productsH: "Two independent projects.",
-    miaoKind: "Coding agent",
-    miaoH: "Context first.",
-    miaoPoints: [
-      ["Context", "A fixed baseline, ordered changes. Prompt caches keep hitting."],
-      ["Cost", "Tokens, cache, latency and estimated cost, every turn."],
-    ],
-    miaoMeta: "Single binary · MIT",
-    miaoMore: "Explore miao",
-    mttyKind: "Terminal and editor",
-    mttyH: "Terminal, editor, agents: one window.",
-    mttyPoints: [
-      ["Workspace", "Terminal, editor and splits in one window, with LSP."],
-      ["Agent aware", "Badges, notifications and prompt queue follow agent state."],
-    ],
-    mttyMeta: "Rust · Apache-2.0",
-    mttyMore: "Explore mtty",
-    togetherLabel: "better together",
-    togetherH: "Four agents in parallel, none watched.",
-    togetherLede:
-      "miao reports state over the terminal control plane. mtty adds a pane badge, notifies when input is needed, prevents sleep while an agent works, and releases a queued prompt on idle.",
-    togetherFine:
-      "Neither depends on the other. Outside mtty the report is a no-op; without an agent, mtty is a terminal. State hooks for other CLIs are included.",
-    states: [
-      ["api", "processing", "Working through the todo list"],
-      ["web", "awaiting", "Asking permission to run a command"],
-      ["docs", "idle", "Done. Queued prompt next."],
-      ["migrate", "error", "The provider returned an error"],
-    ],
-    illus: "Illustration of the four states mtty understands",
-    flow: ["miao", "agent state", "mtty pane"],
-    shotsLabel: "in pictures",
-    shotsH: "In use.",
-    shots: [
-      ["/shots/miao-win.webp", "miao · a real session", "A real session in a Windows terminal: read the file, answer in three bullets, and keep the model and context usage beside the work."],
-      ["/shots/mtty-win.webp", "mtty · the Markdown editor", "Checklists, tables and code blocks render in place in the same window, with a source toggle in the toolbar."],
-    ],
-    honestLabel: "status",
-    honestH: "Before 1.0.",
-    honest: [
-      ["Pre-1.0", "Both projects ship often; versions change. Release notes on GitHub."],
-      ["Docs from source", "Guides sync from each repository; every page names its source commit."],
-      ["Numbers with scope", "Benchmarks state what they measure. Opt-in and experimental features are labelled."],
-    ],
+    accountLabel: "Your account",
+    accountH: "One account for miao and mtty.",
+    accountLede:
+      "Sign in to carry your hosts, devices and preferences between machines. Accounts are opening soon; the pages are ready.",
+    signIn: "Sign in",
+    signUp: "Create an account",
+    endLabel: "Begin",
     endH: "Begin with one line.",
+    copyLabel: "Copy command",
     docs: "Read the docs",
+    download: "Download mtty",
   },
   zh: {
-    title: "miao — 终端编码代理",
+    title: "miao — NOT only coding agent",
     description:
-      "开源的终端编码代理。上下文精简，费用可见，一行安装。",
-    kicker: "开源终端编码代理",
-    h1a: "终端里的",
-    h1b: "编码代理。",
-    h1c: "开源。",
+      "miao 是开源的终端代理：会写代码，也会调研、写作、跑任务、按计划自己醒来。上下文与费用逐轮可见，一行安装。",
+    kicker: "miao · 开源",
+    sloganNot: "NOT",
+    sloganOnly: "only",
+    sloganRest: "coding agent",
     heroLede:
-      "读仓库、改代码、跑检查。<strong>上下文与费用，逐轮可见。</strong>",
+      "读仓库、改代码、跑检查；也调研、写作、运行长任务、看守终端、按计划行事。上下文与费用，逐轮可见。",
+    discover: "了解 miao",
+    install: "安装",
+    campaignAlt: "Windows 终端里的真实 miao 会话：读取文件、用三条结论回答，模型与上下文用量就在旁边。",
+    campaignCaption: "真实会话 · Windows 终端",
+    selectionLabel: "精选",
+    selectionH: "一个代理，多种能力。",
+    tiles: [
+      ["/shots/miao.webp", "编码", "读仓库、就地修改、跑检查，并给出 diff。", "miao"],
+      ["/shots/miao-providers.webp", "你的模型", "模型服务任你选择。token、缓存与费用逐轮记录。", "miao"],
+      ["/shots/miao-web.webp", "不止编码", "上网调研、读图、起草文档、运行任务，并按计划自己醒来。", "miao"],
+      ["/shots/mtty.webp", "mtty", "Rust 编写的终端与编辑器，知道代理何时需要你。", "mtty"],
+    ],
+    tileMore: "了解更多",
+    beyondLabel: "不止于代码",
+    beyondH: "不止写代码，\n只做你交代的事。",
+    beyondLede:
+      "编码是 miao 的起点，而不是终点。修好测试的同一个会话，也能调研一个网站、比较两版设计、守着一个终端，一小时后再来汇报。",
+    beyond: [
+      ["调研", "抓取并阅读网页、论文与截图，并注明依据。"],
+      ["写作", "用你的语言起草文档、发布说明与回复。"],
+      ["运行", "启动后台任务与终端，盯住输出，干净地停止。"],
+      ["记忆", "会话、待办与笔记持久保存，重启与压缩后仍在。"],
+    ],
+    pillarsLabel: "基本功",
     pillars: [
-      [
-        "上下文",
-        "固定基线，变化按序追加。缓存持续命中，压缩在窗口填满之前发生。",
-      ],
-      [
-        "费用",
-        "token、缓存与估算费用逐轮记录。预算按金额、轮次与时长设定。",
-      ],
-      [
-        "安装",
-        "一个二进制。没有额外引擎，没有第二套 TUI。",
-      ],
+      ["上下文", "固定基线，变化按序追加。缓存持续命中，压缩在窗口填满之前发生。"],
+      ["费用", "token、缓存与估算费用逐轮记录。预算按金额、轮次与时长设定。"],
+      ["单一二进制", "没有额外引擎，没有第二套 TUI。macOS、Linux、Windows。"],
     ],
-    miaoBlurb: "读仓库、改代码、运行命令、验证结果。模型自选，费用逐轮记录。",
-    mttyBlurb: "Rust 编写的终端与编辑器。终端、文件、远程主机与代理同处一窗，并识别代理状态。",
-    installHead: "安装 miao",
-    installMeta: "macOS · Linux · Windows",
-    downloadHead: "获取 mtty",
-    download: "下载预览版",
-    downloadMeta: "macOS · Linux · Windows · 预览版",
-    copyLabel: "复制命令",
-    shotMtty: "当前 mtty 示例工作区：会话侧栏、Markdown 编辑器、Mermaid 预览和分屏终端。",
-    shotMiao: "当前 miao 示例会话：行内编辑 diff、回复和上下文用量。",
-    capMtty: "mtty · 编辑、预览、终端和 Agent 状态",
-    capMiao: "miao · 任务、改动、工具与上下文（示例会话）",
-    productsLabel: "两个产品",
-    productsH: "两个独立项目。",
-    miaoKind: "编码代理",
-    miaoH: "上下文优先。",
-    miaoPoints: [
-      ["上下文", "基线固定，变化按序追加，提示缓存持续命中。"],
-      ["费用", "token、缓存、延迟与估算费用，逐轮记录。"],
-    ],
-    miaoMeta: "单二进制 · MIT",
-    miaoMore: "了解 miao",
-    mttyKind: "终端与编辑器",
-    mttyH: "终端、编辑器、代理，同处一窗。",
-    mttyPoints: [
-      ["工作台", "终端、编辑器与分屏同处一窗，支持 LSP。"],
-      ["代理感知", "徽章、通知与提示队列随代理状态变化。"],
-    ],
-    mttyMeta: "Rust · Apache-2.0",
-    mttyMore: "了解 mtty",
-    togetherLabel: "配合使用",
-    togetherH: "四个代理并行，无需逐一查看。",
-    togetherLede:
-      "miao 经终端控制面上报状态。mtty 据此添加窗格徽章、在需要输入时通知、代理工作期间阻止休眠，并在空闲时发出排队提示。",
-    togetherFine:
-      "两者互不依赖。离开 mtty，状态上报为空操作；无代理上报时，mtty 仍是终端。其他代理 CLI 亦提供状态钩子。",
-    states: [
-      ["api", "processing", "正在推进待办清单"],
-      ["web", "awaiting", "请求执行命令的权限"],
-      ["docs", "idle", "完成。下一条排队提示待发。"],
-      ["migrate", "error", "模型服务返回了错误"],
-    ],
-    illus: "示意：mtty 能识别的四种代理状态",
-    flow: ["miao", "代理状态", "mtty 窗格"],
-    shotsLabel: "看图",
-    shotsH: "实景。",
-    shots: [
-      ["/shots/miao-win.webp", "miao · 真实会话", "Windows 终端里的真实会话：读取文件、用三条结论回答，模型与上下文用量就在旁边。"],
-      ["/shots/mtty-win.webp", "mtty · Markdown 编辑器", "清单、表格与代码块在同一个窗口里直接呈现，工具栏可切回源码。"],
-    ],
-    honestLabel: "现状",
-    honestH: "1.0 之前。",
-    honest: [
-      ["版本", "两个项目发布频繁，版本间可能存在变化。发布说明见 GitHub。"],
-      ["文档", "手册从各自仓库同步，每页标注来源提交。"],
-      ["数据", "基准测试注明测量对象；可选与实验性能力均有标注。"],
-    ],
+    accountLabel: "账户",
+    accountH: "一个账户，通用 miao 与 mtty。",
+    accountLede: "登录后，主机、设备与偏好在不同机器间同步。账户即将开放，页面已经就绪。",
+    signIn: "登录",
+    signUp: "注册账户",
+    endLabel: "开始",
     endH: "从一行命令开始。",
+    copyLabel: "复制命令",
     docs: "阅读文档",
+    download: "下载 mtty",
   },
 }[lang]
 ---
 
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
-  <section class="hero">
-    <div class="wrap hero-head">
-      <div class="hero-split">
-        <div class="hero-copy">
-          <h1 class="display h1">
-            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-            <span class="hl" style="--line:1"><span>{copy.h1b}</span></span>
-            <span class="hl h1-accent" style="--line:2"><span>{copy.h1c}</span></span>
-          </h1>
-
-          <div class="hero-intro rise" style="--i:2">
-            <p class="lede" set:html={copy.heroLede} />
-            <div class="hero-install">
-              <p class="install-caption">{copy.installHead} · {copy.installMeta}</p>
-              <InstallCommand id="install-hero" label={copy.copyLabel} />
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-stage rise" style="--i:4">
-          <ProductShowcase lang={lang} miaoKind={copy.miaoKind} mttyKind={copy.mttyKind}>
-              <ShowcaseWindow slot="miao" embedded product="miao" kind={copy.miaoKind} lang={lang} slides={[
-                { src: "/shots/miao.webp", label: lang === "zh" ? "行内代码改动与上下文用量 · 示例会话" : "Inline code changes and context usage · Example session", alt: copy.shotMiao },
-                { src: "/shots/miao-providers.webp", label: lang === "zh" ? "连接你选择的模型服务" : "Connect your choice of model provider", alt: lang === "zh" ? "miao 模型服务选择面板" : "miao model provider selection" },
-                { src: "/shots/miao-home.webp", label: lang === "zh" ? "从一个提示开始" : "Start with a prompt", alt: lang === "zh" ? "miao 启动界面和提示输入框" : "miao start screen and prompt input" },
-              ]} />
-              <ShowcaseWindow slot="mtty" embedded product="mtty" kind={copy.mttyKind} lang={lang} slides={[
-                { src: "/shots/mtty.webp", label: lang === "zh" ? "编辑器、预览与终端" : "Editor, preview and terminal", alt: copy.shotMtty },
-                { src: "/shots/mtty-editor.webp", label: lang === "zh" ? "Markdown 与 Mermaid 实时预览" : "Live Markdown and Mermaid preview", alt: lang === "zh" ? "mtty Markdown 编辑器和实时预览" : "mtty Markdown editor with live preview" },
-                { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
-              ]} />
-          </ProductShowcase>
-        </div>
-      </div>
+  <section class="masthead">
+    <p class="kicker rise" style="--i:0">{copy.kicker}</p>
+    <h1 class="slogan" aria-label={`${copy.sloganNot} ${copy.sloganOnly} ${copy.sloganRest}`}>
+      <span class="hl" style="--line:0" aria-hidden="true">
+        <span><b>{copy.sloganNot}</b> <i>{copy.sloganOnly}</i></span>
+      </span>
+      <span class="hl" style="--line:1" aria-hidden="true"><span>{copy.sloganRest}</span></span>
+    </h1>
+    <p class="masthead-lede rise" style="--i:3">{copy.heroLede}</p>
+    <div class="masthead-actions rise" style="--i:4">
+      <a class="btn solid" href={`${prefix}/miao`}>{copy.discover}</a>
+      <a class="btn" href="#install">{copy.install}</a>
     </div>
+  </section>
 
-    <ol class="wrap hero-features rise" style="--i:3">
+  <figure class="campaign rise" style="--i:5">
+    <ProductMedia src="/shots/miao-win.webp" alt={copy.campaignAlt} eager sizes="100vw" />
+    <figcaption>{copy.campaignCaption}</figcaption>
+  </figure>
+
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.selectionLabel}</p>
+      <h2 class="chapter-title">{copy.selectionH}</h2>
+    </header>
+    <ul class="selection">
       {
-        copy.pillars.map(([head, body], index) => (
+        copy.tiles.map(([src, name, line, product]) => (
           <li>
-            <span class="n">0{index + 1}</span>
-            <h2 class="pillar-head">{head}</h2>
-            <p>{body}</p>
+            <a class="tile" href={`${prefix}/${product}`}>
+              <span class="tile-media">
+                <ProductMedia src={src} alt="" sizes="(max-width: 760px) 100vw, 25vw" />
+              </span>
+              <span class="tile-name">{name}</span>
+              <span class="tile-line">{line}</span>
+              <span class="tile-more">{copy.tileMore}</span>
+            </a>
           </li>
         ))
       }
-    </ol>
+    </ul>
   </section>
 
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>01</b> {copy.productsLabel}</p>
-      <h2 class="display h2">{copy.productsH}</h2>
-    </div>
-    <div class="duo">
-      <a class="card c-miao" href={`${prefix}/miao`}>
-        <div class="card-top">
-          <MiaoMark size={40} />
-          <div>
-            <span class="card-name">miao</span>
-          </div>
-        </div>
-        <h3 class="display h3">{copy.miaoH}</h3>
-        <dl class="points">
-          {
-            copy.miaoPoints.map(([term, detail]) => (
-              <div>
-                <dt>{term}</dt>
-                <dd>{detail}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <div class="card-foot">
-          <span class="card-meta">{copy.miaoMeta}</span>
-          <span class="more">{copy.miaoMore} <span class="arrow">→</span></span>
-        </div>
-      </a>
-      <a class="card c-mtty" href={`${prefix}/mtty`}>
-        <div class="card-top">
-          <MttyMark size={40} />
-          <div>
-            <span class="card-name">mtty</span>
-          </div>
-        </div>
-        <h3 class="display h3">{copy.mttyH}</h3>
-        <dl class="points">
-          {
-            copy.mttyPoints.map(([term, detail]) => (
-              <div>
-                <dt>{term}</dt>
-                <dd>{detail}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <div class="card-foot">
-          <span class="card-meta">{copy.mttyMeta}</span>
-          <span class="more">{copy.mttyMore} <span class="arrow">→</span></span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <section class="wrap section together" data-reveal>
-    <div class="together-copy">
-      <p class="label"><b>02</b> {copy.togetherLabel}</p>
-      <h2 class="display h2">{copy.togetherH}</h2>
-      <p class="lede">{copy.togetherLede}</p>
-      <p class="fine">{copy.togetherFine}</p>
-    </div>
-    <div class="board panel" role="img" aria-label={copy.illus}>
-      <div class="board-bar" aria-hidden="true">
-        <MttyMark size={16} />
-        <span>mtty</span>
+  <section class="beyond" data-reveal>
+    <div class="wrap beyond-inner">
+      <div class="beyond-copy">
+        <p class="eyebrow">{copy.beyondLabel}</p>
+        <h2 class="chapter-title beyond-title">{copy.beyondH}</h2>
+        <p class="beyond-lede">{copy.beyondLede}</p>
       </div>
-      <ul class="panes" aria-hidden="true">
+      <ol class="beyond-list">
         {
-          copy.states.map(([name, state, note]) => (
-            <li data-state={state}>
-              <span class="badge" />
-              <span class="pane-name">{name}</span>
-              <span class="pane-state">{state}</span>
-              <span class="pane-note">{note}</span>
+          copy.beyond.map(([head, body], index) => (
+            <li>
+              <span class="n">{String(index + 1).padStart(2, "0")}</span>
+              <h3>{head}</h3>
+              <p>{body}</p>
             </li>
           ))
         }
-      </ul>
-      <div class="wire" aria-hidden="true">
-        <span class="node n-miao">{copy.flow[0]}</span>
-        <span class="line"><span class="pulse"></span></span>
-        <span class="node">{copy.flow[1]}</span>
-        <span class="line"><span class="pulse"></span></span>
-        <span class="node n-mtty">{copy.flow[2]}</span>
-      </div>
-      <code class="board-cmd" aria-hidden="true"
-        >mtty-cli state miao --state awaiting --pane $MTTY_PANE_ID</code
-      >
+      </ol>
     </div>
   </section>
 
-  <section class="wrap section shots" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>03</b> {copy.shotsLabel}</p>
-      <h2 class="display h2">{copy.shotsH}</h2>
-    </div>
-    <div class="shotgrid">
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.pillarsLabel}</p>
+    </header>
+    <ol class="pillars">
       {
-        copy.shots.map(([src, head, body]) => (
-          <figure class="scard">
-            <ProductMedia src={src} alt={body} sizes="(max-width: 960px) 100vw, 1040px" />
-            <figcaption>
-              <b>{head}</b>
-              <span>{body}</span>
-              <a class="media-original" href={src} target="_blank" rel="noopener noreferrer">{lang === "zh" ? "放大查看" : "View full size"} ↗</a>
-            </figcaption>
-          </figure>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>04</b> {copy.honestLabel}</p>
-      <h2 class="display h2">{copy.honestH}</h2>
-    </div>
-    <ol class="honest">
-      {
-        copy.honest.map(([head, body], index) => (
+        copy.pillars.map(([head, body]) => (
           <li>
-            <span class="n">0{index + 1}</span>
             <h3>{head}</h3>
             <p>{body}</p>
           </li>
@@ -373,1137 +206,435 @@ const copy = {
     </ol>
   </section>
 
-  <section class="wrap section end" data-reveal>
-    <h2 class="display h2">{copy.endH}</h2>
-    <InstallCommand id="install-end" label={copy.copyLabel} />
-    <div class="actions">
-      <a class="btn" href={`${prefix}/docs/`}>{copy.docs} <span class="arrow">→</span></a>
-      <a class="btn" href={RELEASES}>{copy.download} <span class="arrow">→</span></a>
+  <section class="wrap chapter account" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.accountLabel}</p>
+      <h2 class="chapter-title">{copy.accountH}</h2>
+      <p class="chapter-lede">{copy.accountLede}</p>
+    </header>
+    <div class="account-actions">
+      <a class="btn solid" href={`${prefix}/account/sign-in`}>{copy.signIn}</a>
+      <a class="btn" href={`${prefix}/account/sign-up`}>{copy.signUp}</a>
+    </div>
+  </section>
+
+  <section class="wrap chapter end" id="install" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.endLabel}</p>
+      <h2 class="chapter-title">{copy.endH}</h2>
+    </header>
+    <div class="end-install">
+      <InstallCommand id="install-end" label={copy.copyLabel} />
+    </div>
+    <div class="end-links">
+      <a class="link" href={`${prefix}/docs/`}>{copy.docs}</a>
+      <a class="link" href={RELEASES}>{copy.download}</a>
     </div>
   </section>
 </MarketingLayout>
 
 <style>
-  .hero {
-    position: relative;
-    isolation: isolate;
-    overflow-x: clip;
-    padding-top: 56px;
-  }
-
-  .g1 {
-    width: 720px;
-    height: 520px;
-    left: -180px;
-    top: -200px;
-    background: var(--miao-1);
-  }
-
-  .g2 {
-    width: 680px;
-    height: 520px;
-    right: -220px;
-    top: 380px;
-    background: var(--mtty-accent);
-  }
-
-  /* Keep the introduction, actions and both workspaces together above the fold. */
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-    gap: 48px;
-    align-items: center;
-    padding-bottom: 8px;
-  }
-
-  .h1 {
-    margin-top: 4px;
-    font-size: clamp(2.1rem, 3.1vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.012em;
-  }
-
-  .h1 .hl {
-    display: block;
-  }
-
-  :lang(zh-CN) .h1 {
-    font-size: clamp(1.9rem, 2.9vw, 2.7rem);
-    line-height: 1.28;
-  }
-
-  .picks {
-    display: grid;
-    gap: 28px;
-    margin-top: 36px;
-  }
-
-  .pick {
-    display: grid;
-    gap: 10px;
-    min-width: 0;
-    padding-top: 18px;
-    border-top: 1px solid var(--border-strong);
-  }
-
-  .pick-head {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px 10px;
-    margin: 0;
-    font-size: 0.92rem;
-  }
-
-  .pick-head b {
-    font-family: var(--font-mono);
-    font-weight: 650;
-    letter-spacing: -0.02em;
-  }
-
-  .pick-kind {
-    color: var(--fg-muted);
-  }
-
-  .pick-meta {
-    margin-left: auto;
-    color: var(--fg-faint);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-  }
-
-  .pick-blurb {
-    margin: 0 0 4px;
-    color: var(--fg-muted);
-    font-size: 0.98rem;
-    line-height: 1.55;
-  }
-
-  /* Same height as the install command, so the two actions match. */
-  .dl {
-    width: 100%;
-    height: 56px;
-    justify-content: flex-start;
-    background: var(--surface);
-  }
-
-  .dl .arrow {
-    margin-left: auto;
-  }
-
-  /* A pair of aligned windows, with both complete captures in the first screen. */
-  .hero-shots {
-    position: relative;
-    display: grid;
-    gap: 20px;
-    min-width: 0;
-    width: 100%;
-    justify-self: stretch;
-    isolation: isolate;
-  }
-
-  .hero-shots::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 12% -12% 5%;
-    border-radius: 50%;
-    background: radial-gradient(ellipse at 65% 20%, color-mix(in srgb, var(--miao-1) 12%, transparent), transparent 60%),
-      radial-gradient(ellipse at 25% 80%, color-mix(in srgb, var(--mtty-accent) 16%, transparent), transparent 65%);
-    filter: blur(32px);
-    pointer-events: none;
-  }
-
-  /* --- Products --- */
-
-  .duo {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding: 36px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    text-decoration: none;
-    transition: border-color 200ms ease, transform 200ms var(--ease);
-  }
-
-  .card::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 2px;
-    background: var(--tone);
-    opacity: 0.8;
-  }
-
-  .card::after {
-    content: "";
-    position: absolute;
-    width: 360px;
-    height: 360px;
-    right: -160px;
-    top: -200px;
-    border-radius: 50%;
-    background: var(--tone);
-    filter: blur(80px);
-    opacity: 0.1;
-    transition: opacity 300ms ease;
-  }
-
-  .card:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-  }
-
-  .card:hover::after {
-    opacity: 0.2;
-  }
-
-  .c-miao {
-    --tone: var(--miao-ink);
-  }
-
-  .c-mtty {
-    --tone: var(--mtty-ink);
-  }
-
-  .card-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .card-top div {
-    display: grid;
-  }
-
-  .card-name {
-    font-family: var(--font-mono);
-    font-size: 1.25rem;
-    font-weight: 650;
-    letter-spacing: -0.02em;
-  }
-
-  .card .h3 {
-    max-width: 24ch;
-  }
-
-  :lang(zh-CN) .card .h3 {
-    max-width: none;
-  }
-
-  .points {
-    display: grid;
-    gap: 0;
-    margin: 0;
-  }
-
-  .points div {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
-    gap: 18px;
-    padding: 14px 0;
-    border-top: 1px solid var(--border);
-  }
-
-  .points dt {
-    font-weight: 600;
-    font-size: 1.08rem;
-  }
-
-  .points dd {
-    margin: 0;
-    color: var(--fg-muted);
-    font-size: 1.04rem;
-    line-height: 1.65;
-  }
-
-  .card-foot {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .card-meta {
-    color: var(--fg-faint);
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-  }
-
-  /* --- Together --- */
-
-  .together {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 64px;
-    align-items: center;
-  }
-
-  .together-copy {
-    display: grid;
-    gap: 22px;
-  }
-
-  .together-copy .label {
-    margin: 0;
-  }
-
-  .board {
-    padding: 0;
-    overflow: hidden;
-    background: color-mix(in srgb, var(--mtty-tile) 55%, var(--surface));
-    border-color: var(--border-strong);
-  }
-
-  :root[data-theme="light"] .board {
-    background: #2b303b;
-    color: #e5e9f0;
-  }
-
-  .board-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 16px;
-    border-bottom: 1px solid rgb(255 255 255 / 0.07);
-    color: rgb(229 233 240 / 0.7);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-  }
-
-  .panes {
-    list-style: none;
-    margin: 0;
-    padding: 8px;
-    display: grid;
-    gap: 4px;
-  }
-
-  .panes li {
-    display: grid;
-    grid-template-columns: 12px 76px 92px minmax(0, 1fr);
-    align-items: center;
-    gap: 12px;
-    padding: 12px 12px;
-    border-radius: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: #d8dee9;
-  }
-
-  .panes li[data-state="awaiting"] {
-    background: rgb(235 203 139 / 0.08);
-    box-shadow: inset 0 0 0 1px rgb(235 203 139 / 0.25);
-  }
-
-  .badge {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--c);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent);
-  }
-
-  [data-state="processing"] {
-    --c: #88c0d0;
-  }
-
-  [data-state="awaiting"] {
-    --c: #ebcb8b;
-  }
-
-  [data-state="idle"] {
-    --c: #a3be8c;
-  }
-
-  [data-state="error"] {
-    --c: #bf616a;
-  }
-
-  [data-state="processing"] .badge {
-    animation: breathe 1.4s ease-in-out infinite;
-  }
-
-  [data-state="awaiting"] .badge {
-    animation: breathe 0.9s ease-in-out infinite;
-  }
-
-  @keyframes breathe {
-    50% {
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 0%, transparent);
-    }
-  }
-
-  .pane-name {
-    color: #eceff4;
-    font-weight: 600;
-  }
-
-  .pane-state {
-    color: var(--c);
-  }
-
-  .pane-note {
-    color: rgb(216 222 233 / 0.6);
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .wire {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 12px 16px 0;
-    padding: 18px 0 4px;
-    border-top: 1px dashed rgb(255 255 255 / 0.1);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    color: rgb(229 233 240 / 0.75);
-  }
-
-  .node {
-    padding: 4px 9px;
-    border: 1px solid rgb(255 255 255 / 0.14);
-    border-radius: 5px;
-    white-space: nowrap;
-  }
-
-  .n-miao {
-    color: var(--miao-2);
-    border-color: rgb(255 175 95 / 0.4);
-  }
-
-  .n-mtty {
-    color: var(--mtty-accent);
-    border-color: rgb(136 192 208 / 0.4);
-  }
-
-  .line {
-    position: relative;
-    flex: 1;
-    min-width: 12px;
-    height: 1px;
-    overflow: hidden;
-    background: rgb(255 255 255 / 0.16);
-  }
-
-  .pulse {
-    position: absolute;
-    top: 0;
-    left: -30%;
-    width: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--miao-2), transparent);
-    animation: travel 2.4s linear infinite;
-  }
-
-  @keyframes travel {
-    to {
-      left: 100%;
-    }
-  }
-
-  .board-cmd {
-    display: block;
-    margin: 12px 16px 16px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-    color: rgb(216 222 233 / 0.5);
-    font-size: 0.72rem;
-  }
-
-  /* --- Status --- */
-
-  .honest {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--border-strong);
-  }
-
-  .honest li {
-    padding: 26px 28px 8px 0;
-  }
-
-  .honest li + li {
-    padding-left: 28px;
-    border-left: 1px solid var(--border);
-  }
-
-  .honest .n {
-    color: var(--fg-faint);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-  }
-
-  .honest h3 {
-    margin: 14px 0 8px;
-    font-family: var(--font-display);
-    font-weight: 500;
-    font-size: 2rem;
-    line-height: 1.1;
-  }
-
-  .honest p {
-    margin: 0;
-    color: var(--fg-muted);
-  }
-
-  /* --- Closing --- */
-
-  .end {
-    display: grid;
-    justify-items: center;
-    gap: 28px;
+  /* --- Masthead: the slogan, centred, in the house's spaced capitals ------- */
+
+  .masthead {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding: clamp(72px, 11vw, 148px) var(--gutter) clamp(56px, 7vw, 96px);
     text-align: center;
   }
 
-  .end :global(.cmd) {
-    width: min(100%, 520px);
-    text-align: left;
-  }
-
-  /* --- In pictures --- */
-
-  .shotgrid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .scard {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    transition: border-color 200ms ease, transform 200ms var(--ease);
-  }
-
-  .scard:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-  }
-
-  .scard :global(.product-media) {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid var(--border);
-    background: var(--mtty-tile);
-  }
-
-  .scard figcaption {
-    display: grid;
-    gap: 6px;
-    padding: 16px 18px 18px;
-  }
-
-  .scard b {
+  .kicker,
+  .eyebrow {
+    margin: 0 0 28px;
+    color: var(--fg);
     font-family: var(--font-sans);
-    font-size: 1.06rem;
+    font-size: 0.7rem;
     font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
   }
 
-  .scard span {
+  .slogan {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(2.6rem, 8.2vw, 7.4rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .slogan .hl {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.04em;
+  }
+
+  .slogan .hl > span {
+    display: block;
+    animation: line-in 1200ms var(--ease) both;
+    animation-delay: calc(140ms + var(--line, 0) * 160ms);
+  }
+
+  /* "NOT" carries the weight; "only" drops into the display serif, lower case
+     and italic, the way a couture headline sets its one soft word. */
+  .slogan b {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .slogan i {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  @keyframes line-in {
+    from {
+      transform: translateY(110%);
+    }
+  }
+
+  .masthead-lede {
+    max-width: 46ch;
+    margin: 40px auto 0;
     color: var(--fg-muted);
-    font-size: 1rem;
+    font-size: clamp(1.02rem, 1.3vw, 1.18rem);
+    line-height: 1.8;
+  }
+
+  .masthead-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 44px;
+  }
+
+  /* --- Campaign image: full bleed, the one moment of colour ---------------- */
+
+  .campaign {
+    margin: 0;
+    background: #0b0b0b;
+  }
+
+  .campaign :global(.product-media) {
+    width: min(100%, 1600px);
+    margin-inline: auto;
+  }
+
+  .campaign figcaption {
+    padding: 16px var(--gutter);
+    background: var(--bg);
+    color: var(--fg-faint);
+    font-size: 0.66rem;
+    font-weight: 550;
+    letter-spacing: 0.24em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* --- Chapters ------------------------------------------------------------ */
+
+  .chapter {
+    padding-block: clamp(88px, 10vw, 136px);
+  }
+
+  .chapter-head {
+    max-width: 760px;
+    margin: 0 auto 64px;
+    text-align: center;
+  }
+
+  .chapter-title {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    text-wrap: balance;
+  }
+
+  .chapter-lede {
+    max-width: 52ch;
+    margin: 24px auto 0;
+    color: var(--fg-muted);
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  /* --- The selection: four tiles, a name, a line, a link ------------------- */
+
+  .selection {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 40px 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tile {
+    display: grid;
+    gap: 10px;
+    color: var(--fg);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .tile-media {
+    display: block;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: var(--bg-tint);
+  }
+
+  .tile-media :global(.product-media) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+    transition: transform 900ms var(--ease);
+  }
+
+  .tile:hover .tile-media :global(.product-media) {
+    transform: scale(1.035);
+  }
+
+  .tile-name {
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .tile-line {
+    max-width: 30ch;
+    margin-inline: auto;
+    color: var(--fg-muted);
+    font-size: 0.9rem;
     line-height: 1.6;
   }
 
-  @media (max-width: 960px) {
-    .shotgrid {
-      grid-template-columns: minmax(0, 1fr);
+  .tile-more,
+  .link {
+    justify-self: center;
+    padding-bottom: 3px;
+    border-bottom: 1px solid currentColor;
+    color: var(--fg);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .tile:hover .tile-more,
+  .link:hover {
+    color: var(--fg-muted);
+  }
+
+  /* --- Beyond the code: the one inverted band ----------------------------- */
+
+  .beyond {
+    background: #000;
+    color: #fff;
+  }
+
+  .beyond-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(48px, 8vw, 120px);
+    padding-block: clamp(96px, 11vw, 152px);
+  }
+
+  .beyond .eyebrow {
+    color: #fff;
+  }
+
+  .beyond-title {
+    white-space: pre-line;
+    text-wrap: initial;
+  }
+
+  .beyond-lede {
+    margin: 28px 0 0;
+    color: rgb(255 255 255 / 0.66);
+    font-size: 1.02rem;
+    line-height: 1.85;
+  }
+
+  .beyond-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  .beyond-list li {
+    padding: 32px 28px 36px 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.18);
+  }
+
+  .beyond-list .n {
+    color: rgb(255 255 255 / 0.45);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .beyond-list h3 {
+    margin: 14px 0 10px;
+    font-size: 0.8rem;
+    font-weight: 650;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .beyond-list p {
+    margin: 0;
+    color: rgb(255 255 255 / 0.66);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  /* --- Essentials ---------------------------------------------------------- */
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-block: 1px solid var(--border);
+  }
+
+  .pillars li {
+    padding: 44px 32px;
+    text-align: center;
+  }
+
+  .pillars li + li {
+    border-left: 1px solid var(--border);
+  }
+
+  .pillars h3 {
+    margin: 0 0 16px;
+    font-size: 0.78rem;
+    font-weight: 650;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .pillars p {
+    max-width: 34ch;
+    margin: 0 auto;
+    color: var(--fg-muted);
+    font-size: 0.94rem;
+    line-height: 1.75;
+  }
+
+  /* --- Account and install ------------------------------------------------- */
+
+  .account {
+    border-top: 1px solid var(--border);
+  }
+
+  .account-actions,
+  .end-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 32px;
+  }
+
+  .account .chapter-head,
+  .end .chapter-head {
+    margin-bottom: 44px;
+  }
+
+  .end {
+    border-top: 1px solid var(--border);
+  }
+
+  .end-install {
+    max-width: 620px;
+    margin: 0 auto 40px;
+  }
+
+  /* --- Motion -------------------------------------------------------------- */
+
+  .rise {
+    animation: rise 1100ms var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .badge,
-    .pulse {
-      animation: none !important;
+    .rise,
+    .slogan .hl > span {
+      animation: none;
     }
 
-  }
-
-  @media (max-width: 960px) {
-    .hero-grid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 32px;
-    }
-
-    .hero-shots {
-      max-width: 640px;
-      justify-self: center;
-    }
-
-
-    .duo,
-    .together {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .together {
-      gap: 40px;
+    .tile-media :global(.product-media) {
+      transition: none;
     }
   }
 
-  @media (max-width: 720px) {
-    .hero {
-      padding-top: 56px;
-    }
-
-    .h1 {
-      font-size: clamp(2.3rem, 10vw, 2.9rem);
-    }
-
-    :lang(zh-CN) .h1 {
-      font-size: clamp(1.7rem, 8vw, 2.3rem);
-    }
-
-    .picks {
-      margin-top: 28px;
-    }
-
-    .card {
-      padding: 26px 22px;
-    }
-
-    .points div {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 4px;
-    }
-
-    .panes li {
-      grid-template-columns: 10px 58px minmax(0, 1fr);
-      gap: 10px;
-    }
-
-    .pane-note {
-      grid-column: 2 / -1;
-      white-space: normal;
-    }
-
-    .wire {
-      font-size: 0.68rem;
-      gap: 6px;
-    }
-
-    .honest {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .honest li,
-    .honest li + li {
-      padding: 22px 0;
-      border-left: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .honest li:first-child {
-      border-top: 0;
-    }
-  }
-
-  /* --- Lookbook overrides ------------------------------------------------
-   * The page is a campaign: one enormous statement, three numbered reasons,
-   * then the product itself on a clean stage. */
-
-  .hero {
-    padding-top: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-head {
-    padding-top: 56px;
-  }
-
-  .h1 {
-    margin: 44px 0 0;
-    font-size: clamp(2.6rem, 9vw, 8.6rem);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
-  }
-
-  :lang(zh-CN) .h1 {
-    font-size: clamp(2.3rem, 9.4vw, 7rem);
-    line-height: 1.08;
-    letter-spacing: 0.005em;
-  }
-
-  .h1 .hl {
-    display: block;
-  }
-
-  .h1 .accent {
-    color: var(--fg-faint);
-  }
-
-  .hero-split {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 40px;
-    align-items: center;
-    margin-top: 44px;
-  }
-
-  .hero-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-  }
-
-  :lang(zh-CN) .hero-split {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-    gap: 32px;
-  }
-
-  .hero-split .h1 {
-    margin: 0;
-    font-size: clamp(2.7rem, 4.6vw, 4.9rem);
-    line-height: 1.02;
-  }
-
-  :lang(zh-CN) .hero-split .h1 {
-    font-size: clamp(2.5rem, 5.6vw, 5.5rem);
-    line-height: 1.08;
-  }
-
-  .h1-accent {
-    margin-top: 0.14em;
-    color: var(--miao-ink);
-    font-size: max(1rem, 0.34em);
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    line-height: 1;
-  }
-
-  :lang(zh-CN) .h1-accent {
-    font-weight: 600;
-    letter-spacing: 0.12em;
-  }
-
-  .hero-split .hero-stage {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
-
-
-  .hero-intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 30px;
-    align-items: start;
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
-
-  .hero-intro .lede {
-    max-width: 34ch;
-    font-size: clamp(1.18rem, 1.55vw, 1.4rem);
-    line-height: 1.7;
-  }
-
-  .hero-install {
-    display: grid;
-    gap: 12px;
-    width: 100%;
-    max-width: none;
-    justify-self: stretch;
-  }
-
-  .install-caption {
-    margin: 0;
-    color: var(--fg-faint);
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 550;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .hero-features {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-    margin-top: 64px;
-    padding-inline: var(--gutter);
-    list-style: none;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-features li {
-    padding: 28px 34px 34px 0;
-  }
-
-  .hero-features li + li {
-    padding-left: 34px;
-    border-left: 1px solid var(--border);
-  }
-
-  .hero-features .n {
-    color: var(--fg-faint);
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 550;
-    letter-spacing: 0.16em;
-  }
-
-  .pillar-head {
-    margin: 16px 0 12px;
-    font-family: var(--font-display);
-    font-size: clamp(1.9rem, 2.6vw, 2.6rem);
-    font-weight: 500;
-    line-height: 1.04;
-    letter-spacing: -0.01em;
-  }
-
-  :lang(zh-CN) .pillar-head {
-    font-weight: 600;
-  }
-
-  .hero-features p {
-    margin: 0;
-    max-width: 38ch;
-    color: var(--fg-muted);
-    font-size: 1.05rem;
-    line-height: 1.75;
-  }
-
-  .hero-stage {
-    max-width: var(--maxw);
-    margin-inline: auto;
-    padding: 56px var(--gutter) 72px;
-  }
-
-  .duo {
-    gap: 0;
-    margin-top: 8px;
-    border-top: 1px solid var(--border);
-  }
-
-  .card {
-    gap: 30px;
-    padding: 34px 40px 38px 0;
-    overflow: visible;
-    border: 0;
-    border-bottom: 1px solid var(--border);
-    border-radius: 0;
-    background: transparent;
-    transition: background 220ms var(--ease);
-  }
-
-  .card + .card {
-    padding-left: 40px;
-    border-left: 1px solid var(--border);
-  }
-
-  .card::before,
-  .card::after {
-    display: none;
-  }
-
-  .card:hover {
-    background: var(--bg-tint);
-    transform: none;
-  }
-
-  .card-top {
-    align-items: flex-start;
-  }
-
-  .card-name {
-    font-family: var(--font-display);
-    font-size: 2.6rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    line-height: 1;
-    transition: letter-spacing 400ms var(--ease);
-  }
-
-  .card:hover .card-name {
-    letter-spacing: 0.012em;
-  }
-
-  .card .h3 {
-    max-width: 20ch;
-    font-size: clamp(2.1rem, 3.2vw, 3rem);
-    line-height: 1.08;
-  }
-
-  .points div {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr);
-    gap: 24px;
-    padding: 18px 0;
-  }
-
-  .points dt {
-    font-size: 1.02rem;
-    font-weight: 600;
-  }
-
-  .points dd {
-    font-size: 1.04rem;
-    line-height: 1.65;
-  }
-
-  .card-foot {
-    margin-top: 32px;
-  }
-
-  .card-meta {
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.04em;
-  }
-
-  .card .more {
-    font-size: 0.88rem;
-    letter-spacing: 0.08em;
-  }
-
-  .together {
-    gap: 72px;
-  }
-
-  .board {
-    border-color: #1d1d22;
-    background: #0b0b0d !important;
-    color: #f4f4f0;
-  }
-
-  .board-bar {
-    border-bottom-color: rgb(255 255 255 / 0.09);
-    color: rgb(244 244 240 / 0.62);
-  }
-
-  .panes li {
-    border-radius: 0;
-  }
-
-  .shotgrid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 64px;
-  }
-
-  .scard {
-    margin: 0;
-    overflow: clip;
-  }
-
-  .scard :global(img) {
-    transition: transform 1200ms var(--ease);
-  }
-
-  .scard:hover :global(img) {
-    transform: scale(1.012);
-  }
-
-  .scard:first-child {
-    grid-column: auto;
-  }
-
-  .scard :global(figcaption) {
-    display: grid;
-    gap: 10px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-  }
-
-  .scard :global(figcaption b) {
-    font-family: var(--font-sans);
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 0;
-  }
-
-  .scard :global(figcaption span) {
-    color: var(--fg-muted);
-    font-size: 1.15rem;
-    line-height: 1.65;
-  }
-
-  .honest {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0;
-    padding: 0;
-    list-style: none;
-    border-top: 1px solid var(--border);
-  }
-
-  .honest li,
-  .honest li + li {
-    padding: 28px 34px 0 0;
-    border: 0;
-  }
-
-  .honest li + li {
-    padding-left: 34px;
-    border-left: 1px solid var(--border);
-  }
-
-  .honest .n {
-    font-family: var(--font-display);
-    font-size: 2.2rem;
-    color: var(--fg-faint);
-  }
-
-  .honest h3 {
-    margin: 12px 0 8px;
-    font-family: var(--font-display);
-    font-size: 1.55rem;
-    font-weight: 400;
-  }
-
-  .honest p {
-    margin: 0;
-    color: var(--fg-muted);
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  .end {
-    text-align: center;
-  }
-
-  .end .h2 {
-    font-size: clamp(2.6rem, 5.6vw, 4.8rem);
-  }
-
-  .end :global(.install) {
-    width: 100%;
-    max-width: 620px;
-    margin: 40px auto 30px;
-    text-align: left;
-  }
-
-  .end .actions {
-    justify-content: center;
-  }
+  /* --- Narrow screens ------------------------------------------------------ */
 
   @media (max-width: 1100px) {
-    .hero-split,
-    :lang(zh-CN) .hero-split {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 32px;
-      margin-top: 28px;
+    .selection {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .hero-split .h1 {
-      font-size: clamp(2.6rem, 9vw, 8.6rem);
-    }
-
-    :lang(zh-CN) .hero-split .h1 {
-      font-size: clamp(2.3rem, 9.4vw, 7rem);
-    }
-
-    .hero-intro {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 30px;
-    }
-
-    .hero-install {
-      justify-self: stretch;
-      max-width: none;
-    }
-
-    .hero-features {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .hero-features li,
-    .hero-features li + li {
-      padding: 24px 0 26px;
-      border-left: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .hero-features li:first-child {
-      border-top: 0;
-    }
-
-    .hero-features p {
-      max-width: none;
-    }
-
-    .together {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 40px;
-    }
-
-    .honest {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .honest li,
-    .honest li + li {
-      padding: 24px 0;
-      border-left: 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .honest li:first-child {
-      border-top: 0;
+    .beyond-inner {
+      grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 760px) {
-    .duo {
-      grid-template-columns: minmax(0, 1fr);
+    .slogan {
+      letter-spacing: 0.03em;
     }
 
-    .card,
-    .card + .card {
-      padding: 28px 0;
+    .selection {
+      gap: 32px 14px;
+    }
+
+    .tile-line {
+      font-size: 0.82rem;
+    }
+
+    .beyond-list,
+    .pillars {
+      grid-template-columns: 1fr;
+    }
+
+    .pillars li + li {
       border-left: 0;
+      border-top: 1px solid var(--border);
     }
 
-    .shotgrid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 40px;
+    .beyond-list li {
+      padding-right: 0;
     }
 
-    .scard:first-child {
-      grid-column: auto;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .card-name,
-    .scard :global(img) {
-      transition: none;
-    }
-
-    .card:hover .card-name {
-      letter-spacing: -0.01em;
-    }
-
-    .scard:hover :global(img) {
-      transform: none;
+    .masthead-actions :global(.btn),
+    .account-actions :global(.btn) {
+      width: 100%;
     }
   }
 </style>
