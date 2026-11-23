@@ -33,8 +33,8 @@ const copy = {
     discover: "Discover miao",
     install: "Install",
     campaignAlt:
-      "A real miao session in a Windows terminal: reading a file, answering in three points, with model and context usage alongside.",
-    campaignCaption: "A real session · Windows Terminal",
+      "A real miao session inside mtty: a run of file edits shown as diffs, with sessions on the left and tokens, cost, context and todos on the right.",
+    campaignCaption: "A real session · miao in mtty",
     selectionLabel: "The selection",
     selectionH: "One agent, many hands.",
     tiles: [
@@ -84,8 +84,8 @@ const copy = {
       "读仓库、改代码、跑检查；也调研、写作、运行长任务、看守终端、按计划行事。上下文与费用，逐轮可见。",
     discover: "了解 miao",
     install: "安装",
-    campaignAlt: "Windows 终端里的真实 miao 会话：读取文件、用三条结论回答，模型与上下文用量就在旁边。",
-    campaignCaption: "真实会话 · Windows 终端",
+    campaignAlt: "mtty 里的真实 miao 会话：一串文件编辑以 diff 呈现，左侧是会话列表，右侧是 token、费用、上下文与待办。",
+    campaignCaption: "真实会话 · mtty 中的 miao",
     selectionLabel: "精选",
     selectionH: "一个代理，多种能力。",
     tiles: [
@@ -142,7 +142,7 @@ const copy = {
   </section>
 
   <figure class="campaign rise" style="--i:5">
-    <ProductMedia src="/shots/miao-win.webp" alt={copy.campaignAlt} eager sizes="100vw" />
+    <ProductMedia src="/shots/miao-mtty-session.webp" alt={copy.campaignAlt} eager sizes="100vw" />
     <figcaption>{copy.campaignCaption}</figcaption>
   </figure>
 
@@ -276,18 +276,17 @@ const copy = {
     animation-delay: calc(140ms + var(--line, 0) * 160ms);
   }
 
-  /* "NOT" carries the weight; "only" drops into the display serif, lower case
-     and italic, the way a couture headline sets its one soft word. */
+  /* "NOT" carries the weight; "only" stays in the same face, lower case and
+     lighter, so the whole line reads as one typeface. */
   .slogan b {
     font-weight: 700;
     letter-spacing: 0.1em;
   }
 
   .slogan i {
-    font-family: var(--font-display);
-    font-style: italic;
+    font-style: normal;
     font-weight: 400;
-    letter-spacing: 0;
+    letter-spacing: 0.02em;
     text-transform: none;
   }
 
@@ -387,17 +386,18 @@ const copy = {
 
   .tile-media {
     display: block;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     margin-bottom: 14px;
-    background: var(--bg-tint);
+    background: #0b0b0b;
   }
 
+  /* The captures are landscape; show each one whole instead of cropping. */
   .tile-media :global(.product-media) {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: left top;
+    object-fit: contain;
+    object-position: center;
     transition: transform 900ms var(--ease);
   }
 
