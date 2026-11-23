@@ -335,21 +335,28 @@ const copy = {
     background: #0b0b0b;
   }
 
-  /* The campaign waits below the masthead; it enters only when the reader
-     scrolls it into view, so the first screen stays type and buttons. */
-  .campaign.reveal-pending {
-    transform: translateY(24px);
+  /* The page's reveal is a pull-down: the campaign and every chapter start
+     just above their resting place and settle down as they enter, so the
+     first screen still stays type and buttons. */
+  .campaign.reveal-pending,
+  .chapter.reveal-pending,
+  .beyond.reveal-pending {
+    transform: translateY(-28px);
     transition:
       opacity 900ms var(--ease),
       transform 900ms var(--ease);
   }
 
-  .campaign.reveal-pending.is-revealed {
+  .campaign.reveal-pending.is-revealed,
+  .chapter.reveal-pending.is-revealed,
+  .beyond.reveal-pending.is-revealed {
     transform: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .campaign.reveal-pending {
+    .campaign.reveal-pending,
+    .chapter.reveal-pending,
+    .beyond.reveal-pending {
       transform: none;
     }
   }
