@@ -141,7 +141,8 @@ const copy = {
     </div>
   </section>
 
-  <figure class="campaign rise" style="--i:5">
+  <figure class="campaign" data-reveal>
+
     <ProductMedia src="/shots/miao-mtty-session.webp" alt={copy.campaignAlt} eager sizes="100vw" />
     <figcaption>{copy.campaignCaption}</figcaption>
   </figure>
@@ -239,9 +240,18 @@ const copy = {
   .masthead {
     max-width: var(--maxw);
     margin-inline: auto;
-    padding: clamp(72px, 11vw, 148px) var(--gutter) clamp(56px, 7vw, 96px);
+    /* The first screen is the masthead alone: the campaign image must not
+       peek above the fold. 60px is the shortest header at any breakpoint, so
+       the hero is at least a full viewport tall after it. */
+    min-height: calc(100svh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: clamp(48px, 8vh, 96px) var(--gutter);
     text-align: center;
   }
+
 
   .kicker,
   .eyebrow {
@@ -322,6 +332,26 @@ const copy = {
     margin: 0;
     background: #0b0b0b;
   }
+
+  /* The campaign waits below the masthead; it enters only when the reader
+     scrolls it into view, so the first screen stays type and buttons. */
+  .campaign.reveal-pending {
+    transform: translateY(24px);
+    transition:
+      opacity 900ms var(--ease),
+      transform 900ms var(--ease);
+  }
+
+  .campaign.reveal-pending.is-revealed {
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .campaign.reveal-pending {
+      transform: none;
+    }
+  }
+
 
   .campaign :global(.product-media) {
     width: min(100%, 1600px);
