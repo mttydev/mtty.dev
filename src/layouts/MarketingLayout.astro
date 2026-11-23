@@ -51,7 +51,16 @@ const ogImage = new URL(`/og/${card ?? (route === "" ? "home" : route)}-${lang}.
           <link rel="icon" type="image/png" sizes="64x64" href="/mtty/favicon.png" />
         </>
       ) : (
-        <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+        <>
+          <link rel="icon" type="image/png" sizes="64x64" href="/favicon-mark.png" />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="64x64"
+            href="/favicon-mark-dark.png"
+            media="(prefers-color-scheme: dark)"
+          />
+        </>
       )
     }
     <link
