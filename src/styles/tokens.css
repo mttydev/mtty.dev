@@ -8,8 +8,9 @@
  *
  * Type: Bodoni Moda for display, Instrument Sans for running text and
  * spaced-out micro labels, and JetBrains Mono for commands and identifiers.
- * Chinese falls back to Songti for display and the system sans for body text,
- * so the two scripts keep the same contrast between display and body.
+ * Chinese is set in Noto Serif SC, the high-contrast serif that carries the
+ * same voice as Bodoni, so the two scripts share one display temperament.
+ * Songti and the system faces stay behind it as fallbacks only.
  *
  * The defaults are light, high-contrast and almost colourless, in the manner of
  * a couture lookbook: white space, hairlines, black type, one accent. The dark
@@ -27,10 +28,12 @@
   --mtty-accent: #3f6d7a;
   --mtty-warm: #b08d57;
 
-  --font-display: "Bodoni Moda Variable", "Bodoni Moda", "Songti SC", "STSong",
-    "STZhongsong", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", Georgia, serif;
-  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, -apple-system,
-    "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Segoe UI", sans-serif;
+  --font-display: "Bodoni Moda Variable", "Bodoni Moda", "Noto Serif SC Variable",
+    "Noto Serif SC", "Songti SC", "STSong", "STZhongsong", "Noto Serif CJK SC",
+    "Source Han Serif SC", "SimSun", Georgia, serif;
+  --font-sans: "Instrument Sans Variable", "Noto Serif SC Variable", "Noto Serif SC",
+    ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Hiragino Sans GB",
+    "Noto Sans SC", "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,
     "PingFang SC", monospace;
 

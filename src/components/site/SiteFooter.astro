@@ -131,7 +131,7 @@ const columns = [
     gap: 14px;
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.1rem, 3.4vw, 3.1rem);
+    font-size: clamp(4.2rem, 6.8vw, 6.2rem);
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1;
@@ -162,7 +162,7 @@ const columns = [
     max-width: 24ch;
     color: #e6e6df;
     font-family: var(--font-display);
-    font-size: clamp(1.55rem, 2.2vw, 2.05rem);
+    font-size: clamp(3.1rem, 4.4vw, 4.1rem);
     font-weight: 500;
     line-height: 1.36;
     letter-spacing: 0.01em;
@@ -245,12 +245,31 @@ const columns = [
       padding-top: 56px;
     }
 
+    .head {
+      flex-wrap: wrap;
+      gap: 22px 32px;
+    }
+
     .inner {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
 
     .contact {
       grid-column: 1 / -1;
+    }
+
+    .mark {
+      font-size: clamp(1.9rem, 16.5vw, 6.2rem);
+    }
+
+    .mark img,
+    .mark svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .motto {
+      font-size: clamp(2rem, 10.5vw, 4.1rem);
     }
   }
 </style>
