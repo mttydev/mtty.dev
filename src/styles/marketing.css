@@ -17,10 +17,6 @@
 }
 
 html {
-  /* Every size on these pages is set in rem, so one doubled root doubles the
-     whole type scale; the vw midpoints of the clamp() headings are doubled in
-     place alongside it. */
-  font-size: 200%;
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
   scroll-behavior: smooth;
@@ -31,7 +27,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
-  font-size: 36px;
+  font-size: 18px;
   font-weight: 450;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -141,7 +137,7 @@ pre {
 }
 
 .h1 {
-  font-size: clamp(6.4rem, 14.8vw, 14.4rem);
+  font-size: clamp(3.2rem, 7.4vw, 7.2rem);
   line-height: 1.02;
 }
 
@@ -167,26 +163,26 @@ pre {
 }
 
 .h2 {
-  font-size: clamp(4.8rem, 8.4vw, 8.4rem);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
   line-height: 1;
 }
 
 .h3 {
-  font-size: clamp(3.2rem, 4.6vw, 4.4rem);
+  font-size: clamp(1.6rem, 2.3vw, 2.2rem);
   line-height: 1.1;
 }
 
 :lang(zh-CN) .h1 {
-  font-size: clamp(5.2rem, 11.8vw, 11.2rem);
+  font-size: clamp(2.6rem, 5.9vw, 5.6rem);
 }
 
 :lang(zh-CN) .h2 {
-  font-size: clamp(4.4rem, 7vw, 6.8rem);
+  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
   line-height: 1.16;
 }
 
 :lang(zh-CN) .h3 {
-  font-size: clamp(2.9rem, 4.2vw, 3.9rem);
+  font-size: clamp(1.45rem, 2.1vw, 1.95rem);
   line-height: 1.25;
 }
 
@@ -211,7 +207,7 @@ pre {
   margin: 0;
   max-width: 60ch;
   color: var(--fg-muted);
-  font-size: clamp(2.4rem, 3.2vw, 2.9rem);
+  font-size: clamp(1.2rem, 1.6vw, 1.45rem);
   line-height: 1.72;
 }
 
@@ -678,46 +674,7 @@ kbd {
   }
 
   body {
-    font-size: 35px;
-  }
-
-  /* The doubled scale cannot fit whole long words on a phone, so the
-     small-screen sizes stay vw-led: the type still fills the line, sized to
-     the widest word it has to hold. */
-  .h1,
-  :lang(zh-CN) .h1 {
-    font-size: clamp(2.2rem, 14vw, 14.4rem);
-  }
-
-  .h2,
-  :lang(zh-CN) .h2 {
-    font-size: clamp(1.8rem, 11vw, 6.8rem);
-  }
-
-  .h3,
-  :lang(zh-CN) .h3 {
-    font-size: clamp(1.4rem, 8.5vw, 3.9rem);
-  }
-
-  .lede {
-    font-size: clamp(0.95rem, 8vw, 2.9rem);
-  }
-
-  /* Doubled labels and buttons no longer fit one line on a phone: the
-     button wraps instead of overflowing, and the label's rule yields. */
-  .btn {
-    height: auto;
-    min-height: 64px;
-    padding: 14px 20px;
-    white-space: normal;
-  }
-
-  .label {
-    letter-spacing: 0.12em;
-  }
-
-  .label::after {
-    flex: 0 1 56px;
+    font-size: 17.5px;
   }
 
   .section {

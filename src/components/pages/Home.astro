@@ -269,7 +269,7 @@ const copy = {
   .slogan {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(5rem, 16vw, 14.2rem);
+    font-size: clamp(2.5rem, 8vw, 7.1rem);
     font-weight: 500;
     line-height: 1;
     letter-spacing: 0.02em;
@@ -319,7 +319,7 @@ const copy = {
     margin: 40px auto 0;
     color: var(--fg-muted);
     font-family: var(--font-display);
-    font-size: clamp(2.3rem, 3vw, 2.8rem);
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
     font-weight: 500;
     line-height: 1.65;
     word-break: keep-all;
@@ -399,7 +399,7 @@ const copy = {
   .chapter-title {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: clamp(3rem, 5.2vw, 4.6rem);
+    font-size: clamp(1.5rem, 2.6vw, 2.3rem);
     font-weight: 500;
     line-height: 1.25;
     letter-spacing: 0.02em;
@@ -657,14 +657,6 @@ const copy = {
   @media (max-width: 760px) {
     .slogan {
       letter-spacing: 0.03em;
-      font-size: clamp(2.4rem, 19.5vw, 14.2rem);
-    }
-
-    .masthead-lede {
-      font-size: clamp(1.7rem, 5.9vw, 2.8rem);
-      /* The doubled face cannot hold an unbreakable run on a phone, so the
-         keep-all rule yields and the lede wraps like ordinary Chinese. */
-      word-break: normal;
     }
 
     .selection {
