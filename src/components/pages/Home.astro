@@ -589,6 +589,33 @@ const copy = {
     line-height: 1.75;
   }
 
+  /* Chinese body copy: one step up, Chanel-compact leading, no tracking. */
+  :lang(zh-CN) .masthead-lede {
+    font-size: clamp(1.22rem, 1.55vw, 1.45rem);
+    line-height: 1.75;
+  }
+
+  :lang(zh-CN) .chapter-lede {
+    font-size: 1.12rem;
+  }
+
+  :lang(zh-CN) .tile-line {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  :lang(zh-CN) .beyond-lede {
+    font-size: 1.12rem;
+  }
+
+  :lang(zh-CN) .beyond-list p {
+    font-size: 1rem;
+  }
+
+  :lang(zh-CN) .pillars p {
+    font-size: 1.02rem;
+  }
+
   /* --- Account and install ------------------------------------------------- */
 
   .account {
@@ -665,6 +692,10 @@ const copy = {
 
     .tile-line {
       font-size: 0.82rem;
+    }
+
+    :lang(zh-CN) .tile-line {
+      font-size: 0.9rem;
     }
 
     .beyond-list,
