@@ -190,25 +190,25 @@ pre {
    pixel size; paragraphs step up one size while headings, labels and code
    keep the shared scale. */
 :lang(zh-CN) body {
-  font-size: 21px;
+  font-size: 22px;
   line-height: 1.8;
 }
 
 :lang(zh-CN) .lede {
-  font-size: clamp(1.4rem, 1.87vw, 1.7rem);
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
   line-height: 1.85;
 }
 
 :lang(zh-CN) .fine {
-  font-size: 1rem;
+  font-size: 1.06rem;
 }
 
 :lang(zh-CN) .spec {
-  font-size: 1.13rem;
+  font-size: 1.2rem;
 }
 
 :lang(zh-CN) .callout {
-  font-size: 1.07rem;
+  font-size: 1.15rem;
 }
 
 .ink-miao {
@@ -703,7 +703,7 @@ kbd {
   }
 
   :lang(zh-CN) body {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .section {
