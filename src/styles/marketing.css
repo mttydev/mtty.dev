@@ -759,3 +759,224 @@ kbd {
 .media-original:hover {
   color: var(--fg);
 }
+
+/* --- Product heroes, shared with the home page ---------------------------
+ * A hero is a split: the copy on the left, the product on stage on the right,
+ * the install line under the lede, and three pillars in a rule-bound row
+ * below. The product pages use the home page's composition; only the accent
+ * and the copy change. */
+.hero-head {
+  padding-top: 56px;
+}
+
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 40px;
+  align-items: center;
+  margin-top: 44px;
+}
+
+:lang(zh-CN) .hero-split {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 32px;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hero-split .h1 {
+  margin: 0;
+  font-size: clamp(2.7rem, 4.6vw, 4.9rem);
+  line-height: 1.02;
+}
+
+:lang(zh-CN) .hero-split .h1 {
+  font-size: clamp(2.5rem, 5.6vw, 5.5rem);
+  line-height: 1.08;
+}
+
+.hero-split .hero-stage {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.hero-intro .lede {
+  max-width: 34ch;
+  font-size: clamp(1.18rem, 1.55vw, 1.4rem);
+  line-height: 1.7;
+}
+
+.hero-install {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+}
+
+.install-caption {
+  margin: 0;
+  color: var(--fg-faint);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 550;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 64px;
+  padding-inline: var(--gutter);
+  list-style: none;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-features li {
+  padding: 28px 34px 34px 0;
+}
+
+.hero-features li + li {
+  padding-left: 34px;
+  border-left: 1px solid var(--border);
+}
+
+.hero-features .n {
+  color: var(--fg-faint);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 550;
+  letter-spacing: 0.16em;
+}
+
+.pillar-head {
+  margin: 16px 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+:lang(zh-CN) .pillar-head {
+  font-weight: 600;
+}
+
+.hero-features p {
+  margin: 0;
+  max-width: 38ch;
+  color: var(--fg-muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+/* Screenshot cards: one column of wide captures, a rule above each caption. */
+.shotgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 64px;
+}
+
+.scard {
+  margin: 0;
+  overflow: clip;
+}
+
+.scard img {
+  transition: transform 1200ms var(--ease);
+}
+
+.scard:hover img {
+  transform: scale(1.012);
+}
+
+.scard figcaption {
+  display: grid;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.scard figcaption b {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.scard figcaption span {
+  color: var(--fg-muted);
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 1100px) {
+  .hero-split,
+  :lang(zh-CN) .hero-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-top: 28px;
+  }
+
+  .hero-split .h1 {
+    font-size: clamp(2.6rem, 9vw, 8.6rem);
+  }
+
+  :lang(zh-CN) .hero-split .h1 {
+    font-size: clamp(2.3rem, 9.4vw, 7rem);
+  }
+
+  .hero-features {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-features li,
+  .hero-features li + li {
+    padding: 24px 0 26px;
+    border-left: 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-features li:first-child {
+    border-top: 0;
+  }
+
+  .hero-features p {
+    max-width: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .shotgrid {
+    gap: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scard img {
+    transition: none;
+  }
+
+  .scard:hover img {
+    transform: none;
+  }
+}
