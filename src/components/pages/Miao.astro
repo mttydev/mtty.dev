@@ -6,6 +6,7 @@ import MarketingLayout from "../../layouts/MarketingLayout.astro"
 import InstallCommand from "../site/InstallCommand.astro"
 import MiaoMark from "../site/MiaoMark.astro"
 import ProductMedia from "../site/ProductMedia.astro"
+import ShowcaseWindow from "../site/ShowcaseWindow.astro"
 import { prefixFor, type Locale } from "../../i18n/routes"
 
 interface Props {
@@ -26,6 +27,12 @@ const copy = {
     h1b: "Then edit.",
     lede: "Reads the repo, makes the change, runs the checks, returns the result. Lean context; cost recorded per turn.",
     sub: "Budgets over money, tokens, turns and time.",
+    installHead: "Install miao",
+    pillars: [
+      ["Context", "A fixed baseline, changes appended in order, so prompt caches keep hitting."],
+      ["Cost", "Tokens, cache and estimated cost per turn. Budgets by money, turns and time."],
+      ["Install", "One binary. No engine, no second TUI. One command for macOS, Linux and Windows."],
+    ],
     copyLabel: "Copy command",
     platforms: "Single binary · macOS, Linux and Windows · MIT",
     guide: "Read the guide",
@@ -132,6 +139,12 @@ const copy = {
     h1b: "再修改。",
     lede: "读仓库、改代码、运行检查，结果交由你确认。上下文精简，费用逐轮记录。",
     sub: "预算按金额、token、轮次与时长设定。",
+    installHead: "安装 miao",
+    pillars: [
+      ["上下文", "基线固定，变化按序追加，提示缓存跨轮命中。"],
+      ["费用", "逐轮记录 token、缓存与估算费用；预算按金额、轮次与时长设定。"],
+      ["安装", "单个二进制，无引擎、无第二套 TUI。一行覆盖 macOS、Linux、Windows。"],
+    ],
     copyLabel: "复制命令",
     platforms: "单个二进制 · macOS、Linux 与 Windows · MIT",
     guide: "阅读使用指南",
@@ -237,33 +250,56 @@ const copy = {
   <section class="hero">
     <div class="lattice" aria-hidden="true"></div>
     <div class="glow g1" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="label miao rise"><MiaoMark size={18} /><b>miao</b> {copy.kind}</p>
-        <h1 class="display h1">
-          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-          <em class="hl accent" style="--line:1"><span>{copy.h1b}</span></em>
-        </h1>
-        <p class="lede rise" style="--i:2">{copy.lede}</p>
-        <p class="sub rise" style="--i:2">{copy.sub}</p>
-        <div class="install rise" style="--i:3">
-          <InstallCommand id="install-miao" label={copy.copyLabel} />
-          <p class="fine">{copy.platforms}</p>
+    <div class="wrap hero-head">
+      <div class="hero-split">
+        <div class="hero-copy">
+          <p class="label miao rise"><MiaoMark size={18} /><b>miao</b> {copy.kind}</p>
+          <h1 class="display h1">
+            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+            <em class="hl accent" style="--line:1"><span>{copy.h1b}</span></em>
+          </h1>
+
+          <div class="hero-intro rise" style="--i:2">
+            <div>
+              <p class="lede">{copy.lede}</p>
+              <p class="fine">{copy.sub}</p>
+            </div>
+            <div class="hero-install">
+              <p class="install-caption">{copy.installHead} · {copy.platforms}</p>
+              <InstallCommand id="install-miao" label={copy.copyLabel} />
+              <div class="actions">
+                <a class="btn solid" href={`${prefix}/docs/miao/guide/`}
+                  >{copy.guide} <span class="arrow">→</span></a
+                >
+                <a class="btn" href={`${prefix}/docs/miao/faq/`}>{copy.faq} <span class="arrow">→</span></a>
+                <a class="btn" href={`${prefix}/docs/miao/why-miao/`}>{copy.whyPage} <span class="arrow">→</span></a>
+                <a class="btn" href={REPO}>{copy.source} <span class="arrow">↗</span></a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="actions rise" style="--i:3">
-          <a class="btn solid" href={`${prefix}/docs/miao/guide/`}
-            >{copy.guide} <span class="arrow">→</span></a
-          >
-          <a class="btn" href={`${prefix}/docs/miao/faq/`}>{copy.faq} <span class="arrow">→</span></a>
-          <a class="btn" href={`${prefix}/docs/miao/why-miao/`}>{copy.whyPage} <span class="arrow">→</span></a>
-          <a class="btn" href={REPO}>{copy.source} <span class="arrow">↗</span></a>
+
+        <div class="hero-stage rise" style="--i:4">
+          <ShowcaseWindow embedded product="miao" kind={copy.kind} lang={lang} slides={[
+            { src: "/shots/miao.webp", label: lang === "zh" ? "行内代码改动与上下文用量 · 示例会话" : "Inline code changes and context usage · Example session", alt: copy.shot },
+            { src: "/shots/miao-providers.webp", label: lang === "zh" ? "连接你选择的模型服务" : "Connect your choice of model provider", alt: lang === "zh" ? "miao 模型服务选择面板" : "miao model provider selection" },
+            { src: "/shots/miao-home.webp", label: lang === "zh" ? "从一个提示开始" : "Start with a prompt", alt: lang === "zh" ? "miao 启动界面和提示输入框" : "miao start screen and prompt input" },
+          ]} />
         </div>
       </div>
-      <figure class="shot hero-shot rise" style="--i:4">
-        <ProductMedia src="/shots/miao.webp" alt={copy.shot} eager />
-        <figcaption>{copy.cap}</figcaption>
-      </figure>
     </div>
+
+    <ol class="wrap hero-features rise" style="--i:3">
+      {
+        copy.pillars.map(([head, body], index) => (
+          <li>
+            <span class="n">0{index + 1}</span>
+            <h2 class="pillar-head">{head}</h2>
+            <p>{body}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
   <section class="wrap section steer" data-reveal>
@@ -349,10 +385,10 @@ const copy = {
       <p class="label"><b>04</b> {copy.screensLabel}</p>
       <h2 class="display h2">{copy.screensH}</h2>
     </div>
-    <div class="mgallery">
+    <div class="shotgrid">
       {
         copy.screens.map(([src, head, body]) => (
-          <figure class="mcard">
+          <figure class="scard">
             <ProductMedia src={src} alt={body} />
             <figcaption>
               <b>{head}</b>
@@ -454,7 +490,8 @@ const copy = {
     position: relative;
     isolation: isolate;
     overflow-x: clip;
-    padding-top: 88px;
+    padding-top: 0;
+    border-bottom: 1px solid var(--border);
   }
 
   .g1 {
@@ -465,68 +502,12 @@ const copy = {
     background: var(--miao-1);
   }
 
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 64px;
-    align-items: center;
+  .hero-intro .fine {
+    margin: 12px 0 0;
   }
 
-  .hero-copy {
-    min-width: 0;
-  }
-
-  .h1 {
-    font-size: clamp(2.3rem, 3.95vw, 3.7rem);
-  }
-
-  /* Sized so "Your models. Your workflow." holds one line in its column:
-     two sentences, two lines, the same rhythm as the home page. */
-  @media (min-width: 961px) {
-    .h1 .hl {
-      white-space: nowrap;
-    }
-  }
-
-  .h1 .hl {
-    display: block;
-  }
-
-  :lang(zh-CN) .h1 {
-    font-size: clamp(1.9rem, 2.9vw, 2.75rem);
-    line-height: 1.22;
-  }
-
-  .hero-copy .lede {
-    margin-top: 30px;
-  }
-
-  .sub {
-    margin: 14px 0 0;
-    max-width: 60ch;
-    color: var(--fg-faint);
-  }
-
-  .install {
-    margin-top: 32px;
-  }
-
-  .install .fine {
-    margin: 10px 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-  }
-
-  .hero-copy .actions {
-    margin-top: 28px;
-  }
-
-  .hero-shot :global(img) {
-    box-shadow: 0 60px 120px -40px rgb(0 0 0 / 0.95), 0 0 0 1px var(--border-strong);
-  }
-
-  :root[data-theme="light"] .hero-shot :global(img) {
-    box-shadow: 0 40px 80px -36px rgb(40 30 10 / 0.45), 0 0 0 1px var(--border-strong);
+  .hero-install .actions {
+    margin-top: 8px;
   }
 
   /* --- Steer --- */
@@ -773,64 +754,6 @@ const copy = {
 
   /* --- In pictures --- */
 
-  .mgallery {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .mcard {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    transition: border-color 200ms ease, transform 200ms var(--ease);
-  }
-
-  .mcard:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-  }
-
-  .mcard :global(.product-media) {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid var(--border);
-    background: var(--mtty-tile);
-  }
-
-  .mcard figcaption {
-    display: grid;
-    gap: 6px;
-    padding: 18px 20px 20px;
-  }
-
-  .mcard b {
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .mcard span {
-    color: var(--fg-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  :lang(zh-CN) .mcard span {
-    font-size: 1.08rem;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 720px) {
-    .mgallery {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .spin {
       animation: none;
@@ -838,7 +761,6 @@ const copy = {
   }
 
   @media (max-width: 960px) {
-    .hero-grid,
     .steer,
     .split,
     .loop {
@@ -849,17 +771,9 @@ const copy = {
     .sticky {
       position: static;
     }
-
-    .hero-shot {
-      max-width: 640px;
-    }
   }
 
   @media (max-width: 720px) {
-    .hero {
-      padding-top: 52px;
-    }
-
     .why {
       grid-template-columns: minmax(0, 1fr);
     }
@@ -881,43 +795,8 @@ const copy = {
 
   /* --- Lookbook overrides --- */
 
-  .hero {
-    padding-top: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-grid {
-    gap: 64px;
-    padding-block: 64px;
-  }
-
   .hero .label {
     margin-bottom: 28px;
-  }
-
-  .h1 {
-    font-size: clamp(2.55rem, 5.8vw, 5.6rem);
-    line-height: 1.02;
-    letter-spacing: -0.018em;
-  }
-
-  :lang(zh-CN) .h1 {
-    font-size: clamp(2.35rem, 4.8vw, 4.5rem);
-    line-height: 1.1;
-  }
-
-  .hero-copy .lede {
-    margin-top: 26px;
-  }
-
-  .hero-copy .actions {
-    margin-top: 30px;
-  }
-
-  .hero-shot :global(img) {
-    border: 1px solid var(--border);
-    border-radius: 0;
-    box-shadow: var(--shadow);
   }
 
   .why .n {
@@ -938,48 +817,9 @@ const copy = {
     line-height: 1.7;
   }
 
-  .mcard {
-    border-radius: 0;
-    overflow: clip;
-  }
-
-  .mcard:hover {
-    transform: none;
-  }
-
-  .mcard :global(img) {
-    transition: transform 1200ms var(--ease);
-  }
-
-  .mcard:hover :global(img) {
-    transform: scale(1.012);
-  }
-
-  .mcard :global(.product-media) {
-    border: 1px solid var(--border);
-    border-radius: 0;
-  }
-
   .end :global(.miao-mark) {
     width: 48px;
     height: 48px;
   }
 
-  @media (max-width: 960px) {
-    .hero-grid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 40px;
-      padding-block: 48px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .mcard :global(img) {
-      transition: none;
-    }
-
-    .mcard:hover :global(img) {
-      transform: none;
-    }
-  }
 </style>

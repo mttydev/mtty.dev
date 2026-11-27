@@ -5,6 +5,7 @@
 import MarketingLayout from "../../layouts/MarketingLayout.astro"
 import MttyMark from "../site/MttyMark.astro"
 import ProductMedia from "../site/ProductMedia.astro"
+import ShowcaseWindow from "../site/ShowcaseWindow.astro"
 import shortcuts from "../../data/mtty-shortcuts.json"
 import { prefixFor, type Locale } from "../../i18n/routes"
 
@@ -28,6 +29,8 @@ const copy = {
     lede: "Edit beside the shell, see when an agent needs input, queue the next prompt while it works. Runs locally; never calls a model.",
     naming: "The application ships as <code>mtty</code> (called <code>miaotty</code> up to v0.0.5); the source lives in <code>mtty</code>.",
     download: "Download the preview",
+    installHead: "Get mtty",
+    installMeta: "macOS · Linux · Windows · preview",
     build: "Installation guide",
     pkgs: [
       ["macOS", "Apple silicon · Intel"],
@@ -43,13 +46,11 @@ const copy = {
       ["Editor", "A built-in viewer and editor with Markdown and Mermaid preview, held to a 100 MB performance gate."],
       ["Agent workspace", "Claude Code, Codex, OpenCode and miao report idle, processing, awaiting or error — a tab badge, a notification and a prompt queue."],
     ],
-    startLabel: "getting started",
-    startH: "From download to your first workspace.",
     installGuide: "Package details and first-run steps",
     start: [
-      ["1. Choose a package", "macOS: Apple silicon or Intel zip. Linux: .deb, AppImage or tar. Windows: MSI or zip."],
-      ["2. Open mtty", "Use a local terminal or connect a saved SSH host. Open a file beside its shell with Open File… in the command palette."],
-      ["3. Run your agent", "Start an installed agent CLI in a pane. miao reports state automatically; other supported agents have hook setup actions."],
+      ["Choose a package", "macOS: Apple silicon or Intel zip. Linux: .deb, AppImage or tar. Windows: MSI or zip."],
+      ["Open mtty", "Use a local terminal or connect a saved SSH host. Open a file beside its shell with Open File… in the command palette."],
+      ["Run your agent", "Start an installed agent CLI in a pane. miao reports state automatically; other supported agents have hook setup actions."],
     ],
     pillarsLabel: "three parts",
     pillarsH: "Terminal, editor, agents.",
@@ -151,6 +152,8 @@ const copy = {
     lede: "在 shell 旁编辑文件，代理需输入时可见，工作期间可预备下一条提示。本地运行，不调用模型。",
     naming: "应用以 <code>mtty</code> 的名字发布（v0.0.5 及之前名为 <code>miaotty</code>），源码在 <code>mtty</code> 仓库。",
     download: "下载预览版",
+    installHead: "获取 mtty",
+    installMeta: "macOS · Linux · Windows · 预览版",
     build: "安装指引",
     pkgs: [
       ["macOS", "Apple 芯片 · Intel"],
@@ -166,13 +169,11 @@ const copy = {
       ["编辑器", "内置查看与编辑器，Markdown 与 Mermaid 实时预览，在 100 MB 文件上设有性能门。"],
       ["代理工作台", "Claude Code、Codex、OpenCode 与 miao 上报四种状态，变成标签徽章、通知与提示队列。"],
     ],
-    startLabel: "快速上手",
-    startH: "从下载到第一个工作区。",
     installGuide: "安装包选择与首次启动步骤",
     start: [
-      ["1. 选择安装包", "macOS 按 Apple 芯片或 Intel 选 zip；Linux 选 .deb、AppImage 或 tar；Windows 选 MSI 或 zip。"],
-      ["2. 打开 mtty", "使用本地终端或连接已保存的 SSH 主机。在命令面板打开文件，与 shell 并排。"],
-      ["3. 运行代理", "在窗格里启动已安装的代理 CLI。miao 自动上报状态；其他受支持代理提供 hook 设置入口。"],
+      ["选择安装包", "macOS 按 Apple 芯片或 Intel 选 zip；Linux 选 .deb、AppImage 或 tar；Windows 选 MSI 或 zip。"],
+      ["打开 mtty", "使用本地终端或连接已保存的 SSH 主机。在命令面板打开文件，与 shell 并排。"],
+      ["运行代理", "在窗格里启动已安装的代理 CLI。miao 自动上报状态；其他受支持代理提供 hook 设置入口。"],
     ],
     pillarsLabel: "三个部分",
     pillarsH: "终端、编辑器、代理。",
@@ -271,50 +272,78 @@ const copy = {
   <section class="hero">
     <div class="lattice" aria-hidden="true"></div>
     <div class="glow g1" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="label mtty rise"><MttyMark size={18} /><b>mtty</b> {copy.kind}</p>
-        <h1 class="display h1">
-          <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-          <em class="hl accent mtty" style="--line:1"><span>{copy.h1b}</span></em>
-        </h1>
-        <p class="lede rise" style="--i:2">{copy.lede}</p>
-        <p class="fine naming rise" style="--i:2" set:html={copy.naming} />
-        <div class="actions rise" style="--i:3">
-          <a class="btn solid" href={RELEASES}>
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"
-              ><path
-                d="M8 2v8.5M4.5 7 8 10.5 11.5 7M3 13.5h10"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path></svg
-            >
-            {copy.download}
-          </a>
-          <a class="btn" href={`${prefix}/docs/mtty/install/`}>{copy.build} <span class="arrow">↗</span></a>
+    <div class="wrap hero-head">
+      <div class="hero-split">
+        <div class="hero-copy">
+          <p class="label mtty rise"><MttyMark size={18} /><b>mtty</b> {copy.kind}</p>
+          <h1 class="display h1">
+            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
+            <em class="hl accent mtty" style="--line:1"><span>{copy.h1b}</span></em>
+          </h1>
+
+          <div class="hero-intro rise" style="--i:2">
+            <div>
+              <p class="lede">{copy.lede}</p>
+              <p class="fine naming" set:html={copy.naming} />
+            </div>
+            <div class="hero-install">
+              <p class="install-caption">{copy.installHead} · {copy.installMeta}</p>
+              <div class="actions">
+                <a class="btn solid" href={RELEASES}>
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"
+                    ><path
+                      d="M8 2v8.5M4.5 7 8 10.5 11.5 7M3 13.5h10"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path></svg
+                  >
+                  {copy.download}
+                </a>
+                <a class="btn" href={`${prefix}/docs/mtty/install/`}>{copy.build} <span class="arrow">↗</span></a>
+              </div>
+              <ul class="pkgs">
+                {
+                  copy.pkgs.map(([os, formats]) => (
+                    <li>
+                      <b>{os}</b>
+                      <span>{formats}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+              <p class="fine"><a href={`${prefix}/docs/mtty/install/`}>{copy.installGuide} →</a></p>
+              <div class="callout preview">
+                <span class="pip" aria-hidden="true"></span>
+                <p set:html={copy.preview} />
+              </div>
+            </div>
+          </div>
         </div>
-        <ul class="pkgs rise" style="--i:3">
-          {
-            copy.pkgs.map(([os, formats]) => (
-              <li>
-                <b>{os}</b>
-                <span>{formats}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <div class="callout preview rise" style="--i:3">
-          <span class="pip" aria-hidden="true"></span>
-          <p set:html={copy.preview} />
+
+        <div class="hero-stage rise" style="--i:4">
+          <ShowcaseWindow embedded product="mtty" kind={copy.kind} lang={lang} slides={[
+            { src: "/shots/mtty.webp", label: lang === "zh" ? "编辑器、预览与终端" : "Editor, preview and terminal", alt: copy.shot },
+            { src: "/shots/mtty-editor.webp", label: lang === "zh" ? "Markdown 与 Mermaid 实时预览" : "Live Markdown and Mermaid preview", alt: lang === "zh" ? "mtty Markdown 编辑器和实时预览" : "mtty Markdown editor with live preview" },
+            { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
+          ]} />
         </div>
       </div>
-      <figure class="shot hero-shot rise" style="--i:4">
-        <ProductMedia src="/shots/mtty.webp" alt={copy.shot} eager />
-        <figcaption>{copy.cap}</figcaption>
-      </figure>
     </div>
+
+    <ol class="wrap hero-features rise" style="--i:3">
+      {
+        copy.start.map(([head, body], index) => (
+          <li>
+            <span class="n">0{index + 1}</span>
+            <h2 class="pillar-head">{head}</h2>
+            <p>{body}</p>
+          </li>
+        ))
+      }
+    </ol>
+
     <div class="wrap">
       <dl class="glance rise" style="--i:5" aria-label={copy.glanceLabel}>
         {
@@ -327,17 +356,6 @@ const copy = {
         }
       </dl>
     </div>
-  </section>
-
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>00</b> {copy.startLabel}</p>
-      <h2 class="display h2">{copy.startH}</h2>
-    </div>
-    <ul class="ws pillars">
-      {copy.start.map(([head, body]) => <li><h3>{head}</h3><p>{body}</p></li>)}
-    </ul>
-    <p class="fine note"><a href={`${prefix}/docs/mtty/install/`}>{copy.installGuide} →</a></p>
   </section>
 
   <section class="wrap section" data-reveal>
@@ -386,10 +404,10 @@ const copy = {
       <h2 class="display h2">{copy.screensH}</h2>
       <p class="lede">{copy.screensBody}</p>
     </div>
-    <div class="gallery">
+    <div class="shotgrid">
       {
         copy.screens.map(([src, head, body]) => (
-          <figure class="gcard">
+          <figure class="scard">
             <ProductMedia src={src} alt={body} />
             <figcaption>
               <b>{head}</b>
@@ -534,7 +552,8 @@ const copy = {
     position: relative;
     isolation: isolate;
     overflow-x: clip;
-    padding-top: 88px;
+    padding-top: 0;
+    border-bottom: 1px solid var(--border);
   }
 
   .g1 {
@@ -545,50 +564,20 @@ const copy = {
     background: var(--mtty-accent);
   }
 
-  /* Two columns, as on the miao page: what it is on the left, what it looks
-     like on the right, so both land in the first screen. */
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: 56px;
-    align-items: center;
-  }
-
-  .hero-copy {
-    min-width: 0;
-  }
-
-  /* Sized so "An AI-native terminal and editor," holds one line in its column
-     — 10.96em at the widest, against a 587px column at 1440px. */
-  .h1 {
-    font-size: clamp(2.2rem, 3.55vw, 3.2rem);
-  }
-
-  @media (min-width: 961px) {
-    .h1 .hl {
-      white-space: nowrap;
-    }
-  }
-
-  .h1 .hl {
-    display: block;
-  }
-
-  :lang(zh-CN) .h1 {
-    font-size: clamp(1.9rem, 3.55vw, 3.2rem);
-    line-height: 1.22;
-  }
-
-  .hero-copy .lede {
-    margin-top: 30px;
-  }
-
   .naming {
-    margin: 14px 0 0;
+    margin: 12px 0 0;
   }
 
-  .hero-copy .actions {
-    margin-top: 28px;
+  .hero-install .actions {
+    margin-top: 4px;
+  }
+
+  .hero-install > .fine {
+    margin: 0;
+  }
+
+  .hero-install > .fine a {
+    color: var(--fg-muted);
   }
 
   .pkgs {
@@ -607,20 +596,6 @@ const copy = {
     color: var(--fg-muted);
     font-weight: 500;
     margin-right: 6px;
-  }
-
-  /* The same lifted frame the miao hero uses, so the two product pages read as
-     one site. */
-  .hero-shot :global(img) {
-    box-shadow:
-      0 60px 120px -40px rgb(0 0 0 / 0.95),
-      0 0 0 1px var(--border-strong);
-  }
-
-  :root[data-theme="light"] .hero-shot :global(img) {
-    box-shadow:
-      0 40px 80px -36px rgb(40 30 10 / 0.45),
-      0 0 0 1px var(--border-strong);
   }
 
   .preview {
@@ -1088,75 +1063,6 @@ const copy = {
     text-align: left;
   }
 
-  /* --- Screens gallery --- */
-
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .gcard {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    transition: border-color 200ms ease, transform 200ms var(--ease);
-  }
-
-  .gcard:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-3px);
-  }
-
-  .gcard:first-child {
-    grid-column: 1 / -1;
-  }
-
-  .gcard :global(.product-media) {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-bottom: 1px solid var(--border);
-    background: var(--mtty-tile);
-  }
-
-  .gcard figcaption {
-    display: grid;
-    gap: 6px;
-    padding: 18px 20px 20px;
-  }
-
-  .gcard b {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .gcard span {
-    color: var(--fg-muted);
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  :lang(zh-CN) .gcard span {
-    font-size: 1.08rem;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 900px) {
-    .gallery {
-      grid-template-columns: minmax(0, 1fr);
-    }
-
-    .gcard:first-child {
-      grid-column: auto;
-    }
-  }
-
   @media (max-width: 1080px) {
     .ws {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1181,7 +1087,6 @@ const copy = {
   }
 
   @media (max-width: 960px) {
-    .hero-grid,
     .engine,
     .agents,
     .mtp {
@@ -1199,14 +1104,6 @@ const copy = {
   }
 
   @media (max-width: 720px) {
-    .hero {
-      padding-top: 52px;
-    }
-
-    .hero-grid {
-      gap: 28px;
-    }
-
     .glance {
       margin-top: 36px;
     }
