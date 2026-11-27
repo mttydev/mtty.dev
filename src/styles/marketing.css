@@ -760,133 +760,267 @@ kbd {
   color: var(--fg);
 }
 
-/* --- Product heroes, shared with the home page ---------------------------
- * A hero is a split: the copy on the left, the product on stage on the right,
- * the install line under the lede, and three pillars in a rule-bound row
- * below. The product pages use the home page's composition; only the accent
- * and the copy change. */
-.hero-head {
-  padding-top: 56px;
-}
-
-.hero-split {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 40px;
-  align-items: center;
-  margin-top: 44px;
-}
-
-:lang(zh-CN) .hero-split {
-  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
-  gap: 32px;
-}
-
-.hero-copy {
+/* --- Masthead, campaign and chapters -------------------------------------
+ * The page grammar the home page sets and the product pages follow: a
+ * centred slogan that fills the first screen, one full-bleed campaign image,
+ * then chapters that open with a spaced eyebrow and a title. Only the accent
+ * and the copy change from page to page. */
+.masthead {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  min-height: calc(100svh - 60px);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 0;
+  align-items: center;
+  box-sizing: border-box;
+  padding: clamp(48px, 8vh, 96px) var(--gutter);
+  text-align: center;
 }
 
-.hero-split .h1 {
-  margin: 0;
-  font-size: clamp(2.7rem, 4.6vw, 4.9rem);
-  line-height: 1.02;
-}
-
-:lang(zh-CN) .hero-split .h1 {
-  font-size: clamp(2.5rem, 5.6vw, 5.5rem);
-  line-height: 1.08;
-}
-
-.hero-split .hero-stage {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-.hero-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 30px;
-  align-items: start;
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-
-.hero-intro .lede {
-  max-width: 34ch;
-  font-size: clamp(1.18rem, 1.55vw, 1.4rem);
-  line-height: 1.7;
-}
-
-.hero-install {
-  display: grid;
-  gap: 12px;
-  width: 100%;
-  max-width: none;
-  justify-self: stretch;
-}
-
-.install-caption {
-  margin: 0;
-  color: var(--fg-faint);
+.kicker,
+.eyebrow {
+  margin: 0 0 28px;
+  color: var(--fg);
   font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 550;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
 }
 
-.hero-features {
+.kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.slogan {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 7.1rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.slogan .hl {
+  display: block;
+  overflow: hidden;
+  /* Room below for the serif's descender; the negative margin gives the
+     space back so the line spacing does not change. */
+  padding-block: 0.04em 0.24em;
+  margin-bottom: -0.2em;
+}
+
+.slogan .hl > span {
+  display: block;
+  animation: line-in 1200ms var(--ease) both;
+  animation-delay: calc(140ms + var(--line, 0) * 160ms);
+}
+
+/* Weight carries the first word; the soft word drops into the display serif,
+   lower case and italic, the way a couture headline sets its one soft word. */
+.slogan b {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.slogan i {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@keyframes line-in {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+.masthead-lede {
+  max-width: 44ch;
+  margin: 40px auto 0;
+  color: var(--fg-muted);
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.masthead .fine {
+  max-width: 52ch;
+  margin: 16px auto 0;
+}
+
+.masthead-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 44px;
+}
+
+/* The campaign image is full bleed: the one moment of colour on the page. */
+.campaign {
+  margin: 0;
+  background: #0b0b0b;
+}
+
+.campaign .product-media {
+  display: block;
+  width: min(100%, 1600px);
+  margin-inline: auto;
+}
+
+.campaign figcaption {
+  padding: 16px var(--gutter);
+  background: var(--bg);
+  color: var(--fg-faint);
+  font-size: 0.66rem;
+  font-weight: 550;
+  letter-spacing: 0.24em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* The page's reveal is a pull-down: the campaign and every chapter start
+   just above their resting place and settle down as they enter, so the first
+   screen still stays type and buttons. */
+.campaign.reveal-pending,
+.chapter.reveal-pending {
+  transform: translateY(-28px);
+  transition:
+    opacity 900ms var(--ease),
+    transform 900ms var(--ease);
+}
+
+.campaign.reveal-pending.is-revealed,
+.chapter.reveal-pending.is-revealed {
+  transform: none;
+}
+
+.chapter {
+  padding-block: clamp(88px, 10vw, 136px);
+}
+
+.chapter-head {
+  max-width: 760px;
+  margin: 0 auto 64px;
+  text-align: center;
+}
+
+/* A chapter laid out in columns keeps its head in the copy column. */
+.chapter-head.start {
+  margin: 0 0 40px;
+  text-align: start;
+}
+
+.chapter-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+}
+
+.chapter-lede {
+  max-width: 52ch;
+  margin: 24px auto 0;
+  color: var(--fg-muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+/* Essentials: three short points in a rule-bound row. */
+.pillars {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  margin-top: 64px;
-  padding-inline: var(--gutter);
+  margin: 0;
+  padding: 0;
   list-style: none;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-block: 1px solid var(--border);
 }
 
-.hero-features li {
-  padding: 28px 34px 34px 0;
+.pillars li {
+  padding: 44px 32px;
+  text-align: center;
 }
 
-.hero-features li + li {
-  padding-left: 34px;
+.pillars li + li {
   border-left: 1px solid var(--border);
 }
 
-.hero-features .n {
+.pillars h3 {
+  margin: 0 0 16px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.pillars p {
+  max-width: 34ch;
+  margin: 0 auto;
+  color: var(--fg-muted);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+/* Getting it: the install chapter closes the page. */
+.end {
+  border-top: 1px solid var(--border);
+}
+
+.end .chapter-head {
+  margin-bottom: 44px;
+}
+
+.end-install {
+  max-width: 620px;
+  margin: 0 auto 40px;
+}
+
+.install-caption {
+  margin: 0 0 12px;
   color: var(--fg-faint);
   font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 550;
-  letter-spacing: 0.16em;
-}
-
-.pillar-head {
-  margin: 16px 0 12px;
-  font-family: var(--font-display);
-  font-size: clamp(1.9rem, 2.6vw, 2.6rem);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.01em;
-}
-
-:lang(zh-CN) .pillar-head {
+  font-size: 0.72rem;
   font-weight: 600;
+  letter-spacing: 0.28em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.hero-features p {
-  margin: 0;
-  max-width: 38ch;
+.account-actions,
+.end-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 32px;
+}
+
+.link {
+  justify-self: center;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  color: var(--fg);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.link:hover {
   color: var(--fg-muted);
-  font-size: 1.05rem;
-  line-height: 1.75;
 }
 
 /* Screenshot cards: one column of wide captures, a rule above each caption. */
@@ -929,49 +1063,54 @@ kbd {
   line-height: 1.65;
 }
 
-@media (max-width: 1100px) {
-  .hero-split,
-  :lang(zh-CN) .hero-split {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 32px;
-    margin-top: 28px;
+/* Chinese body copy: one step up, compact leading. */
+:lang(zh-CN) .masthead-lede {
+  font-size: clamp(1.35rem, 1.7vw, 1.6rem);
+  line-height: 1.75;
+}
+
+:lang(zh-CN) .chapter-lede {
+  font-size: 1.25rem;
+}
+
+:lang(zh-CN) .pillars p {
+  font-size: 1.125rem;
+}
+
+@media (max-width: 760px) {
+  .slogan {
+    letter-spacing: 0.03em;
   }
 
-  .hero-split .h1 {
-    font-size: clamp(2.6rem, 9vw, 8.6rem);
+  .pillars {
+    grid-template-columns: 1fr;
   }
 
-  :lang(zh-CN) .hero-split .h1 {
-    font-size: clamp(2.3rem, 9.4vw, 7rem);
-  }
-
-  .hero-features {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .hero-features li,
-  .hero-features li + li {
-    padding: 24px 0 26px;
+  .pillars li + li {
     border-left: 0;
     border-top: 1px solid var(--border);
   }
 
-  .hero-features li:first-child {
-    border-top: 0;
+  .masthead-actions .btn,
+  .account-actions .btn {
+    width: 100%;
   }
 
-  .hero-features p {
-    max-width: none;
-  }
-}
-
-@media (max-width: 760px) {
   .shotgrid {
     gap: 40px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .campaign.reveal-pending,
+  .chapter.reveal-pending {
+    transform: none;
+  }
+
+  .slogan .hl > span {
+    animation: none;
+  }
+
   .scard img {
     transition: none;
   }

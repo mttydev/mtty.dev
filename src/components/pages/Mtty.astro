@@ -30,6 +30,8 @@ const copy = {
     naming: "The application ships as <code>mtty</code> (called <code>miaotty</code> up to v0.0.5); the source lives in <code>mtty</code>.",
     download: "Download the preview",
     installHead: "Get mtty",
+    startLabel: "getting started",
+    startH: "From download to your first workspace.",
     installMeta: "macOS · Linux · Windows · preview",
     build: "Installation guide",
     pkgs: [
@@ -153,6 +155,8 @@ const copy = {
     naming: "应用以 <code>mtty</code> 的名字发布（v0.0.5 及之前名为 <code>miaotty</code>），源码在 <code>mtty</code> 仓库。",
     download: "下载预览版",
     installHead: "获取 mtty",
+    startLabel: "快速上手",
+    startH: "从下载到第一个工作区。",
     installMeta: "macOS · Linux · Windows · 预览版",
     build: "安装指引",
     pkgs: [
@@ -269,100 +273,63 @@ const copy = {
 ---
 
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
-  <section class="hero">
-    <div class="lattice" aria-hidden="true"></div>
-    <div class="glow g1" aria-hidden="true"></div>
-    <div class="wrap hero-head">
-      <div class="hero-split">
-        <div class="hero-copy">
-          <p class="label mtty rise"><MttyMark size={18} /><b>mtty</b> {copy.kind}</p>
-          <h1 class="display h1">
-            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-            <em class="hl accent mtty" style="--line:1"><span>{copy.h1b}</span></em>
-          </h1>
-
-          <div class="hero-intro rise" style="--i:2">
-            <div>
-              <p class="lede">{copy.lede}</p>
-              <p class="fine naming" set:html={copy.naming} />
-            </div>
-            <div class="hero-install">
-              <p class="install-caption">{copy.installHead} · {copy.installMeta}</p>
-              <div class="actions">
-                <a class="btn solid" href={RELEASES}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"
-                    ><path
-                      d="M8 2v8.5M4.5 7 8 10.5 11.5 7M3 13.5h10"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"></path></svg
-                  >
-                  {copy.download}
-                </a>
-                <a class="btn" href={`${prefix}/docs/mtty/install/`}>{copy.build} <span class="arrow">↗</span></a>
-              </div>
-              <ul class="pkgs">
-                {
-                  copy.pkgs.map(([os, formats]) => (
-                    <li>
-                      <b>{os}</b>
-                      <span>{formats}</span>
-                    </li>
-                  ))
-                }
-              </ul>
-              <p class="fine"><a href={`${prefix}/docs/mtty/install/`}>{copy.installGuide} →</a></p>
-              <div class="callout preview">
-                <span class="pip" aria-hidden="true"></span>
-                <p set:html={copy.preview} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-stage rise" style="--i:4">
-          <ShowcaseWindow embedded product="mtty" kind={copy.kind} lang={lang} slides={[
-            { src: "/shots/mtty.webp", label: lang === "zh" ? "编辑器、预览与终端" : "Editor, preview and terminal", alt: copy.shot },
-            { src: "/shots/mtty-editor.webp", label: lang === "zh" ? "Markdown 与 Mermaid 实时预览" : "Live Markdown and Mermaid preview", alt: lang === "zh" ? "mtty Markdown 编辑器和实时预览" : "mtty Markdown editor with live preview" },
-            { src: "/shots/mtty-splits.webp", label: lang === "zh" ? "并排查看终端与运行中的服务" : "Terminals and running services side by side", alt: lang === "zh" ? "mtty 递归分屏终端" : "mtty split terminals" },
-          ]} />
-        </div>
-      </div>
+  <section class="masthead">
+    <p class="kicker rise" style="--i:0"><MttyMark size={18} /><b>mtty</b> · {copy.kind}</p>
+    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b}`}>
+      <span class="hl" style="--line:0" aria-hidden="true"><span>{copy.h1a}</span></span>
+      <span class="hl" style="--line:1" aria-hidden="true"><span><i>{copy.h1b}</i></span></span>
+    </h1>
+    <p class="masthead-lede rise" style="--i:3">{copy.lede}</p>
+    <p class="fine rise" style="--i:3" set:html={copy.naming} />
+    <div class="masthead-actions rise" style="--i:4">
+      <a class="btn solid" href={RELEASES}>{copy.download}</a>
+      <a class="btn" href={`${prefix}/docs/mtty/install/`}>{copy.build} <span class="arrow">↗</span></a>
     </div>
+  </section>
 
-    <ol class="wrap hero-features rise" style="--i:3">
+  <figure class="campaign" data-reveal>
+    <ProductMedia src="/shots/mtty.webp" alt={copy.shot} eager sizes="100vw" />
+    <figcaption>{copy.cap}</figcaption>
+  </figure>
+
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.glanceLabel}</p>
+    </header>
+    <dl class="glance" aria-label={copy.glanceLabel}>
       {
-        copy.start.map(([head, body], index) => (
+        copy.glance.map(([head, body]) => (
+          <div>
+            <dt>{head}</dt>
+            <dd>{body}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.startLabel}</p>
+      <h2 class="chapter-title">{copy.startH}</h2>
+    </header>
+    <ol class="pillars">
+      {
+        copy.start.map(([head, body]) => (
           <li>
-            <span class="n">0{index + 1}</span>
-            <h2 class="pillar-head">{head}</h2>
+            <h3>{head}</h3>
             <p>{body}</p>
           </li>
         ))
       }
     </ol>
-
-    <div class="wrap">
-      <dl class="glance rise" style="--i:5" aria-label={copy.glanceLabel}>
-        {
-          copy.glance.map(([head, body]) => (
-            <div>
-              <dt>{head}</dt>
-              <dd>{body}</dd>
-            </div>
-          ))
-        }
-      </dl>
-    </div>
   </section>
 
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>01</b> {copy.pillarsLabel}</p>
-      <h2 class="display h2">{copy.pillarsH}</h2>
-    </div>
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.pillarsLabel}</p>
+      <h2 class="chapter-title">{copy.pillarsH}</h2>
+    </header>
     <ul class="ws pillars">
       {
         copy.pillars.map(([head, purpose, body]) => (
@@ -378,11 +345,11 @@ const copy = {
     </ul>
   </section>
 
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>02</b> {copy.wsLabel}</p>
-      <h2 class="display h2">{copy.wsH}</h2>
-    </div>
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.wsLabel}</p>
+      <h2 class="chapter-title">{copy.wsH}</h2>
+    </header>
     <ul class="ws">
       {
         copy.ws.map(([head, body, hint]) => (
@@ -398,12 +365,12 @@ const copy = {
     </ul>
   </section>
 
-  <section id="screens" class="wrap section screens" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>03</b> {copy.screensLabel}</p>
-      <h2 class="display h2">{copy.screensH}</h2>
-      <p class="lede">{copy.screensBody}</p>
-    </div>
+  <section id="screens" class="wrap chapter screens" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.screensLabel}</p>
+      <h2 class="chapter-title">{copy.screensH}</h2>
+      <p class="chapter-lede">{copy.screensBody}</p>
+    </header>
     <div class="shotgrid">
       {
         copy.screens.map(([src, head, body]) => (
@@ -420,10 +387,10 @@ const copy = {
     </div>
   </section>
 
-  <section class="wrap section agents" data-reveal>
+  <section class="wrap chapter agents" data-reveal>
     <div class="agents-copy">
-      <p class="label"><b>04</b> {copy.agentLabel}</p>
-      <h2 class="display h2">{copy.agentH}</h2>
+      <p class="eyebrow">{copy.agentLabel}</p>
+      <h2 class="chapter-title">{copy.agentH}</h2>
       <p class="lede">{copy.agentBody}</p>
     </div>
     <div class="agents-side">
@@ -448,10 +415,10 @@ const copy = {
     </div>
   </section>
 
-  <section class="wrap section mtp" data-reveal>
+  <section class="wrap chapter mtp" data-reveal>
     <div>
-      <p class="label"><b>05</b> {copy.mtpLabel}</p>
-      <h2 class="display h2">{copy.mtpH}</h2>
+      <p class="eyebrow">{copy.mtpLabel}</p>
+      <h2 class="chapter-title">{copy.mtpH}</h2>
       <p class="lede">{copy.mtpBody}</p>
       <p class="fine">{copy.mtpFine}</p>
     </div>
@@ -463,11 +430,11 @@ const copy = {
 <span class="p">$ </span>mtty-cli file read --path /etc/hosts   <span class="c"># ≤ 2 MB</span></code></pre>
   </section>
 
-  <section class="wrap section keys" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>06</b> {copy.keysLabel}</p>
-      <h2 class="display h3">{copy.keysH}</h2>
-    </div>
+  <section class="wrap chapter keys" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.keysLabel}</p>
+      <h2 class="chapter-title">{copy.keysH}</h2>
+    </header>
     <dl class="keygrid">
       {
         copy.keys.map(([key, action]) => (
@@ -481,10 +448,10 @@ const copy = {
     <p class="fine note">{copy.keysFine} <a href={`${prefix}/docs/mtty/shortcuts/`}>{copy.docs} →</a></p>
   </section>
 
-  <section class="wrap section engine" data-reveal>
+  <section class="wrap chapter engine" data-reveal>
     <div class="engine-copy">
-      <p class="label"><b>07</b> {copy.engineLabel}</p>
-      <h2 class="display h2">{copy.engineH}</h2>
+      <p class="eyebrow">{copy.engineLabel}</p>
+      <h2 class="chapter-title">{copy.engineH}</h2>
       <p class="lede">{copy.engineBody}</p>
       <p class="hot">
         <span class="path" aria-hidden="true"
@@ -512,12 +479,12 @@ const copy = {
     </div>
   </section>
 
-  <section class="wrap section perf" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>08</b> {copy.perfLabel}</p>
-      <h2 class="display h2">{copy.perfH}</h2>
-      <p class="lede">{copy.perfBody}</p>
-    </div>
+  <section class="wrap chapter perf" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.perfLabel}</p>
+      <h2 class="chapter-title">{copy.perfH}</h2>
+      <p class="chapter-lede">{copy.perfBody}</p>
+    </header>
     <div class="meters">
       {
         copy.perf.map(([metric, budget, baseline]) => (
@@ -534,12 +501,28 @@ const copy = {
     <p class="fine note">{copy.perfFine}</p>
   </section>
 
-  <section class="wrap section end" data-reveal>
-    <MttyMark size={44} />
-    <h2 class="display h2">{copy.endH}</h2>
-    <div class="actions">
+  <section class="wrap chapter end" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.installHead} · {copy.installMeta}</p>
+      <h2 class="chapter-title">{copy.endH}</h2>
+    </header>
+    <div class="account-actions">
       <a class="btn solid" href={RELEASES}>{copy.download} <span class="arrow">→</span></a>
-      <a class="btn" href={`${prefix}/docs/mtty/`}>{copy.docs} <span class="arrow">→</span></a>
+      <a class="btn" href={`${prefix}/docs/mtty/install/`}>{copy.installGuide} <span class="arrow">↗</span></a>
+    </div>
+    <ul class="pkgs">
+      {
+        copy.pkgs.map(([os, formats]) => (
+          <li>
+            <b>{os}</b>
+            <span>{formats}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="callout preview">
+      <span class="pip" aria-hidden="true"></span>
+      <p set:html={copy.preview} />
     </div>
     <p class="fine src">{copy.srcLabel}</p>
     <pre class="codeblock mtty"><code><span class="p">$ </span>git clone https://github.com/mttydev/mtty.git && cd mtty
@@ -548,37 +531,6 @@ const copy = {
 </MarketingLayout>
 
 <style>
-  .hero {
-    position: relative;
-    isolation: isolate;
-    overflow-x: clip;
-    padding-top: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .g1 {
-    width: 760px;
-    height: 560px;
-    right: -200px;
-    top: -240px;
-    background: var(--mtty-accent);
-  }
-
-  .naming {
-    margin: 12px 0 0;
-  }
-
-  .hero-install .actions {
-    margin-top: 4px;
-  }
-
-  .hero-install > .fine {
-    margin: 0;
-  }
-
-  .hero-install > .fine a {
-    color: var(--fg-muted);
-  }
 
   .pkgs {
     list-style: none;
@@ -659,8 +611,8 @@ const copy = {
     gap: 22px;
   }
 
-  .engine-copy .label {
-    margin: 0;
+  .engine-copy .eyebrow {
+    margin: 0 0 14px;
   }
 
   .hot {
@@ -913,8 +865,8 @@ const copy = {
     gap: 22px;
   }
 
-  .agents-copy .label {
-    margin: 0;
+  .agents-copy .eyebrow {
+    margin: 0 0 14px;
   }
 
   .statebar {
@@ -1021,7 +973,7 @@ const copy = {
 
   /* --- Keys --- */
 
-  .keys .section-head {
+  .keys .chapter-head {
     margin-bottom: 28px;
   }
 
@@ -1050,7 +1002,12 @@ const copy = {
     display: grid;
     justify-items: center;
     gap: 26px;
-    text-align: center;
+  }
+
+  .end .pkgs,
+  .end .preview,
+  .end .codeblock {
+    justify-self: center;
   }
 
   .end .src {
