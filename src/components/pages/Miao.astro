@@ -28,6 +28,7 @@ const copy = {
     lede: "Reads the repo, makes the change, runs the checks, returns the result. Lean context; cost recorded per turn.",
     sub: "Budgets over money, tokens, turns and time.",
     installHead: "Install miao",
+    pillarsLabel: "the essentials",
     pillars: [
       ["Context", "A fixed baseline, changes appended in order, so prompt caches keep hitting."],
       ["Cost", "Tokens, cache and estimated cost per turn. Budgets by money, turns and time."],
@@ -140,6 +141,7 @@ const copy = {
     lede: "读仓库、改代码、运行检查，结果交由你确认。上下文精简，费用逐轮记录。",
     sub: "预算按金额、token、轮次与时长设定。",
     installHead: "安装 miao",
+    pillarsLabel: "要点",
     pillars: [
       ["上下文", "基线固定，变化按序追加，提示缓存跨轮命中。"],
       ["费用", "逐轮记录 token、缓存与估算费用；预算按金额、轮次与时长设定。"],
@@ -247,54 +249,33 @@ const copy = {
 ---
 
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
-  <section class="hero">
-    <div class="lattice" aria-hidden="true"></div>
-    <div class="glow g1" aria-hidden="true"></div>
-    <div class="wrap hero-head">
-      <div class="hero-split">
-        <div class="hero-copy">
-          <p class="label miao rise"><MiaoMark size={18} /><b>miao</b> {copy.kind}</p>
-          <h1 class="display h1">
-            <span class="hl" style="--line:0"><span>{copy.h1a}</span></span>
-            <em class="hl accent" style="--line:1"><span>{copy.h1b}</span></em>
-          </h1>
-
-          <div class="hero-intro rise" style="--i:2">
-            <div>
-              <p class="lede">{copy.lede}</p>
-              <p class="fine">{copy.sub}</p>
-            </div>
-            <div class="hero-install">
-              <p class="install-caption">{copy.installHead} · {copy.platforms}</p>
-              <InstallCommand id="install-miao" label={copy.copyLabel} />
-              <div class="actions">
-                <a class="btn solid" href={`${prefix}/docs/miao/guide/`}
-                  >{copy.guide} <span class="arrow">→</span></a
-                >
-                <a class="btn" href={`${prefix}/docs/miao/faq/`}>{copy.faq} <span class="arrow">→</span></a>
-                <a class="btn" href={`${prefix}/docs/miao/why-miao/`}>{copy.whyPage} <span class="arrow">→</span></a>
-                <a class="btn" href={REPO}>{copy.source} <span class="arrow">↗</span></a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-stage rise" style="--i:4">
-          <ShowcaseWindow embedded product="miao" kind={copy.kind} lang={lang} slides={[
-            { src: "/shots/miao.webp", label: lang === "zh" ? "行内代码改动与上下文用量 · 示例会话" : "Inline code changes and context usage · Example session", alt: copy.shot },
-            { src: "/shots/miao-providers.webp", label: lang === "zh" ? "连接你选择的模型服务" : "Connect your choice of model provider", alt: lang === "zh" ? "miao 模型服务选择面板" : "miao model provider selection" },
-            { src: "/shots/miao-home.webp", label: lang === "zh" ? "从一个提示开始" : "Start with a prompt", alt: lang === "zh" ? "miao 启动界面和提示输入框" : "miao start screen and prompt input" },
-          ]} />
-        </div>
-      </div>
+  <section class="masthead">
+    <p class="kicker rise" style="--i:0"><MiaoMark size={18} /><b>miao</b> · {copy.kind}</p>
+    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b}`}>
+      <span class="hl" style="--line:0" aria-hidden="true"><span>{copy.h1a}</span></span>
+      <span class="hl" style="--line:1" aria-hidden="true"><span><i>{copy.h1b}</i></span></span>
+    </h1>
+    <p class="masthead-lede rise" style="--i:3">{copy.lede}</p>
+    <div class="masthead-actions rise" style="--i:4">
+      <a class="btn solid" href="#install">{copy.installHead}</a>
+      <a class="btn" href={`${prefix}/docs/miao/guide/`}>{copy.guide} <span class="arrow">→</span></a>
     </div>
+  </section>
 
-    <ol class="wrap hero-features rise" style="--i:3">
+  <figure class="campaign" data-reveal>
+    <ProductMedia src="/shots/miao.webp" alt={copy.shot} eager sizes="100vw" />
+    <figcaption>{copy.cap}</figcaption>
+  </figure>
+
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.pillarsLabel}</p>
+    </header>
+    <ol class="pillars">
       {
-        copy.pillars.map(([head, body], index) => (
+        copy.pillars.map(([head, body]) => (
           <li>
-            <span class="n">0{index + 1}</span>
-            <h2 class="pillar-head">{head}</h2>
+            <h3>{head}</h3>
             <p>{body}</p>
           </li>
         ))
@@ -302,10 +283,10 @@ const copy = {
     </ol>
   </section>
 
-  <section class="wrap section steer" data-reveal>
+  <section class="wrap chapter steer" data-reveal>
     <div class="steer-copy">
-      <p class="label"><b>01</b> {copy.steerLabel}</p>
-      <h2 class="display h2">{copy.steerH}</h2>
+      <p class="eyebrow">{copy.steerLabel}</p>
+      <h2 class="chapter-title">{copy.steerH}</h2>
       {copy.steerBody.map((paragraph) => <p class="lede">{paragraph}</p>)}
     </div>
     <ol class="transcript panel" aria-label={copy.steerLabel}>
@@ -335,11 +316,11 @@ const copy = {
     </ol>
   </section>
 
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>02</b> {copy.whyLabel}</p>
-      <h2 class="display h2">{copy.whyH}</h2>
-    </div>
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.whyLabel}</p>
+      <h2 class="chapter-title">{copy.whyH}</h2>
+    </header>
     <ol class="why">
       {
         copy.why.map(([head, body], index) => (
@@ -358,11 +339,11 @@ const copy = {
     </div>
   </section>
 
-  <section class="wrap section split" data-reveal>
-    <div class="section-head sticky">
-      <p class="label"><b>03</b> {copy.dailyLabel}</p>
-      <h2 class="display h2">{copy.dailyH}</h2>
-    </div>
+  <section class="wrap chapter split" data-reveal>
+    <header class="chapter-head start sticky">
+      <p class="eyebrow">{copy.dailyLabel}</p>
+      <h2 class="chapter-title">{copy.dailyH}</h2>
+    </header>
     <table class="spec">
       <thead>
         <tr><th>{copy.dailyHead[0]}</th><td>{copy.dailyHead[1]}</td></tr>
@@ -380,11 +361,11 @@ const copy = {
     </table>
   </section>
 
-  <section id="screens" class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>04</b> {copy.screensLabel}</p>
-      <h2 class="display h2">{copy.screensH}</h2>
-    </div>
+  <section id="screens" class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.screensLabel}</p>
+      <h2 class="chapter-title">{copy.screensH}</h2>
+    </header>
     <div class="shotgrid">
       {
         copy.screens.map(([src, head, body]) => (
@@ -401,10 +382,10 @@ const copy = {
     </div>
   </section>
 
-  <section class="wrap section loop" data-reveal>
+  <section class="wrap chapter loop" data-reveal>
     <div>
-      <p class="label"><b>05</b> {copy.loopLabel}</p>
-      <h2 class="display h2">{copy.loopH}</h2>
+      <p class="eyebrow">{copy.loopLabel}</p>
+      <h2 class="chapter-title">{copy.loopH}</h2>
       <p class="lede">{copy.loopBody}</p>
       <p class="fine">{copy.loopFine}</p>
     </div>
@@ -416,12 +397,12 @@ const copy = {
 {"}"}</code></pre>
   </section>
 
-  <section class="wrap section" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>06</b> {copy.sandboxLabel}</p>
-      <h2 class="display h2">{copy.sandboxH}</h2>
-      <p class="lede">{copy.sandboxBody}</p>
-    </div>
+  <section class="wrap chapter" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.sandboxLabel}</p>
+      <h2 class="chapter-title">{copy.sandboxH}</h2>
+      <p class="chapter-lede">{copy.sandboxBody}</p>
+    </header>
     <div class="sandbox">
       {
         copy.sandboxRows.map((row) => (
@@ -435,11 +416,11 @@ const copy = {
     <p class="fine note">{copy.sandboxFine}</p>
   </section>
 
-  <section class="wrap section split" data-reveal>
-    <div class="section-head sticky">
-      <p class="label"><b>07</b> {copy.statusLabel}</p>
-      <h2 class="display h2">{copy.statusH}</h2>
-    </div>
+  <section class="wrap chapter split" data-reveal>
+    <header class="chapter-head start sticky">
+      <p class="eyebrow">{copy.statusLabel}</p>
+      <h2 class="chapter-title">{copy.statusH}</h2>
+    </header>
     <table class="spec">
       <thead>
         <tr><th>{copy.statusHead[0]}</th><td>{copy.statusHead[1]}</td></tr>
@@ -457,11 +438,11 @@ const copy = {
     </table>
   </section>
 
-  <section class="wrap section start" data-reveal>
-    <div class="section-head">
-      <p class="label"><b>08</b> {copy.startLabel}</p>
-      <h2 class="display h2">{copy.startH}</h2>
-    </div>
+  <section class="wrap chapter start" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.startLabel}</p>
+      <h2 class="chapter-title">{copy.startH}</h2>
+    </header>
     <pre class="codeblock"><code><span class="p">$ </span>curl -fsSL https://mtty.dev/miao/install | bash        <span class="c"># macOS / Linux</span>
 <span class="p">PS> </span>irm https://mtty.dev/miao/install.ps1 | iex        <span class="c"># Windows</span>
 <span class="p">$ </span>miao providers login   <span class="c"># {copy.c1}</span>
@@ -475,40 +456,25 @@ const copy = {
     <p class="fine" set:html={copy.startFine} />
   </section>
 
-  <section class="wrap section end" data-reveal>
-    <MiaoMark size={44} />
-    <h2 class="display h2">{copy.endH}</h2>
-    <div class="actions">
-      <a class="btn solid" href={`${prefix}/docs/miao/`}>{copy.docs} <span class="arrow">→</span></a>
-      <a class="btn" href={`${REPO}/releases`}>{copy.releases} <span class="arrow">↗</span></a>
+  <section class="wrap chapter end" id="install" data-reveal>
+    <header class="chapter-head">
+      <p class="eyebrow">{copy.installHead}</p>
+      <h2 class="chapter-title">{copy.endH}</h2>
+    </header>
+    <div class="end-install">
+      <p class="install-caption">{copy.installHead} · {copy.platforms}</p>
+      <InstallCommand id="install-miao" label={copy.copyLabel} />
+    </div>
+    <div class="end-links">
+      <a class="link" href={`${prefix}/docs/miao/`}>{copy.docs}</a>
+      <a class="link" href={`${REPO}/releases`}>{copy.releases}</a>
+      <a class="link" href={REPO}>{copy.source}</a>
+      <a class="link" href={`${prefix}/docs/miao/faq/`}>{copy.faq}</a>
     </div>
   </section>
 </MarketingLayout>
 
 <style>
-  .hero {
-    position: relative;
-    isolation: isolate;
-    overflow-x: clip;
-    padding-top: 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .g1 {
-    width: 760px;
-    height: 560px;
-    left: -200px;
-    top: -220px;
-    background: var(--miao-1);
-  }
-
-  .hero-intro .fine {
-    margin: 12px 0 0;
-  }
-
-  .hero-install .actions {
-    margin-top: 8px;
-  }
 
   /* --- Steer --- */
 
@@ -524,8 +490,8 @@ const copy = {
     gap: 20px;
   }
 
-  .steer-copy .label {
-    margin: 0;
+  .steer-copy .eyebrow {
+    margin: 0 0 14px;
   }
 
   .transcript {
@@ -748,8 +714,6 @@ const copy = {
   .end {
     display: grid;
     justify-items: center;
-    gap: 26px;
-    text-align: center;
   }
 
   /* --- In pictures --- */
@@ -794,10 +758,6 @@ const copy = {
   }
 
   /* --- Lookbook overrides --- */
-
-  .hero .label {
-    margin-bottom: 28px;
-  }
 
   .why .n {
     color: var(--fg-faint);
