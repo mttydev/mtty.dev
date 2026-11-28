@@ -26,6 +26,7 @@ export default defineConfig({
         zh: { label: "简体中文", lang: "zh-CN" },
       },
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/mttydev" }],
+      components: { SiteTitle: "./src/components/starlight/SiteTitle.astro" },
       favicon: "/favicon.png",
       customCss: [
         "@fontsource-variable/bodoni-moda/wght.css",
