@@ -24,8 +24,10 @@ const copy = {
     description:
       "A terminal and editor in Rust. Terminals, files, remote hosts and coding agents in one window.",
     kind: "Terminal · editor · agents",
-    h1a: "Terminal, editor, agents:",
-    h1b: "one window.",
+    h1a: "One",
+    h1b: "window",
+    h1c: "for",
+    h1d: "all",
     lede: "Edit beside the shell, see when an agent needs input, queue the next prompt while it works. Runs locally; never calls a model.",
     naming: "The application ships as <code>mtty</code> (called <code>miaotty</code> up to v0.0.5); the source lives in <code>mtty</code>.",
     download: "Download the preview",
@@ -149,8 +151,10 @@ const copy = {
     description:
       "用 Rust 编写的终端与编辑器。终端、文件、远程主机与编码代理同处一窗，本地与远程一致。",
     kind: "终端 · 编辑器 · 代理",
-    h1a: "终端、编辑器与代理。",
-    h1b: "同处一窗。",
+    h1a: "One",
+    h1b: "window",
+    h1c: "for",
+    h1d: "all",
     lede: "在 shell 旁编辑文件，代理需输入时可见，工作期间可预备下一条提示。本地运行，不调用模型。",
     naming: "应用以 <code>mtty</code> 的名字发布（v0.0.5 及之前名为 <code>miaotty</code>），源码在 <code>mtty</code> 仓库。",
     download: "下载预览版",
@@ -275,9 +279,13 @@ const copy = {
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
   <section class="masthead">
     <p class="kicker rise" style="--i:0"><MttyMark size={18} /><b>mtty</b> · {copy.kind}</p>
-    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b}`}>
-      <span class="hl" style="--line:0" aria-hidden="true"><span>{copy.h1a}</span></span>
-      <span class="hl" style="--line:1" aria-hidden="true"><span><i>{copy.h1b}</i></span></span>
+    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b} ${copy.h1c} ${copy.h1d}`}>
+      <span class="hl" style="--line:0" aria-hidden="true">
+        <span><b>{copy.h1a}</b> {copy.h1b}</span>
+      </span>
+      <span class="hl" style="--line:1" aria-hidden="true">
+        <span><i>{copy.h1c}</i> {copy.h1d}</span>
+      </span>
     </h1>
     <p class="masthead-lede rise" style="--i:3">{copy.lede}</p>
     <p class="fine rise" style="--i:3" set:html={copy.naming} />
