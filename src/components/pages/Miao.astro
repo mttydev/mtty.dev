@@ -25,7 +25,8 @@ const copy = {
     kind: "Coding agent",
     h1a: "Lean",
     h1b: "context",
-    h1c: "lower cost",
+    h1c: "lower",
+    h1d: "cost",
     lede: "Reads the repo, makes the change, runs the checks, returns the result. Lean context; cost recorded per turn.",
     sub: "Budgets over money, tokens, turns and time.",
     installHead: "Install miao",
@@ -139,7 +140,8 @@ const copy = {
     kind: "编码代理",
     h1a: "Lean",
     h1b: "context",
-    h1c: "lower cost",
+    h1c: "lower",
+    h1d: "cost",
     lede: "读仓库、改代码、运行检查，结果交由你确认。上下文精简，费用逐轮记录。",
     sub: "预算按金额、token、轮次与时长设定。",
     installHead: "安装 miao",
@@ -253,11 +255,13 @@ const copy = {
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
   <section class="masthead">
     <p class="kicker rise" style="--i:0"><MiaoMark size={18} /><b>miao</b> · {copy.kind}</p>
-    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b} ${copy.h1c}`}>
+    <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b} ${copy.h1c} ${copy.h1d}`}>
       <span class="hl" style="--line:0" aria-hidden="true">
         <span><b>{copy.h1a}</b> <i>{copy.h1b}</i></span>
       </span>
-      <span class="hl" style="--line:1" aria-hidden="true"><span>{copy.h1c}</span></span>
+      <span class="hl" style="--line:1" aria-hidden="true">
+        <span><i>{copy.h1c}</i> {copy.h1d}</span>
+      </span>
     </h1>
     <p class="masthead-lede rise" style="--i:3">{copy.lede}</p>
     <div class="masthead-actions rise" style="--i:4">
