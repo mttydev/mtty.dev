@@ -3,10 +3,8 @@ import { alternateFor, prefixFor, type Locale } from "../../i18n/routes"
 
 interface Props {
   lang?: Locale
-  /** The marketing page this header sits under: "" for home, otherwise the product slug. */
-  product?: string
 }
-const { lang = "en", product = "" } = Astro.props
+const { lang = "en" } = Astro.props
 
 const prefix = prefixFor(lang)
 const products = [

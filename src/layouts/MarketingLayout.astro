@@ -99,7 +99,7 @@ const ogImage = new URL(`/og/${card ?? (route === "" ? "home" : route)}-${lang}.
   <body>
     <a class="skip" href="#main">{lang === "en" ? "Skip to content" : "跳到正文"}</a>
     <div class="scroll-progress" aria-hidden="true"></div>
-    <SiteHeader lang={lang} product={route} />
+    <SiteHeader lang={lang} />
     <main id="main">
       <slot />
     </main>
