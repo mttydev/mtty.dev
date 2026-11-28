@@ -22,11 +22,35 @@ Remote Control 让你从另一台设备操作正在运行的 miao 窗口。任�
 
 下面的设备邀请流程保留给旧客户端及独立设备授权，不是新版 iOS 的前置步骤。
 
+## 手机上的待处理收件箱
+
+侧栏的**待处理**列出所有正在等你处理的会话：每条写着会话标题和具体的审批命令或提问，
+点一下就跳到那个会话继续处理，不用逐个打开去找。列表来自电脑上的一次汇总查询，只包含
+这次授权范围内的会话；没有待处理的会话不会出现，关闭共享的会话也会立即消失。
+
+这条列表随前台每十秒刷新一次，打开侧栏时也会立即刷新一次。审批和提问本身仍然只在
+会话内回答，收件箱只负责把「什么在等我」摆到眼前。
+
+## 在手机上配置服务商与模型
+
+手机可以填写服务商的 API Key、断开已保存的凭据，并选择电脑上新会话的默认模型。
+
+1. 电脑上打开 `/remote-control`，在授权流程的**选择设备权限**一步选
+   **允许配置服务商与模型**。默认是「不配置服务商」，此时手机端不显示该入口。
+2. iOS 侧栏点**服务商与模型**：已连接的服务商可以断开；可连接的服务商点进去
+   输入 API Key；默认模型在**新会话**一栏里选择。
+3. 环境变量提供的服务商、需要浏览器登录的 OAuth 服务商，仍然只在电脑上处理，
+   手机端会标注「在电脑上连接」。
+
+密钥只经加密连接送到你的电脑，并保存在电脑的凭据存储里。手机不显示已保存的密钥，
+也不会把它写进本地缓存或操作账本；配置结果由重新读取服务商列表确认。断开只删除
+电脑上保存的凭据，不影响其他设置。
+
 ## 连接前
 
 - 使用支持 `/remote-control` 的当前 miao 构建，并保持本地窗口运行。
-- 部署具有账号鉴权和 HTTPS 地址的 Hub。仓库提供 [Hub 与容器说明](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/packages/remote-control/README.md)
-  和 [Compose 部署](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/packages/remote-control/deploy/README.md)。
+- 部署具有账号鉴权和 HTTPS 地址的 Hub。仓库提供 [Hub 与容器说明](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/remote-control/README.md)
+  和 [Compose 部署](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/remote-control/deploy/README.md)。
 - 从同一个 Hub 域名提供 Web 客户端，或使用兼容的 iOS 客户端。
   Hub 独立于 mtty.dev，本站不提供托管的 Hub 服务。
 
@@ -52,7 +76,7 @@ Remote Control 让你从另一台设备操作正在运行的 miao 窗口。任�
 选中的窗口目标，不会自动切换到同机上的另一个窗口。
 
 重新打开历史不代表自动恢复执行，请显式继续中断的工作。
-所有权、更新与私有 `runtime access` 集成桥接见[运行时生命周期](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/runtime.md)。
+所有权、更新与私有 `runtime access` 集成桥接见[运行时生命周期](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/runtime.md)。
 
 ## 显式服务端访问
 
@@ -78,6 +102,59 @@ Remote Control 让你从另一台设备操作正在运行的 miao 窗口。任�
 
 可用性以所安装的构建为准；源码中的界面改动可能尚未进入最新发布版，使用预览功能前请查看发布说明。
 
+## 从 `miao serve` 启动宿主
+
+常驻引擎和 TUI 窗口都可以承载 Remote Control。`miao serve --remote-host <control.json>`
+把本次 serve 的 URL、token 和一次性 runtimeID 通过环境变量交给同目录的 `miao-remote`；
+`miao --remote-host <control.json>` 则在当前窗口的引擎上开一个 loopback HTTP 端点，再启动
+同一个 sidecar。两者都只绑定 loopback，宿主随承载进程退出而停止，并各自使用独立的
+runtime 身份。
+
+TUI 窗口必须运行内嵌引擎（默认；不要设置 `MIAO_TUI_EMBEDDED=0`，也不要指定
+`MIAO_ENGINE_BIN`），否则窗口会明确提示 Remote Control 需要内嵌引擎，而不是假装已启动。
+
+在 mtty 窗格内启动时，窗口还会把该 Runtime 的 `runtimeID` 与 `storage` 作为
+`runtime_context` 报告给 mtty；窗口退出或宿主停止时显式清空，pane 不会继续引用已经
+失效的注册。
+
+1. 注册主机（只需一次）：
+
+   ```sh
+   MIAO_REMOTE_CONTROL_CONFIG=~/.config/miao/remote-control/control.json \
+   MIAO_HUB_URL=https://hub.example MIAO_HUB_EMAIL=you@example.com \
+   MIAO_HUB_PASSWORD=… miao-remote register
+   ```
+
+   它用 `devices.json` 里的稳定主机身份向 Hub 注册，并把 `hubURL`/`hostToken`（权限 0600）
+   写入配置文件；密码只在内存中。源码检出用 `bun run remote:register`。
+2. 发布归档已把 `miao-remote` 放在 `miao` 同目录；源码检出用 `bun run build:remote`
+   生成 `dist/miao-remote` 并放到 `miao` 同目录。也可以用 `MIAO_REMOTE_HOST_BIN` 指路，
+   或设 `MIAO_REMOTE_HOST_SCRIPT=packages/engine-ts/remote-control/script/host.ts` 由 `bun run` 启动。
+3. 写 `control.json`：
+
+   ```json
+   {"hubURL":"https://hub.example","hostToken":"…","grantFile":"devices.json","sessionIDs":["ses_…"]}
+   ```
+
+   `grantFile` 相对配置文件解析。`sessionIDs` 是发布门：只有列出的会话会出现在设备列表里，
+   其余会话的方法一律拒绝。`accountID` 与 `allowLoopbackHTTP` 可选。
+4. 运行 `miao serve --remote-host ~/.config/miao/remote-control/control.json`；或者在一个
+   TUI 窗口里运行 `miao --remote-host ~/.config/miao/remote-control/control.json`，把该窗口
+   的引擎直接发布给已批准设备。
+
+## 在手机上整理会话
+
+侧栏顶部的搜索框把关键词交给电脑检索全部会话，而不只是手机当前加载的一页。
+
+长按一条会话可以**置顶**、**取消置顶**或**永久删除**。置顶的会话排在列表最前；
+永久删除会把会话记录从电脑上删掉、无法撤销，因此只在你于电脑上授权
+**允许永久删除会话**后才出现，删除前手机上会再确认一次。电脑上正在执行的一轮
+不会被删除，手机端会提示先停止。
+
+长按菜单里还有**归档**与**取消归档**。归档是临时的收纳：会话默认从列表隐藏，
+打开侧栏的**显示已归档**就能看到并取消归档。归档不改动会话记录本身，因此不需要
+删除会话的授权。
+
 ---
 
-*Synced from [`mttydev/miao@80819c6`](https://github.com/mttydev/miao/blob/80819c691b28a58b77d0a418c4c8f82ae3d616b3/docs/remote-control.zh.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/remote-control.zh.md).*

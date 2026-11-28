@@ -15,14 +15,14 @@ sidebar:
 ## Release process
 
 1. **Prepare through a PR**: create a short-lived release branch, run `bun script/set-version.ts X.Y.Z`, and prepare the changelog and Simplified Chinese release-note mirror. Commit only the release paths, push, and open a PR. After the package checks and native CI pass, squash-merge it into `main`. Build and smoke-test the preview on a configured build host before publication.
-2. **Trigger from the merged main**: after explicit publication confirmation, run `gh workflow run release.yml --ref main --repo mttydev/miao`. The workflow takes **no inputs**; the version comes entirely from the root `package.json`, including when dispatched from the Actions UI. Do not commit or push release preparation directly to `main`.
+2. **Trigger from the merged main**: after explicit publication confirmation, run `gh workflow run release.yml --ref main --repo mttydev/miao`. The workflow's optional `commit` input names the verified `main` commit to release; an empty value builds the dispatch commit. The version comes entirely from the root `package.json`, including when dispatched from the Actions UI. Do not commit or push release preparation directly to `main`.
 3. **Workflow `.github/workflows/release.yml`**:
-   - `version`: runs `script/version.ts`, creates a **draft** release `vX.Y.Z` for the root `package.json` version with generated release notes, and outputs `version/release/tag/repo`.
-   - `cli`: matrix `macos-26`(darwin-arm64) / `macos-26-intel`(darwin-x64) / `ubuntu-latest`(linux-x64) / `ubuntu-24.04-arm`(linux-arm64) / `windows-2025`(windows-x64). Each platform runs `bun install` + installs Rust, then `packages/miao/script/build.ts --single` builds the host binary (building and embedding the host native addon first) and uploads `miao-<target>.zip|tar.gz` to the draft release.
-   - `publish`: after all platforms succeed, it appends the Windows signing status to the release body and runs `gh release edit --draft=false` to publish the release.
+   - `version`: requires that commit's own CI to be green, runs `script/version.ts`, and creates a **draft** release `vX.Y.Z` for the root `package.json` version whose body is generated from the commits since the last release; it outputs `version/release/tag/repo`.
+   - `cli`: matrix `macos-26`(darwin-arm64) / `macos-26-intel`(darwin-x64) / `ubuntu-latest`(linux-x64) / `ubuntu-24.04-arm`(linux-arm64) / `windows-2025`(windows-x64). Each platform installs Rust and runs `bun script/build-native-cli.ts --native-cli`, which builds `crates/miao-cli` with cargo and uploads `miao-<target>.zip|tar.gz` to the draft release. That is the only path the script keeps: the TypeScript bundler it used to carry went with the TypeScript product.
+   - `publish`: after all platforms succeed, it appends the Windows signing status, replaces the generated body with the curated pair from `docs/releases/vX.Y.Z.md` and `.zh.md` (`script/release-notes.ts`, which fails if either is missing), and runs `gh release edit --draft=false` to publish the release.
 4. **Assets**: `miao-darwin-{arm64,x64}.zip`, `miao-linux-{x64,arm64}.tar.gz`, and `miao-windows-x64.zip` (older CPUs: `miao-windows-x64-baseline.zip`), matching the `install` scripts and the updater (`Installation.latest` -> `mttydev/miao/releases/latest`).
 
-The release workflow above is the maintained publication path. Each build loads the model catalog through `packages/miao/script/generate.ts` from miao's own catalog at `https://mtty.dev/models/api.json`; there is no fallback source, and an unreachable catalog fails the build. `MIAO_MODELS_JSON` can point at a local file, and `MIAO_MODELS_URL` can pin a different single source. There is no separate workflow that commits model snapshots to the repository; the runtime refreshes its cached catalog independently, revalidating with the source's ETag so an unchanged catalog is not re-downloaded.
+The release workflow above is the maintained publication path. Builds do not fetch a model catalog: the engine reads the `models.json` snapshot that shipped beside the binary, then `~/.miao/bin/models.json`, `~/.local/share/miao/bin/models.json`, and finally the copy the catalog service caches at `~/.cache/miao/models.json` (`MIAO_MODELS_PATH` names one explicitly). No workflow commits model snapshots to the repository; the runtime refreshes its cache independently, revalidating with the source's ETag so an unchanged catalog is not re-downloaded.
 
 Windows binaries are currently unsigned. The `publish` step records this status in the release body, and [mtty.dev's Windows downloads page](https://mtty.dev/docs/about/windows-downloads/) explains the resulting prompts.
 
@@ -35,7 +35,7 @@ Windows binaries are currently unsigned. The `publish` step records this status 
   - Write into `CHANGELOG.md`: add `--write`
   - At release time `script/version.ts` calls it with `--to <sha>` to produce `UPCOMING_CHANGELOG.md`, which becomes the release notes.
 - Release notes are **English and always link to a Simplified Chinese mirror**:
-  `docs/releases/<tag>.zh.md`, linked as `[简体中文](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/…)` under the first
+  `docs/releases/<tag>.zh.md`, linked as `[简体中文](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/…)` under the first
   heading. Write the mirror before dispatching a release — `script/release-notes.ts`
   fails the publish job when it is missing. The same rule applies to every miao
   project, including `mtty`.
@@ -64,4 +64,4 @@ Windows binaries are currently unsigned. The `publish` step records this status 
 
 ---
 
-*Synced from [`mttydev/miao@284be7f`](https://github.com/mttydev/miao/blob/284be7f96491a33c873335363d25625e0f126c24/docs/release.en.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/release.en.md).*

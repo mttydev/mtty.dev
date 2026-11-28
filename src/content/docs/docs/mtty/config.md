@@ -21,7 +21,7 @@ elsewhere in the documentation live in this directory too.
 Up to v0.0.5 the application was called `miaotty`. On first start,
 `$XDG_CONFIG_HOME/miaotty` is copied to `$XDG_CONFIG_HOME/mtty` when the latter
 does not exist, and the old directory is kept so an older build still works.
-See [identity and migration](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/APP-IDENTITY.md).
+See [identity and migration](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/APP-IDENTITY.md).
 
 ## A minimal configuration
 
@@ -84,6 +84,20 @@ workspace palette; unlike the other three, its surrounding chrome — the window
 cards and sidebars — follows the preset instead of the neutral dark chrome. The
 named themes `solarized`/`solarized-dark` and `tokyo-night`/`tokyonight` are
 accepted too, and an explicit `[colors]` block overrides any named theme.
+
+### Group backgrounds
+
+`[groups]` gives a tab/session group its own chrome background. The key is the
+group name shown in the sidebar and the `[group]` tab prefix; the value is a
+`#rrggbb` colour. The colour fills that group's tab chips and session rows; the
+active row is brightened, and hovering brightens it a little less. A group with
+no entry keeps the theme's fill, so the default look is unchanged.
+
+```toml
+[groups]
+miao = "#3a2f4a"
+embrix = "#20343a"
+```
 
 ### Badges
 
@@ -211,9 +225,9 @@ directory. See [view rules](/docs/mtty/view-rules/).
 
 ## Full reference
 
-[`config.example.toml`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/config.example.toml) is the annotated reference: every
+[`config.example.toml`](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/config.example.toml) is the annotated reference: every
 key above, with its default, in one file.
 
 ---
 
-*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/CONFIG.md).*
+*Synced from [`mttydev/mtty@e7cd9d1`](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/CONFIG.md).*

@@ -25,6 +25,16 @@ there. Credentials are written to the shared credential store, which the
 A provider that
 has a key in the environment is also picked up without `login`.
 
+OpenAI can sign in with a ChatGPT account: `miao auth login openai` without a
+key opens OpenAI's official login page (or prints the address when no browser is
+available) and asks for the code the terminal shows. The password is entered
+only at `auth.openai.com`; miao stores the returned OAuth credential, and
+OpenAI models then use the ChatGPT subscription backend. To keep using an API
+key, run `miao auth login openai sk-...`. The TUI asks you to choose between
+"ChatGPT account" and "API key" when you select OpenAI. While a TUI window runs,
+miao renews the token before it expires; headless commands need a fresh login
+once it has expired.
+
 ## List and select models
 
 ```bash
@@ -59,6 +69,21 @@ currently [Command Code](https://commandcode.ai) — merged in when the site
 deploys. miao reads only this source; there is no models.dev fallback at
 runtime. A snapshot is bundled into the build, so startup works offline.
 
+miao also fetches that catalog itself, in the background, and caches it under
+`$XDG_CACHE_HOME/miao/models.json`: a revalidation happens once a day, and an
+unchanged catalog answers `304`, so a machine that is already current transfers
+nothing. `miao models --refresh` fetches it on the spot. A machine that cannot
+reach the site keeps the snapshot the install shipped, and a body that is not a
+catalog never replaces the one on disk.
+
+Subscription plans can serve models the catalog does not list yet. For every
+OpenAI-compatible provider this machine holds a key for, miao reads the
+provider's own `/models` endpoint (once every six hours) and adds the ids the
+catalog misses, so a model live on a plan is selectable before models.dev picks
+it up. Discovery only adds ids to providers the catalog already names — it
+never invents a provider — and a discovered model carries no declared context
+window or price until the catalog has one.
+
 You can point this at a different source:
 
 | Variable | What it does |
@@ -67,9 +92,31 @@ You can point this at a different source:
 | `MIAO_MODELS_PATH` | Use an exact local catalog file |
 
 [Command Code](https://commandcode.ai) is a subscription provider: connect it
-with `miao auth login commandcode` (browser-assisted) or set `CMD_API_KEY`; its
-models are discovered from your account when it connects. OpenCode Zen / Go
-remain available as optional third-party providers.
+with `miao auth login commandcode` (browser-assisted) or set `CMD_API_KEY`. The
+catalog lists every model it publishes, and the plan decides which ones the
+account can call: set `providers.commandcode.plan` to `go`, `goat`, `pro`, or
+`max` (both Max 10× and 20× are `max`). Two keys on different plans are
+described per account with `account_plans`. An absent plan, or one the catalog
+does not tier (such as `team` or `provider`), hides nothing; models marked
+`deprecated` are always hidden. The Go plan has no API access, so third-party
+clients need GOAT or higher.
+
+```jsonc
+{
+  "providers": {
+    "commandcode": {
+      "plan": "pro",
+      "account_plans": { "work": "max" }
+    }
+  }
+}
+```
+
+[OpenCode](https://opencode.ai) keeps its two offerings as separate providers:
+`opencode` is the pay-as-you-go Console and `opencode-go` is the Go
+subscription. Go, Go Plus, and Go Teams all cover the same models, so
+`opencode-go` does not filter by plan; the plan changes usage limits, not which
+models are selectable.
 
 ### The mtty gateway
 
@@ -139,7 +186,7 @@ Sessions placed on the native engine reach these same providers through a
 trusted host route manifest. The mapping from a catalog provider to a native
 transport, the manifest fields, credential references, and the providers that
 deliberately stay on TypeScript are documented in
-[Native engine provider routes](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/native-provider-routes.en.md). You still
+[Native engine provider routes](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/native-provider-routes.en.md). You still
 configure and authenticate providers here; the manifest is generated, not
 edited.
 
@@ -184,4 +231,4 @@ evolved.
 
 ---
 
-*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/providers.en.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/providers.en.md).*

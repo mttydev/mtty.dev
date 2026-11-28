@@ -47,7 +47,7 @@ or send follow-up work. Project peers can also exchange permission-scoped messag
 
 Sessions have separate execution contexts; shared-file writes can still
 conflict. Background work belongs to its window, not a persistent daemon.
-See [background subagents](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/docs/background-subagents.md) and [Runtime lifecycle](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/docs/runtime.md).
+See [background subagents](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/background-subagents.md) and [Runtime lifecycle](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/runtime.md).
 
 ### You run agents in several terminal panes
 
@@ -123,14 +123,14 @@ and actual usage.
 - [Open-source agent comparison](/docs/miao/comparison/)
 - [Report an issue or suggestion](https://github.com/mttydev/miao/issues): include build version, configuration, task logs and expected/observed behavior
 
-Implementation references: [execution](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/packages/core/src/session/runner/llm.ts),
-[input admission](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/packages/core/src/session/input.ts),
-[output governance](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/packages/core/src/tool-output-store.ts),
-[compaction](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/packages/core/src/session/compaction.ts), [edit recovery](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/docs/edit-recovery.md),
-[read/LSP](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/packages/core/src/tool/read.ts), and [permissions/isolation](/docs/miao/security/).
+Implementation references: [execution](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/core/src/session/runner/llm.ts),
+[input admission](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/core/src/session/input.ts),
+[output governance](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/core/src/tool-output-store.ts),
+[compaction](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/core/src/session/compaction.ts), [edit recovery](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/edit-recovery.md),
+[read/LSP](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/packages/engine-ts/core/src/tool/read.ts), and [permissions/isolation](/docs/miao/security/).
 
 For source attribution and licensing, see [project origins and licensing](/docs/miao/attribution/).
 
 ---
 
-*Synced from [`mttydev/miao@aac2e8a`](https://github.com/mttydev/miao/blob/aac2e8ab8ae050e5883b2ccb7d31ec0f4b23242a/docs/why-miao.en.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/why-miao.en.md).*

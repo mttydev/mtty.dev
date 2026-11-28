@@ -1,7 +1,7 @@
 ---
 title: "项目来源与许可"
 sidebar:
-  order: 11
+  order: 10
 ---
 
 ## 来源与致谢
@@ -15,7 +15,7 @@ miao 的问题反馈与版本下载请使用 [mttydev/miao](https://github.com/m
 
 ## 许可与再分发
 
-miao 以 [MIT 许可证](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE) 发布，许可证文件保留两条版权声明：
+miao 以 [MIT 许可证](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/LICENSE) 发布，许可证文件保留两条版权声明：
 
 ```text
 Copyright (c) 2026 the miao authors
@@ -36,4 +36,4 @@ OpenCode Zen 与 Go 是可选的第三方供应商，其名称、ID 和端点标
 
 ---
 
-*Synced from [`mttydev/miao@269692d`](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.zh.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/attribution.zh.md).*
