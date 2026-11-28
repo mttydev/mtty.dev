@@ -1,0 +1,43 @@
+---
+// The docs header's site title, set exactly like the marketing header's
+// brand: the cat portrait and the spaced MTTY.DEV wordmark.
+---
+
+<span class="site-brand">
+  <img src="/miao/mark.png" width="26" height="26" alt="" aria-hidden="true" />
+  <span class="wordmark">MTTY<em>.DEV</em></span>
+</span>
+
+<style>
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .site-brand img {
+    display: block;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  :global(:root[data-theme="dark"]) .site-brand img {
+    filter: invert(1);
+  }
+
+  .wordmark {
+    font-family: var(--font-sans);
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: 0.34em;
+    margin-right: -0.34em;
+    color: var(--fg);
+  }
+
+  .wordmark em {
+    color: var(--fg-faint);
+    font-style: normal;
+    font-weight: 400;
+  }
+</style>
