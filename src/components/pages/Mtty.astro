@@ -3,7 +3,7 @@
 // docs/PERFORMANCE.md and docs/INSTALL.md. The application ships as `mtty`
 // from the mtty repository.
 import MarketingLayout from "../../layouts/MarketingLayout.astro"
-import MttyMark from "../site/MttyMark.astro"
+import MiaoMark from "../site/MiaoMark.astro"
 import ProductMedia from "../site/ProductMedia.astro"
 import ShowcaseWindow from "../site/ShowcaseWindow.astro"
 import shortcuts from "../../data/mtty-shortcuts.json"
@@ -278,7 +278,7 @@ const copy = {
 
 <MarketingLayout lang={lang} title={copy.title} description={copy.description}>
   <section class="masthead">
-    <p class="kicker rise" style="--i:0"><MttyMark size={18} variant="line" /><b>mtty</b> · {copy.kind}</p>
+    <p class="kicker rise" style="--i:0"><MiaoMark size={18} /><b>mtty</b> · {copy.kind}</p>
     <h1 class="slogan" aria-label={`${copy.h1a} ${copy.h1b} ${copy.h1c} ${copy.h1d}`}>
       <span class="hl" style="--line:0" aria-hidden="true">
         <span><b>{copy.h1a}</b> {copy.h1b}</span>

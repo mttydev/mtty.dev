@@ -1,6 +1,5 @@
 ---
 import { alternateFor, prefixFor, type Locale } from "../../i18n/routes"
-import MttyMark from "./MttyMark.astro"
 
 interface Props {
   lang?: Locale
@@ -42,11 +41,7 @@ const account = `${prefix}/account/sign-in`
 
     <a class="brand" href={prefix || "/"} aria-label="mtty.dev">
       <span class="brand-mark">
-        {product === "mtty" ? (
-          <MttyMark size={28} variant="line" />
-        ) : (
-          <img src="/miao/mark.png" width="28" height="28" alt="" />
-        )}
+        <img src="/miao/mark.png" width="28" height="28" alt="" />
       </span>
       <span class="wordmark">MTTY<em>.DEV</em></span>
     </a>
