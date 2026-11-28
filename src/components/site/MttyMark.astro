@@ -7,19 +7,36 @@
 // black square at header size.
 interface Props {
   size?: number
+  /** "line" drops the tile and Nord palette: the same chevron and cursor as
+      ink strokes in currentColor, worn like the miao portrait in the header
+      and the kicker. og.ts reads the first svg, so the icon stays first. */
+  variant?: "icon" | "line"
 }
-const { size = 32 } = Astro.props
+const { size = 32, variant = "icon" } = Astro.props
 ---
 
-<svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
-  <rect width="32" height="32" rx="7" fill="#2e3440" />
-  <path
-    d="M9.25 11.5 15.25 16 9.25 20.5"
-    fill="none"
-    stroke="#88c0d0"
-    stroke-width="2.75"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <rect x="17.25" y="18.75" width="6.25" height="2" fill="#ebcb8b" />
-</svg>
+{variant === "icon" ? (
+  <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
+    <rect width="32" height="32" rx="7" fill="#2e3440" />
+    <path
+      d="M9.25 11.5 15.25 16 9.25 20.5"
+      fill="none"
+      stroke="#88c0d0"
+      stroke-width="2.75"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <rect x="17.25" y="18.75" width="6.25" height="2" fill="#ebcb8b" />
+  </svg>
+) : (
+  <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" fill="none">
+    <path
+      d="M9.25 11.5 15.25 16 9.25 20.5"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <rect x="17.25" y="18.75" width="6.25" height="2" fill="currentColor" />
+  </svg>
+)}
