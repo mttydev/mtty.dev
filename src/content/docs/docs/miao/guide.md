@@ -13,7 +13,7 @@ releases. This guide covers install, usage, and troubleshooting end to end.
 
 miao is an open-source AI agent that works with you in the terminal, with an HTTP server and browser interface as well. It helps you write code, research topics, manage files, and automate tasks. It focuses on the work around model calls: durable sessions, context efficiency, collaboration, and visible cost.
 
-Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/README.md) and [workflow comparison](/docs/miao/comparison/).
+Use it to explore a repository, implement a change, investigate a failing test, or delegate focused research. Connect the providers you prefer, configure project tools, and continue the conversation as the task evolves. Model selection and MCP are part of the workflow; miao's runtime work is described in the [overview](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/README.md) and [workflow comparison](/docs/miao/comparison/).
 
 A useful first task is: “Find the cause of this failure, make the smallest appropriate fix, run the relevant checks, and explain the diff.” Add constraints while the agent works rather than starting a second conversation.
 
@@ -117,6 +117,7 @@ the file that won it. Main fields:
 | `cost`                                                            | `budget_usd` money axis of the same Session budget; a Goal states its own with `goal.budget`                                                          |
 | `loop`                                                            | autonomous continuation (see §5.8)                                                                                                                   |
 | `shell`                                                           | default shell                                                                                                                                        |
+| `readScope`                                                       | where file reads reach: `host` (default; anything this user can read) or `workspace` (the workspace plus read-only references)                       |
 | `skills` / `commands` / `instructions` / `references` / `plugins` | skills, commands, instructions, references, plugins                                                                                                  |
 | `watcher` / `attachments` / `tool_output` / `snapshots`           | watcher, attachments, tool-output thresholds, snapshots                                                                                              |
 | `providers`                                                       | custom providers/models (including native-currency `cost`)                                                                                           |
@@ -220,6 +221,8 @@ The V2 `bash` tool can run each command under the OS sandbox: seatbelt on macOS,
 
 The native engine always confines its own process commands (bash, run_command, start_job, terminals, hooks, formatters) regardless of permission rules — a catch-all allow rule cannot lift that sandbox. It honors the same switch as an explicit operator opt-out: `sandbox.mode: "off"` in config or `MIAO_SANDBOX=0` runs engine commands unsandboxed, while `MIAO_SANDBOX=1` or `mode: "workspace-write"` keeps the confinement. With neither set, the engine stays sandboxed.
 
+File reads are a separate layer. They follow the OS user by default: a Session reads any file the user can, including another checkout, so no per-path grant is needed. `readScope: "workspace"` restores the workspace-plus-read-only-references jail. Writes and a command's working directory always stay inside the workspace.
+
 ### 5.7 Cost and cache telemetry
 
 Each provider turn records TTFT, cache-hit ratio, `warm` / `expectedRebuild` / `cacheMiss`, and
@@ -264,7 +267,7 @@ V2's `list_sessions` discovers project peers, and `send_message` accepts a sessi
 }
 ```
 
-This optional project configuration combines continued todo work, a scheduling budget, old-output pruning, and a bound on each tool's model-visible output. A budget is enforced, per Session from configuration and per Goal from `goal.budget`: at four fifths spent the run is warned once with the remaining amount, and at the limit it stops at the next provider-turn boundary. Input you already admitted stays in the durable inbox for the next run, and the model is never switched to fit a budget. Money counts only what a provider reported, so a money note discloses turns that carried no charge and reads as a lower bound until billing settles. A budget does not interrupt an in-flight turn and is not a billing cap. Output files are temporary; the bounded transcript is the durable record. Tool-output pruning is on by default (disable with `"prune": false`). Automatic compaction triggers at `threshold` (default `0.9`) of the window using the provider's reported prompt tokens, so it runs before the window fills rather than at the last moment. Proactive compaction summarizes once over the request prefix, so the provider serves it from its prompt cache, and falls back to staged recovery when the prefix no longer has room for the instruction; set `"hot_prefix": false` to force the staged strategy. Small-model summaries stay opt-in: enable them after checking that the resolved cheap model suits your provider and workload.
+This optional project configuration combines continued todo work, a scheduling budget, old-output pruning, and a bound on each tool's model-visible output. A budget is enforced, per Session from configuration and per Goal from `goal.budget`: at four fifths spent the run is warned once with the remaining amount, and at the limit it stops at the next provider-turn boundary. Input you already admitted stays in the durable inbox for the next run, and the model is never switched to fit a budget. A newly promoted human instruction reopens the Goal's window, so a Goal budget the model declared for the previous stretch cannot veto your next message; a Session budget from configuration stays in force. A Goal token budget is an operator axis: a figure above `budget.max_goal_tokens` (default 20,000,000) is refused, and the model is expected to ask once with bounded options in observable units — time or the next checkpoint — before it states one. Money counts only what a provider reported, so a money note discloses turns that carried no charge and reads as a lower bound until billing settles. A budget does not interrupt an in-flight turn and is not a billing cap. Output files are temporary; the bounded transcript is the durable record. Tool-output pruning is on by default (disable with `"prune": false`). Automatic compaction triggers at `threshold` (default `0.9`) of the window using the provider's reported prompt tokens, so it runs before the window fills rather than at the last moment. Proactive compaction summarizes once over the request prefix, so the provider serves it from its prompt cache, and falls back to staged recovery when the prefix no longer has room for the instruction; set `"hot_prefix": false` to force the staged strategy. Small-model summaries stay opt-in: enable them after checking that the resolved cheap model suits your provider and workload.
 
 `compaction.max_context` works in a smaller window than the model declares — for cost, latency, or cache churn. It takes one value for every model or a map keyed by `"<providerID>/<modelID>"` (globs allowed, longest key wins): a token count, a `"300K"` / `"1.5M"` shorthand, or `"50%"` of the model window. The value is clamped to the model's real window and never raises it; compaction, context notices, and overflow recovery all plan against the clamped window. Because a config merge cannot delete a key, `0` restores the model default.
 
@@ -274,9 +277,9 @@ Content that a compaction removed from the model window stays durable on disk. T
 
 All shipped clients use the single V2 session runtime; the V1 session runtime and its `/session/*` routes have been removed.
 
-- [V1 retirement](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
-- [Session storage](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
-- [Agent concurrency](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
+- [V1 retirement](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/v2/v1-retirement.md) records the removal and the remaining compatibility surfaces (database migration and non-session legacy routes).
+- [Session storage](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/storage/session-storage-hardening.md) tracks storage design. Use `miao db stats`, `miao db vacuum`, and JSONL exports to inspect and maintain local records.
+- [Agent concurrency](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/v2/agent-concurrency.md) designs non-blocking subagents and wake-on-completion so long-running work does not stall a Session.
 - Automatic post-crash execution continuation and clustered ownership are not implemented. The OS sandbox is built into the V2 `bash` tool but remains opt-in; see the [native/sandbox scope](/docs/miao/native-benchmarks/).
 
 ## 7. FAQ
@@ -318,8 +321,8 @@ bun --cwd packages/miao test
 
 ## License
 
-MIT. See [LICENSE](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
+MIT. See [LICENSE](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/LICENSE) and [project origins and licensing](/docs/miao/attribution/).
 
 ---
 
-*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/guide.en.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/guide.en.md).*

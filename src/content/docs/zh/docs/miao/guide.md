@@ -12,7 +12,7 @@ miao 尚处于 pre-1.0、活跃开发中，CLI 与配置可能随版本变化。
 
 miao 是一个在终端中与你协作的开源 AI 智能体，也提供 HTTP 服务与浏览器界面。它帮助你编写代码、开展调研、管理文件和自动化任务。它把重点放在模型调用周围的工作上：持久化会话、上下文效率、代理协作和可观察的成本。
 
-用它理解仓库、实现改动、排查测试失败，或委派专项调研。连接你偏好的供应商，配置项目工具，并在任务变化时继续补充要求。miao 支持模型选择与 MCP；miao 的运行时建设与可用范围见 [产品概览](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/README.zh.md) 和 [工作流对比](/zh/docs/miao/comparison/)。
+用它理解仓库、实现改动、排查测试失败，或委派专项调研。连接你偏好的供应商，配置项目工具，并在任务变化时继续补充要求。miao 支持模型选择与 MCP；miao 的运行时建设与可用范围见 [产品概览](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/README.zh.md) 和 [工作流对比](/zh/docs/miao/comparison/)。
 
 第一次可以这样提需求：「找到这个错误的原因，做出适当的最小修复，运行相关检查，再解释代码差异。」执行过程中继续补充约束，无需另开对话。
 
@@ -115,6 +115,7 @@ miao
 | `cost`                                                            | `budget_usd` 同一份会话预算的金额轴；Goal 用 `goal.budget` 声明自己的预算                                                                            |
 | `loop`                                                            | 自治续跑（见 §5.8）                                                                                                                               |
 | `shell`                                                           | 默认 shell                                                                                                                                        |
+| `readScope`                                                       | 文件读取范围：`host`（默认，本用户可读的任意文件）或 `workspace`（工作区 + 只读引用）                                                             |
 | `skills` / `commands` / `instructions` / `references` / `plugins` | 技能、命令、指令、引用、插件                                                                                                                      |
 | `watcher` / `attachments` / `tool_output` / `snapshots`           | 文件监听、附件、工具输出阈值、快照                                                                                                                |
 | `providers`                                                       | 自定义 provider / 模型（含本币单价 `cost`）                                                                                                       |
@@ -207,6 +208,8 @@ V2 `bash` 工具可以把每条命令放进 OS 沙箱运行：macOS 用 seatbelt
 
 原生引擎自己的进程命令（bash、run_command、start_job、终端、hooks、格式化）始终在 OS 沙箱内运行，权限规则改变不了这一点——全量放行规则也抬不掉沙箱。同一个开关也是显式的运营者退出通道：配置里 `sandbox.mode: "off"` 或环境变量 `MIAO_SANDBOX=0` 会让引擎命令不带沙箱运行；`MIAO_SANDBOX=1` 或 `mode: "workspace-write"` 则保持约束。两者都没设置时，引擎保持沙箱。
 
+文件读取是另一层：默认跟随 OS 用户，Session 能读本用户可读的任意文件（包括另一个检出），不需要按路径授权。`readScope: "workspace"` 恢复“工作区 + 只读引用”的收窄；写入和命令的工作目录始终落在工作区内。
+
 ### 5.7 成本与缓存遥测
 
 每轮 provider turn 记录 TTFT、缓存命中率、`warm` / `expectedRebuild` / `cacheMiss` 与成本；会话汇总。成本按模型费率估算，不等于供应商账单；侧边栏显示 `% cached` 与估算花费。
@@ -246,7 +249,7 @@ V2 `list_sessions` 可发现同项目会话，`send_message` 接受会话 ID 或
 }
 ```
 
-这组可选配置组合了待办续跑、调度预算、旧输出裁剪和逐工具的模型可见输出限额。预算是真的会被执行的：会话级来自配置，Goal 级来自 `goal.budget`；花到五分之四时带剩余量告警一次，达到上限则在下一个模型轮次边界停止。已经准入的输入留在持久收件箱里等下一轮，模型不会为了迁就预算而被切换。金额只统计供应商上报的收费，涉及金额的提示会披露没有报价的轮次，并在账单结算前把剩余量说明为下界。预算不会中断正在执行的轮次，也不是账单硬上限。完整输出文件是临时的，受限的会话记录才是持久化历史。工具结果裁剪（微压缩）默认开启，可用 `"prune": false` 关闭。自动压缩默认在上下文达到窗口的 `threshold`（默认 `0.9`）时触发，并依据供应商回报的真实 prompt tokens 判断，因此会在窗口填满前提前压缩，而不是等到最后。主动压缩默认复用当前请求前缀做一次摘要，让供应商直接命中 prompt 缓存；只有前缀放不下指令时才回退到分阶段恢复，可用 `"hot_prefix": false` 强制走分阶段策略。廉价模型摘要仍需单独开启，开启前先确认解析出的廉价模型适合当前供应商和任务。
+这组可选配置组合了待办续跑、调度预算、旧输出裁剪和逐工具的模型可见输出限额。预算是真的会被执行的：会话级来自配置，Goal 级来自 `goal.budget`；花到五分之四时带剩余量告警一次，达到上限则在下一个模型轮次边界停止。已经准入的输入留在持久收件箱里等下一轮，模型不会为了迁就预算而被切换。新提交的用户指令会重开 Goal 的计费窗口，因此模型为上一段工作声明的 Goal 预算不会否决你的下一条消息；配置里的会话级预算仍然有效。Goal 的 token 预算属于运维轴：超过 `budget.max_goal_tokens`（默认 20,000,000）的数字会被拒绝；模型应先以可观测单位（时间或下一个检查点）通过有界选项询问一次，再写入预算。金额只统计供应商上报的收费，涉及金额的提示会披露没有报价的轮次，并在账单结算前把剩余量说明为下界。预算不会中断正在执行的轮次，也不是账单硬上限。完整输出文件是临时的，受限的会话记录才是持久化历史。工具结果裁剪（微压缩）默认开启，可用 `"prune": false` 关闭。自动压缩默认在上下文达到窗口的 `threshold`（默认 `0.9`）时触发，并依据供应商回报的真实 prompt tokens 判断，因此会在窗口填满前提前压缩，而不是等到最后。主动压缩默认复用当前请求前缀做一次摘要，让供应商直接命中 prompt 缓存；只有前缀放不下指令时才回退到分阶段恢复，可用 `"hot_prefix": false` 强制走分阶段策略。廉价模型摘要仍需单独开启，开启前先确认解析出的廉价模型适合当前供应商和任务。
 
 `compaction.max_context` 让模型在比其声明窗口更小的范围内工作，用于控制成本、延迟或缓存抖动。它接受一个作用于所有模型的值，或以 `"<providerID>/<modelID>"` 为键的映射（支持 `*`/`?` 通配，最长匹配键胜出）：可以是 token 数、`"300K"` / `"1.5M"` 简写，或模型窗口的 `"50%"`。该值只会被钳制到模型真实窗口之内，绝不会抬高它；压缩、上下文提示与溢出恢复都按钳制后的窗口规划。由于配置合并不支持删除键，`0` 表示恢复模型默认。
 
@@ -256,9 +259,9 @@ V2 `list_sessions` 可发现同项目会话，`send_message` 接受会话 ID 或
 
 所有已发布客户端都使用单一 V2 会话运行时；V1 会话运行时及其 `/session/*` 路由已删除。
 
-- [V1 退役计划](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/v1-retirement.md) 记录了删除过程和剩余兼容面（数据库迁移与非会话旧路由）。
-- [会话存储设计](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/storage/session-storage-hardening.md) 记录存储方案。可用 `miao db stats`、`miao db vacuum` 和 JSONL 导出检查、维护本地记录。
-- [代理并发](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/specs/v2/agent-concurrency.md) 设计非阻塞子代理与完成即唤醒，避免长任务卡住会话。
+- [V1 退役计划](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/v2/v1-retirement.md) 记录了删除过程和剩余兼容面（数据库迁移与非会话旧路由）。
+- [会话存储设计](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/storage/session-storage-hardening.md) 记录存储方案。可用 `miao db stats`、`miao db vacuum` 和 JSONL 导出检查、维护本地记录。
+- [代理并发](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/specs/v2/agent-concurrency.md) 设计非阻塞子代理与完成即唤醒，避免长任务卡住会话。
 - 崩溃后自动执行恢复与集群所有权尚未实现。OS 沙箱已内置于 V2 `bash` 工具但仍需开启，见 [原生组件与沙箱范围](/zh/docs/miao/native-benchmarks/)。
 
 ## 7. 常见问题（FAQ）
@@ -293,8 +296,8 @@ bun --cwd packages/miao test
 
 ## 许可证
 
-MIT，详见 [LICENSE](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/LICENSE) 与[项目来源与许可](/zh/docs/miao/attribution/)。
+MIT，详见 [LICENSE](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/LICENSE) 与[项目来源与许可](/zh/docs/miao/attribution/)。
 
 ---
 
-*Synced from [`mttydev/miao@2f6034b`](https://github.com/mttydev/miao/blob/2f6034bf9fde67362210191d5266f17b3f90de26/docs/guide.zh.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/guide.zh.md).*

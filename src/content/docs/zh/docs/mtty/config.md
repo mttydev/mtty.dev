@@ -18,7 +18,7 @@ mtty 的配置项全部可选。只有一行的文件就是一份合法配置，
 
 v0.0.5 及之前应用名为 `miaotty`。首次启动时，若 `$XDG_CONFIG_HOME/mtty` 不存在，会把
 `$XDG_CONFIG_HOME/miaotty` 复制过去，并保留旧目录，使更早的版本仍可使用。见
-[应用身份与迁移](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/APP-IDENTITY.zh-CN.md)。
+[应用身份与迁移](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/APP-IDENTITY.zh-CN.md)。
 
 ## 最小配置
 
@@ -78,6 +78,19 @@ theme = "mtty"   # nord | dracula | gruvbox | mtty
 与前三个不同，它会连带周围的界面外壳——窗口、卡片与侧栏——一并跟随该预设，
 而非保持中性的深色外壳。此外也接受命名主题 `solarized`/`solarized-dark` 与
 `tokyo-night`/`tokyonight`，显式的 `[colors]` 块会覆盖所选主题。
+
+### 分组背景色
+
+`[groups]` 为每个标签/会话分组设置界面外壳的背景色。键是侧栏分组标题与标签
+`[分组]` 前缀里的分组名，值是 `#rrggbb` 颜色。该颜色会填充分组的标签 chip
+与会话行；活动行会提亮，悬停时提亮幅度较小。没有配置的分组保持主题原本的
+填充，因此默认外观不变。
+
+```toml
+[groups]
+miao = "#3a2f4a"
+embrix = "#20343a"
+```
 
 ### 标签徽章
 
@@ -187,8 +200,8 @@ fish 3.7、PowerShell 7.5;Windows 上的 PowerShell 由 CI 运行)。
 
 ## 完整参考
 
-[`config.example.toml`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/config.example.toml) 是带注释的完整参考:上面每个键及其默认值都在一个文件里。
+[`config.example.toml`](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/config.example.toml) 是带注释的完整参考:上面每个键及其默认值都在一个文件里。
 
 ---
 
-*Synced from [`mttydev/mtty@d64b052`](https://github.com/mttydev/mtty/blob/d64b052e75f291bd44298029c323d6a325a80fa6/docs/CONFIG.zh-CN.md).*
+*Synced from [`mttydev/mtty@e7cd9d1`](https://github.com/mttydev/mtty/blob/e7cd9d11d0569e13fd7eebe40b4b0eb43bc01735/docs/CONFIG.zh-CN.md).*

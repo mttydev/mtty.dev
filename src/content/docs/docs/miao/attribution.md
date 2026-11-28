@@ -1,7 +1,7 @@
 ---
 title: "Project origins and licensing"
 sidebar:
-  order: 11
+  order: 10
 ---
 
 ## Origins and acknowledgements
@@ -18,7 +18,7 @@ use [mttydev/miao](https://github.com/mttydev/miao).
 
 ## License and redistribution
 
-miao is distributed under the [MIT License](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/LICENSE). The license file keeps
+miao is distributed under the [MIT License](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/LICENSE). The license file keeps
 both copyright notices:
 
 ```text
@@ -46,4 +46,4 @@ licensing relationship. See [providers and models](/docs/miao/providers/) and th
 
 ---
 
-*Synced from [`mttydev/miao@269692d`](https://github.com/mttydev/miao/blob/269692d9f9fd1108c2af553997c7937c03d89dc7/docs/attribution.en.md).*
+*Synced from [`mttydev/miao@d1b0493`](https://github.com/mttydev/miao/blob/d1b04931c20e54bca197a138ae52650da650912e/docs/attribution.en.md).*
